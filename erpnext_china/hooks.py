@@ -214,6 +214,3 @@ app_license = "mit"
 # auth_hooks = [
 #	"erpnext_china.auth.validate"
 # ]
-website_redirects = [
-    {"source": "/assets/frappe/js/frappe/ui/toolbar/about.js", "target": "/assets/digitwise/js/frappe/ui/toolbar/about.js"},
-]
