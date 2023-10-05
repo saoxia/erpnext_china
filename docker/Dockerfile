@@ -108,7 +108,7 @@ COPY patch/frappe/setup_wizard.js /home/frappe/frappe-bench/apps/frappe/frappe/d
 COPY patch/frappe/setup_wizard.py /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.py
 COPY patch/frappe/contact.json /home/frappe/frappe-bench/apps/frappe/frappe/contacts/doctype/contact/contact.json
 COPY patch/frappe/install.py /home/frappe/frappe-bench/apps/frappe/frappe/utils/install.py
-#COPY patch/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/about.js
+COPY patch/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/about.js
 
 COPY common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
 
