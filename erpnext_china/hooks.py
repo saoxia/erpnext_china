@@ -1,7 +1,7 @@
 app_name = "erpnext_china"
 app_title = "ERPNext China"
-app_publisher = "digitii"
-app_description = "a"
+app_publisher = "Digitwise Ltd."
+app_description = "ERPNext中国本地化"
 app_email = "lingyu_li@foxmail.com"
 app_license = "mit"
 # required_apps = []
@@ -214,3 +214,6 @@ app_license = "mit"
 # auth_hooks = [
 #	"erpnext_china.auth.validate"
 # ]
+website_redirects = [
+    {"source": "/assets/frappe/js/frappe/ui/toolbar/about.js", "target": "/assets/digitwise/js/frappe/ui/toolbar/about.js"},
+]
