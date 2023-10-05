@@ -262,12 +262,12 @@
   {
     "fieldname": "wechat",
     "fieldtype": "Data",
-    "label":"WeChat",
+    "label":"WeChat"
   },
   {
     "fieldname": "qq",
     "fieldtype": "Data",
-    "label": "QQ",
+    "label": "QQ"
   }
  ],
  "icon": "fa fa-user",
