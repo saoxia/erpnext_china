@@ -12,7 +12,23 @@ from frappe.desk.page.setup_wizard.setup_wizard import make_records
 
 
 def install(country='China'):
-	records = []
+	records = [
+		# territory: with two default territories, one for home country and one named Rest of the World
+		{
+			"doctype": "Territory",
+			"territory_name": _("All Territories"),
+			"is_group": 1,
+			"name": _("All Territories"),
+			"parent_territory": "",
+		},
+		{
+			"doctype": "Territory",
+			"territory_name": _("中国"),
+			"is_group": 1,
+			"name": _("中国"),
+			"parent_territory": "",
+		},
+	]
 	#中国行政区划
 	import csv
 	with open((Path(__file__).parent.parent / "data" / 'territory.csv'), mode='rt',encoding="utf-8-sig") as file:
