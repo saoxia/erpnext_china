@@ -214,3 +214,7 @@ app_license = "mit"
 # auth_hooks = [
 #	"erpnext_china.auth.validate"
 # ]
+
+
+
+after_install = "erpnext_china.setup.after_install.operations.install_fixtures.install"
