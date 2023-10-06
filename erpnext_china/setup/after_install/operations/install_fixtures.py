@@ -12,6 +12,9 @@ from frappe.desk.page.setup_wizard.setup_wizard import make_records
 
 
 def install(country='China'):
+	#修改默认日期格式
+	frappe.db.set_default("date_format", "yyyy-mm-dd")
+
 	records = [
 		# territory: with two default territories, one for home country and one named Rest of the World
 		{

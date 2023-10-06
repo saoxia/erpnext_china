@@ -1,0 +1,62 @@
+[
+	{
+		"uom_name": "Unit",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "Nos",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "贴",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "包",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "袋",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "片",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "副",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "支",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "盒",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "箱",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "个",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "把",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "份",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "桶",
+		"must_be_whole_number": 1
+	},
+	{
+		"uom_name": "瓶",
+		"must_be_whole_number": 1
+	}
+]
