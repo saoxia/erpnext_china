@@ -66,7 +66,7 @@ def save_workspace_blocks(file_path):
 		.replace('<b>Quick Access</b>', '<b>快捷入口</b>')
 
 	#使修改后的workspace生效
-	data = json.load(updated_content)
+	data = json.loads(updated_content)
 	args = {
 			"title": data['title'],
 			"public": data['public'],
