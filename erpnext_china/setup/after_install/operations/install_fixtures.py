@@ -36,7 +36,7 @@ def install(country='China'):
 			records.append(territory_)
 
 	make_records(records)
-	
+
 	overwrite_workspace()
 
 #修改workspace文件
