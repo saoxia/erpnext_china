@@ -43,5 +43,5 @@ def install(country='China'):
 def overwrite_workspace():
 	import shutil
 	source_path = Path(__file__).parent.parent / 'workspace' / 'buying' / 'buying.json'
-	target_path = Path(__file__).parent.parent.parnet.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'buying' / 'buying.json'
+	target_path = Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'buying' / 'buying.json'
 	shutil.copy2(source_path, target_path)
