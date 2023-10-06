@@ -1,5 +1,5 @@
 {
- "background_workers": 1,
+ "background_workers": 3,
  "developer_mode": true,
  "file_watcher_port": 6787,
  "frappe_user": "frappe",

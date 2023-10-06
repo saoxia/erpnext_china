@@ -41,40 +41,24 @@ def install(country='China'):
 
 #修改workspace文件
 def overwrite_workspace():
-	#替换文件
-	import shutil
-	workspace_file_hooks = [
-		{'source':(Path(__file__).parent.parent / 'workspace' /'crm' / 'crm.json'),
-   		 'target':(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'crm' / 'workspace' / 'crm' / 'crm.json')}
-		,{'source':(Path(__file__).parent.parent / 'workspace' /'buying' / 'buying.json'),
-   		 'target':(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace' / 'buying' / 'buying.json')}
-		,{'source':(Path(__file__).parent.parent / 'workspace' /'manufacturing' / 'manufacturing.json'),
-   		 'target':(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'manufacturing' / 'workspace' / 'manufacturing' / 'manufacturing.json')}
-		,{'source':(Path(__file__).parent.parent / 'workspace' /'selling' / 'selling.json'),
-   		 'target':(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'selling' / 'workspace' / 'selling' / 'selling.json')}
-		,{'source':(Path(__file__).parent.parent / 'workspace' /'stock' / 'stock.json'),
-   		 'target':(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'stock' / 'workspace' / 'stock' / 'stock.json')}
-		 ]
-	for i in workspace_file_hooks:
-		source_path = i['source']
-		target_path = i['target']
-		shutil.copy2(source_path, target_path)
-		#使文件生效
-		save_workspace_blocks(target_path)
-
 	#直接在源文件上修改
 	workspace_file_path =[(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'automation' / 'workspace'  / 'tools' / 'tools.json')
-					   	 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'website' / 'workspace'  / 'website' / 'website.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'core' / 'workspace'  / 'build' / 'build.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'integrations' / 'workspace'  / 'integrations' / 'integrations.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'setup' / 'workspace'  / 'home' / 'home.json')
-					     ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'accounts' / 'workspace'  / 'accounting' / 'accounting.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'assets' / 'workspace'  / 'assets' / 'assets.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'quality_management' / 'workspace'  / 'quality' / 'quality.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'projects' / 'workspace'  / 'projects' / 'projects.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'support' / 'workspace'  / 'support' / 'support.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'setup' / 'workspace'  / 'erpnext_settings' / 'erpnext_settings.json')
-						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'erpnext_integrations' / 'workspace'  / 'erpnext_integrations' / 'erpnext_integrations.json')
+					   	,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'website' / 'workspace'  / 'website' / 'website.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'core' / 'workspace'  / 'build' / 'build.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'integrations' / 'workspace'  / 'integrations' / 'integrations.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'setup' / 'workspace'  / 'home' / 'home.json')
+					    ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'accounts' / 'workspace'  / 'accounting' / 'accounting.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'assets' / 'workspace'  / 'assets' / 'assets.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'quality_management' / 'workspace'  / 'quality' / 'quality.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'projects' / 'workspace'  / 'projects' / 'projects.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'support' / 'workspace'  / 'support' / 'support.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'setup' / 'workspace'  / 'erpnext_settings' / 'erpnext_settings.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'erpnext_integrations' / 'workspace'  / 'erpnext_integrations' / 'erpnext_integrations.json')
+						,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'crm' / 'workspace' / 'crm' / 'crm.json')
+   		 				,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace' / 'buying' / 'buying.json')
+   		 				,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'manufacturing' / 'workspace' / 'manufacturing' / 'manufacturing.json')
+   		 				,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'selling' / 'workspace' / 'selling' / 'selling.json')
+   		 				,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'stock' / 'workspace' / 'stock' / 'stock.json')
 						 ]
 	for i in workspace_file_path:
 		save_workspace_blocks(i)
