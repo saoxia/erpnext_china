@@ -67,6 +67,7 @@ def overwrite_workspace():
 					   	 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'website' / 'workspace'  / 'website' / 'website.json')
 						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'core' / 'workspace'  / 'build' / 'build.json')
 						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'integrations' / 'workspace'  / 'integrations' / 'integrations.json')
+						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'setup' / 'workspace'  / 'home' / 'home.json')
 					     ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'accounts' / 'workspace'  / 'accounting' / 'accounting.json')
 						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'assets' / 'workspace'  / 'assets' / 'assets.json')
 						 ,(Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'quality_management' / 'workspace'  / 'quality' / 'quality.json')
