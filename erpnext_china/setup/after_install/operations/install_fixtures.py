@@ -41,17 +41,42 @@ def install(country='China'):
 
 #修改workspace文件
 def overwrite_workspace():
+	#替换文件
 	import shutil,json
 	source_path = Path(__file__).parent.parent / 'workspace' / 'crm' / 'crm.json'
 	target_path = (Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'crm' / 'workspace'  / 'crm' / 'crm.json')
 	shutil.copy2(source_path, target_path)
-	with open(target_path, 'r') as json_file:
-		data = json.load(json_file)
+	
+	#使文件生效
+	save_workspace_blocks(target_path)
 
+	#直接在源文件上修改
+	target_path2 = (Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'automation' / 'workspace'  / 'tools' / 'tools.json')
+	save_workspace_blocks(target_path2)
+
+def save_workspace_blocks(file_path):
+	
+	with open(file_path, 'r') as file:
+		file_content = file.read()
+
+	# 替换英文的单词
+	updated_content = file_content \
+		.replace('<b>Your Shortcuts</b>', '<b>快捷入口</b>') \
+		.replace('<b>Reports &amp; Masters</b>', '<b>功能&报表</b>') \
+		.replace('<b>Quick Access</b>', '<b>快捷入口</b>')
+
+	#使修改后的workspace生效
+	data = json.load(updated_content)
 	args = {
-			"title": "CRM",
-			"public": 1,
+			"title": data['title'],
+			"public": data['public'],
 			"new_widgets": json.dumps({}),
 			"blocks": data['content']
 		}
-	frappe.call("frappe.desk.doctype.workspace.workspace.save_page", **args)
+	
+	try:
+		frappe.call("frappe.desk.doctype.workspace.workspace.save_page", **args)
+	except frappe.exceptions.LinkValidationError as e:
+		# 捕获 LinkValidationError 错误并将其转换为警告
+		warning_message = str(e)  # 将异常消息转换为字符串
+		warnings.warn(warning_message, Warning)
