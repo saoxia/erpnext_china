@@ -55,7 +55,7 @@ class SocialLoginKey(Document):
 		provider_name: DF.Data
 		redirect_url: DF.Data | None
 		social_login_provider: DF.Literal[
-			"Custom", "Facebook", "Frappe", "GitHub", "Google", "Office 365", "Salesforce", "fairlogin"
+			"Custom","WeCom" , "Facebook", "Frappe", "GitHub", "Google", "Office 365", "Salesforce", "fairlogin"
 		]
 		user_id_property: DF.Data | None
 	# end: auto-generated types
@@ -83,6 +83,7 @@ class SocialLoginKey(Document):
 
 	def set_icon(self):
 		icon_map = {
+			"WeCom": "frappe.svg",
 			"Google": "google.svg",
 			"Frappe": "frappe.svg",
 			"Facebook": "facebook.svg",
@@ -211,10 +212,10 @@ class SocialLoginKey(Document):
 			"enable_social_login": 1,
 			"base_url": "https://login.work.weixin.qq.com/wwlogin/sso/login?",
 			"custom_base_url": 0,
-			"icon": "fa fa-windows",
-			"authorize_url": "response_type=code&scope=snsapi_base&agentid=1000002#wechat_redirect",
+			"icon": "/assets/frappe/images/frappe-favicon.svg",
+			"authorize_url": "response_type=code&scope=snsapi_base&agentid=1#wechat_redirect",
 			"access_token_url": "https://qyapi.weixin.qq.com/cgi-bin/gettoken?",
-			"redirect_url": "/api/method/frappe.integrations.oauth2_logins.login_via_fairlogin",
+			"redirect_url": "/api/method/frappe.integrations.oauth2_logins.login_via_frappe",
 			"api_endpoint": None,
 			"api_endpoint_args": None,
 			"auth_url_data": json.dumps({"response_type": "code", "scope": "openid"}),
