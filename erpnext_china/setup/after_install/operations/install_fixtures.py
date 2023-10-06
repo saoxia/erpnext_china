@@ -41,7 +41,17 @@ def install(country='China'):
 
 #修改workspace文件
 def overwrite_workspace():
-	import shutil
+	import shutil,json
 	source_path = Path(__file__).parent.parent / 'workspace' / 'buying' / 'buying.json'
-	target_path = Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'buying' / 'buying.json'
-	shutil.copy2(source_path, target_path)
+	target_path = Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'crm' / 'crm.json'
+	#shutil.copy2(source_path, target_path)
+	with open(target_path, 'r') as json_file:
+		data = json.load(json_file)
+
+	args = {
+			"title": "CRM",
+			"public": 1,
+			"new_widgets": json.dumps({}),
+			"blocks": data['content']
+		}
+	frappe.call("frappe.desk.doctype.workspace.workspace.save_page", **args)
