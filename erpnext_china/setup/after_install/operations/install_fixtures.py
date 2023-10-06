@@ -36,9 +36,11 @@ def install(country='China'):
 			records.append(territory_)
 
 	make_records(records)
+	
+	overwrite_workspace()
 
 #修改workspace文件
-def overwirte_workspace():
+def overwrite_workspace():
 	import shutil
 	source_path = Path(__file__).parent.parent / 'workspace' / 'buying' / 'buying.json'
 	target_path = Path(__file__).parent.parent.parnet.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'buying' / 'buying.json'
