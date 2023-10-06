@@ -43,9 +43,9 @@ def install(country='China'):
 def overwrite_workspace():
 	import shutil,json
 	source_path = Path(__file__).parent.parent / 'workspace' / 'buying' / 'buying.json'
-	target_path = Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'crm' / 'crm.json'
+	target_path = (Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'crm' / 'crm.json')
 	#shutil.copy2(source_path, target_path)
-	with open(target_path, 'r') as json_file:
+	with open((Path(__file__).parent.parent.parent.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'crm' / 'crm.json'), 'r') as json_file:
 		data = json.load(json_file)
 
 	args = {
