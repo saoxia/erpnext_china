@@ -20,14 +20,7 @@ def install(country='China'):
 			"is_group": 1,
 			"name": _("All Territories"),
 			"parent_territory": "",
-		},
-		{
-			"doctype": "Territory",
-			"territory_name": _("中国"),
-			"is_group": 1,
-			"name": _("中国"),
-			"parent_territory": "",
-		},
+		}
 	]
 	#中国行政区划
 	import csv
@@ -43,3 +36,10 @@ def install(country='China'):
 			records.append(territory_)
 
 	make_records(records)
+
+#修改workspace文件
+def overwirte_workspace():
+	import shutil
+	source_path = Path(__file__).parent.parent / 'workspace' / 'buying' / 'buying.json'
+	target_path = Path(__file__).parent.parent.parnet.parent.parent.parent / 'erpnext' / 'erpnext' / 'buying' / 'workspace'  / 'buying' / 'buying.json'
+	shutil.copy2(source_path, target_path)
