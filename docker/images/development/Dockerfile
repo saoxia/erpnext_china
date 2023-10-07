@@ -107,8 +107,6 @@ COPY patches/frappe/setup_wizard.py /home/frappe/frappe-bench/apps/frappe/frappe
 COPY patches/frappe/install.py /home/frappe/frappe-bench/apps/frappe/frappe/utils/install.py
 COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/about.js
 
-# COPY patches/translations/zh.csv /home/frappe/frappe-bench/apps/erpnext/erpnext/translations/zh.csv
-
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
 
 FROM base as erpnext

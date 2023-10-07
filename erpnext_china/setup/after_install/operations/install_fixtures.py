@@ -12,17 +12,6 @@ from frappe.desk.page.setup_wizard.setup_wizard import make_records
 
 
 def install(country='China'):
-	#改进的翻译
-	'''
-	tanslation_filepath = Path(__file__).parent.parent.parent.parent / 'translations' / 'zh.csv'
-	with open(tanslation_filepath, 'r',encoding='utf8') as f:
-		data = f.read()
-
-	with open((Path(__file__).parent.parent.parent.parent.parent.parent / 'frappe' / 'frappe' / 'translations' / 'zh.csv'), 'a',encoding='utf8') as file:
-		# 写入要追加的文本
-		file.write('\n')
-		file.write(data)
-	'''
 	#修改默认日期格式
 	frappe.db.set_default("date_format", "yyyy-mm-dd")
 
