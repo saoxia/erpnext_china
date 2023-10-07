@@ -223,3 +223,7 @@ override_whitelisted_methods = {
 	# Legacy (& Consistency) OAuth2 APIs
 	"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",
 }
+
+override_doctype_class = {
+    'frappe.integrations.doctype.social_login_key.social_login_key.SocialLoginKey':'erpnext_china.erpnext_china.doctype.social_login_key.social_login_key.SocialLoginKey',
+}
