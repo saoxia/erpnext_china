@@ -86,8 +86,8 @@ USER frappe
 
 ARG FRAPPE_BRANCH=version-15-beta
 ARG FRAPPE_PATH=https://github.com/frappe/frappe
-ARG ERPNEXT_REPO=https://github.com/saoxia/erpnext-chinese
-ARG ERPNEXT_BRANCH=version-15-chinese
+ARG ERPNEXT_REPO=https://github.com/frappe/erpnext
+ARG ERPNEXT_BRANCH=version-15-beta
 RUN bench init \
   --frappe-branch=${FRAPPE_BRANCH} \
   --frappe-path=${FRAPPE_PATH} \
