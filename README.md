@@ -6,10 +6,8 @@
 2. CRM、客户、线索表单增加微信、QQ字段为联系方式，创建联系人后会同步到联系人列表底层。同时去除google通讯等联系方式；
 3. 区域列表自动添加完整的中国三级行政区划；
 4. 第三方社交账号登录功能中添加使用企业微信登录的支持；
-5. 对workspace中不支持zh.csv文件汉化的位置，如Your Shortcuts、Report&Master等进行汉化；
+5. 对workspace中不支持zh.csv文件汉化的位置，如Your Shortcuts、Report&Master等进行汉化；人工翻译优化官方的机器翻译；
 
-#### 默认关闭的功能：
-1. 飞鱼crm的销售线索自动更新到ERPNext的crm线索板块
 
 #### 版本兼容性
 V15：已通过兼容测试
