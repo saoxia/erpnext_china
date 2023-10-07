@@ -225,5 +225,5 @@ override_whitelisted_methods = {
 }
 
 override_doctype_class = {
-    'frappe.integrations.doctype.social_login_key.social_login_key.SocialLoginKey':'erpnext_china.erpnext_china.doctype.social_login_key.social_login_key.SocialLoginKey',
+    'SocialLoginKey':'erpnext_china.erpnext_china.overrides.social_login_key.SocialLoginKey',
 }
