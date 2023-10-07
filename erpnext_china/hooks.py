@@ -218,3 +218,8 @@ app_license = "mit"
 
 
 after_install = "erpnext_china.setup.after_install.operations.install_fixtures.install"
+
+override_whitelisted_methods = {
+	# Legacy (& Consistency) OAuth2 APIs
+	"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",
+}
