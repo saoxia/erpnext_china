@@ -225,5 +225,5 @@ override_whitelisted_methods = {
 }
 
 override_doctype_class = {
-    'SocialLoginKey':'erpnext_china.erpnext_china.overrides.social_login_key.SocialLoginKey',
+    'Social Login Key':'erpnext_china.erpnext_china.overrides.social_login_key.SocialLoginKey',
 }
