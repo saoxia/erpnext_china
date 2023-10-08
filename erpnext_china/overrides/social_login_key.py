@@ -210,10 +210,10 @@ class SocialLoginKey(Document):
 		providers["WeCom"] = {
 			"provider_name": "WeCom",
 			"enable_social_login": 1,
-			"base_url": "https://login.work.weixin.qq.com/wwlogin/sso/login?",
+			"base_url": "https://login.work.weixin.qq.com",
 			"custom_base_url": 0,
 			"icon": "/assets/frappe/images/frappe-favicon.svg",
-			"authorize_url": "response_type=code&scope=snsapi_base&agentid=1#wechat_redirect",
+			"authorize_url": "/wwlogin/sso/login?appid=wwa414a6746e86c427&agentid=1000002",
 			"access_token_url": "https://qyapi.weixin.qq.com/cgi-bin/gettoken?",
 			"redirect_url": "/api/method/frappe.integrations.oauth2_logins.login_via_frappe",
 			"api_endpoint": None,
