@@ -59,6 +59,7 @@ class SocialLoginKey(Document):
 
 	def set_icon(self):
 		icon_map = {
+			"WeCom": "frappe.svg",
 			"Google": "google.svg",
 			"Frappe": "frappe.svg",
 			"Facebook": "facebook.svg",
@@ -186,12 +187,12 @@ class SocialLoginKey(Document):
 			"enable_social_login": 1,
 			"base_url": "https://login.work.weixin.qq.com",
 			"custom_base_url": 0,
-			"icon": "fa fa-key",
+			"icon": None,
 			"redirect_url": "api/method/erpnext_china.utils.oauth2_logins.login_via_wecom",
 			"api_endpoint": "",
 			"api_endpoint_args": None,
 			"authorize_url": "/wwlogin/sso/login",
-			"access_token_url": "",
+			"access_token_url": "-",
 			"auth_url_data": json.dumps({"agentid": 1000002, "appid": self.client_id}),
 		}
 		# Initialize the doc and return, used in patch
@@ -202,3 +203,6 @@ class SocialLoginKey(Document):
 			return
 
 		return providers.get(provider) if provider else providers
+	
+	def before_save(self):
+		self.auth_url_data = json.dumps({"agentid": 1000002, "appid": self.client_id})
