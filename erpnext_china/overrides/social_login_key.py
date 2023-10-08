@@ -216,7 +216,7 @@ class SocialLoginKey(Document):
 			"authorize_url": "/wwlogin/sso/login?appid=wwa414a6746e86c427&agentid=1000002",
 			"access_token_url": "https://qyapi.weixin.qq.com/cgi-bin/gettoken?",
 			"redirect_url": "/api/method/frappe.integrations.oauth2_logins.login_via_github",
-			"api_endpoint": None,
+			"api_endpoint": 'https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo?',
 			"api_endpoint_args": None,
 			"auth_url_data": json.dumps({"scope": "userid"}),
 		}
