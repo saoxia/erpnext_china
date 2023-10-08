@@ -221,11 +221,11 @@ after_install = "erpnext_china.setup.after_install.operations.install_fixtures.i
 
 override_whitelisted_methods = {
 	# Legacy (& Consistency) OAuth2 APIs
-	"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",
+	#"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",
 }
 
 override_doctype_class = {
-    'Social Login Key':'erpnext_china.overrides.social_login_key.SocialLoginKey',
+#    'Social Login Key':'erpnext_china.overrides.social_login_key.SocialLoginKey',
 	'Employee':'erpnext_china.overrides.employee.Employee',
 	'Lead':'erpnext_china.overrides.lead.Lead',
 }

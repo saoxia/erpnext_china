@@ -99,7 +99,7 @@ RUN bench init \
   # bench get-app --branch version-15-beta https://github.com/frappe/hrms && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
-COPY patches/frappe/oauth2_logins.py /home/frappe/frappe-bench/apps/frappe/frappe/integrations/oauth2_logins.py
+
 COPY patches/frappe/login.html /home/frappe/frappe-bench/apps/frappe/frappe/www/login.html
 COPY patches/frappe/login.py /home/frappe/frappe-bench/apps/frappe/frappe/www/login.py
 COPY patches/frappe/users.json /home/frappe/frappe-bench/apps/frappe/frappe/core/workspace/users/users.json
