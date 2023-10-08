@@ -9,7 +9,7 @@ from frappe.utils.oauth import login_via_oauth2, login_via_oauth2_id_token
 
 @frappe.whitelist(allow_guest=True)
 def login_via_wecom(code: str, state: str):
-	login_via_oauth2("wecom", code, state, decoder=decoder_compat)
+	login_via_oauth2("wecom", code, state)
 
 @frappe.whitelist(allow_guest=True)
 def login_via_google(code: str, state: str):
