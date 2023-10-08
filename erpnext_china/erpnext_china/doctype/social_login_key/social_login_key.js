@@ -23,7 +23,7 @@ frappe.ui.form.on("Social Login Key", {
 	},
 
 	social_login_provider(frm) {
-		if (frm.doc.social_login_provider != "Custom") {
+		if (frm.doc.social_login_provider != "WeCom") {
 			frappe
 				.call({
 					doc: frm.doc,
@@ -36,7 +36,7 @@ frappe.ui.form.on("Social Login Key", {
 					const provider = r.message;
 					for (var field of fields) {
 						frm.set_value(field, provider[field]);
-						// frm.set_df_property(field, "read_only", 1);
+						frm.set_df_property(field, "read_only", 1);
 						if (frm.doc.custom_base_url) {
 							frm.toggle_enable("base_url", 1);
 						}
