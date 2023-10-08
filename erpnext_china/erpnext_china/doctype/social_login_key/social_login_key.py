@@ -205,4 +205,5 @@ class SocialLoginKey(Document):
 		return providers.get(provider) if provider else providers
 	
 	def before_save(self):
-		self.auth_url_data = json.dumps({"agentid": 1000002, "appid": self.client_id})
+		self.auth_url_data = json.dumps({"agentid": self.auth_url_data['agentid'],
+								    "appid": self.client_id})
