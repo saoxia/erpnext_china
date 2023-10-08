@@ -112,7 +112,6 @@ def get_redirect_uri(provider: str) -> str:
 
 def login_via_oauth2(provider: str, code: str, state: str, decoder: Callable | None = None):
 	info = get_info_via_oauth(provider, code, decoder)
-	print(info)
 	login_oauth_user(info, provider=provider, state=state)
 
 
@@ -274,6 +273,8 @@ def update_oauth_user(user: str, data: dict, provider: str):
 	if not user.get_social_login_userid(provider):
 		update_user_record = True
 		match provider:
+			case "wecom":
+				user.set_social_login_userid(provider, userid=data["userid"])
 			case "facebook":
 				user.set_social_login_userid(provider, userid=data["id"], username=data.get("username"))
 				user.update({"user_image": f"https://graph.facebook.com/{data['id']}/picture"})

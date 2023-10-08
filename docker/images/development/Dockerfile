@@ -107,6 +107,7 @@ COPY patches/frappe/install_fixtures.py /home/frappe/frappe-bench/apps/frappe/fr
 COPY patches/frappe/setup_wizard.js /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.js
 COPY patches/frappe/setup_wizard.py /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.py
 COPY patches/frappe/install.py /home/frappe/frappe-bench/apps/frappe/frappe/utils/install.py
+COPY patches/frappe/oauth.py /home/frappe/frappe-bench/apps/frappe/frappe/utils/oauth.py
 COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/about.js
 COPY patches/erpnext/install.py /home/frappe/frappe-bench/apps/erpnext/erpnext/setup/install.py
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
