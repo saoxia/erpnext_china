@@ -106,7 +106,7 @@
   },
   {
    "collapsible": 1,
-   "collapsible_depends_on": "eval:doc.social_login_provider===\"Custom\"",
+   "collapsible_depends_on": "eval:['Custom', 'WeCom'].includes(doc.social_login_provider)",
    "fieldname": "client_urls",
    "fieldtype": "Section Break",
    "label": "Client URLs"
