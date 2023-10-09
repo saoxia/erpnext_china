@@ -194,7 +194,7 @@ class SocialLoginKey(Document):
 			"api_endpoint_args": None,
 			"authorize_url": "/wwlogin/sso/login",
 			"access_token_url": "-",
-			"auth_url_data": json.dumps({"agentid": 1000002, "appid": self.client_id}),
+			"auth_url_data": json.dumps({"agentid": self.agent_id, "appid": self.client_id}),
 		}
 		# Initialize the doc and return, used in patch
 		# Or can be used for creating key from controller

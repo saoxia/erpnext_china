@@ -62,7 +62,7 @@
   {
     "fieldname": "agent_id",
     "fieldtype": "Data",
-    "depends_on": "eval:doc.social_login_provider == 'wecom'",
+    "depends_on": "eval:doc.social_login_provider == 'WeCom'",
     "label": "Agent Id"
   },
   {
