@@ -47,7 +47,7 @@
   },
   {
    "default": "Custom",
-   "depends_on": "eval:doc.client_credentials='WeCom'",
+   "depends_on": "eval:doc.custom!=1",
    "fieldname": "social_login_provider",
    "fieldtype": "Select",
    "label": "Social Login Provider",
@@ -62,7 +62,7 @@
   {
     "fieldname": "agent_id",
     "fieldtype": "Data",
-    "depends_on": "eval:doc.filter_based_on == 'WeCom'",
+    "depends_on": "eval:doc.social_login_provider == 'wecom'",
     "label": "Agent Id"
   },
   {
