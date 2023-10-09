@@ -62,7 +62,7 @@
   {
     "fieldname": "agent_id",
     "fieldtype": "Data",
-    "depends_on": "eval:doc.filter_based_on == 'Date Range'",
+    "depends_on": "eval:doc.filter_based_on == 'WeCom'",
     "label": "Agent Id"
   },
   {
