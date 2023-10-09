@@ -231,5 +231,4 @@ override_doctype_class = {
 }
 
 doctype_js = {
-	"Social Login Key" : "erpnext_china/erpnext_china/doctype/social_login_key/social_login_key.js",
 }

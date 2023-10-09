@@ -11,6 +11,7 @@
   "client_credentials",
   "social_login_provider",
   "client_id",
+  "agent_id",
   "column_break_0",
   "provider_name",
   "client_secret",
@@ -57,6 +58,11 @@
    "fieldname": "client_id",
    "fieldtype": "Data",
    "label": "Client ID"
+  },
+  {
+    "fieldname": "agent_id",
+    "fieldtype": "Data",
+    "label": "Agent Id"
   },
   {
    "fieldname": "column_break_0",

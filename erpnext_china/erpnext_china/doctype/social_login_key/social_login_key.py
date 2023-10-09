@@ -24,6 +24,7 @@ class SocialLoginKey(Document):
 		authorize_url: DF.Data | None
 		base_url: DF.Data | None
 		client_id: DF.Data | None
+		agent_id: DF.Data | None
 		client_secret: DF.Password | None
 		custom_base_url: DF.Check
 		enable_social_login: DF.Check
@@ -205,5 +206,5 @@ class SocialLoginKey(Document):
 		return providers.get(provider) if provider else providers
 	
 	def before_save(self):
-		self.auth_url_data = json.dumps({"agentid": self.auth_url_data['agentid'],
+		self.auth_url_data = json.dumps({"agentid": self.agent_id,
 								    "appid": self.client_id})
