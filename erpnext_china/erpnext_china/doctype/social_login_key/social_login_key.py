@@ -192,7 +192,7 @@ class SocialLoginKey(Document):
 			"redirect_url": "api/method/erpnext_china.utils.oauth2_logins.login_via_wecom",
 			"api_endpoint": "",
 			"api_endpoint_args": None,
-			"authorize_url": "/wwlogin/sso/login",
+			"authorize_url": "https://login.work.weixin.qq.com/wwlogin/sso/login",
 			"access_token_url": "-",
 			"auth_url_data": json.dumps({"agentid": self.agent_id, "appid": self.client_id}),
 		}
