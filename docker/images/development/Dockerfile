@@ -15,6 +15,7 @@ RUN useradd -ms /bin/bash frappe \
     curl \
     git \
     vim \
+    nginx \
     sudo \
     gettext-base \
     # weasyprint dependencies
