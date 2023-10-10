@@ -29,5 +29,5 @@ def login_via_wecom(code: str, state: str):
 			"client_secret": get_decrypted_password("Social Login Key", provider.name, "client_secret"),
 		}
 
-	info = get_userid(code,out['wecom']['client_id'],out['wecom']['client_secret'])
-	login_oauth_user(info, provider='wecom', state={'token':'1'})
+	info = get_userid(code,out['企业微信']['client_id'],out['wecom']['client_secret'])
+	login_oauth_user(info, provider='企业微信', state={'token':state})

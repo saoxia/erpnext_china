@@ -184,7 +184,7 @@ class SocialLoginKey(Document):
 			"auth_url_data": json.dumps({"response_type": "code", "scope": "openid"}),
 		}
 		providers["WeCom"] = {
-			"provider_name": "wecom",
+			"provider_name": "企业微信",
 			"enable_social_login": 1,
 			"base_url": "https://login.work.weixin.qq.com",
 			"custom_base_url": 0,
@@ -206,7 +206,7 @@ class SocialLoginKey(Document):
 		return providers.get(provider) if provider else providers
 	
 	def before_save(self):
-		if self.provider_name == 'wecom':
+		if self.provider_name == '企业微信':
 			self.auth_url_data = json.dumps({"agentid": self.agent_id,
 										"appid": self.client_id})
 			self.user_id_property = 'userid'
