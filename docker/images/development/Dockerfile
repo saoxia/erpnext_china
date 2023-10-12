@@ -120,6 +120,10 @@ RUN sed 's/#Port 22/Port 22222/' /etc/ssh/sshd_config > /etc/ssh/sshd_config_tem
     && ssh-keygen -A
 RUN echo 'root:bi123456' | chpasswd 
 RUN echo 'frappe:bi123456' | chpasswd 
+
+# 添加frappe的sudo权限
+RUN sed -i 'frappe ALL=(ALL:ALL) ALL' /etc/sudoers
+
 RUN  service ssh restart 
 
 USER frappe
