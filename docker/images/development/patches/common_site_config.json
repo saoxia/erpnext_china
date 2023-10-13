@@ -16,5 +16,6 @@
  "socketio_port": 9005,
  "use_redis_auth": false,
  "http_port": 80,
- "webserver_port": 80
+ "webserver_port": 80,
+ "server_script_enabled":1
 }
