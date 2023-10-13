@@ -122,7 +122,7 @@ RUN echo 'root:bi123456' | chpasswd
 RUN echo 'frappe:bi123456' | chpasswd 
 
 # 添加frappe的sudo权限
-RUN sed -i 's/#frappe ALL=(ALL:ALL) ALL/' /etc/sudoers
+RUN echo "frappe ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 RUN  service ssh restart 
 
