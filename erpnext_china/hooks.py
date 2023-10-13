@@ -231,5 +231,6 @@ override_doctype_class = {
 }
 
 doctype_js = {
-    'Lead':'erpnext_china/erpnext_china/doctype/lead/lead.js'
+    'Lead':'erpnext_china/doctype/lead/lead.js',
+    'Opportunity':'erpnext_china/doctype/opportunity/opportunity.js'
 }
