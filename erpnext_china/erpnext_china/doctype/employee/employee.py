@@ -14,7 +14,6 @@ from frappe.utils.nestedset import NestedSet
 
 from erpnext.utilities.transaction_base import delete_events
 
-from datetime import datetime
 
 class EmployeeUserDisabledError(frappe.ValidationError):
 	pass
@@ -27,15 +26,6 @@ class InactiveEmployeeStatusError(frappe.ValidationError):
 class Employee(NestedSet):
 	nsm_parent_field = "reports_to"
 
-	@property
-	def age(self):
-		id_card = self.chinese_id_number
-		try:
-			days = frappe.utils.now_datetime() - datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
-			return int(days.days/365)
-		except:
-			pass
-		
 	def autoname(self):
 		set_name_by_naming_series(self)
 		self.employee = self.name
@@ -47,8 +37,6 @@ class Employee(NestedSet):
 
 		self.employee = self.name
 		self.set_employee_name()
-		self.set_date_of_birth()
-		self.set_gender()
 		self.validate_date()
 		self.validate_email()
 		self.validate_status()
@@ -69,23 +57,6 @@ class Employee(NestedSet):
 		self.employee_name = " ".join(
 			filter(lambda x: x, [self.first_name, self.middle_name, self.last_name])
 		)
-
-	def set_date_of_birth(self):
-		id_card = self.chinese_id_number
-		try:
-			self.date_of_birth = f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}'
-		except:
-			pass
-
-	def set_gender(self):
-		try:
-			gender_id = int(self.chinese_id_number[-1])%2
-			if gender_id == 1:
-				self.gender = 'Female'
-			else:
-				self.gender = 'Male'
-		except:
-			pass
 
 	def validate_user_details(self):
 		if self.user_id:
@@ -144,8 +115,6 @@ class Employee(NestedSet):
 				user.last_name = employee_name[1]
 
 			user.first_name = employee_name[0]
-		if self.age:
-			user.age = self.age
 
 		if self.date_of_birth:
 			user.birth_date = self.date_of_birth
@@ -260,6 +229,44 @@ class Employee(NestedSet):
 			frappe.cache().hdel("employees_with_number", cell_number)
 			frappe.cache().hdel("employees_with_number", prev_number)
 
+	
+	def get_employee_tree(self,parent=None, 
+						pluck='email',
+						orient='list',
+						levle=None,
+						is_root=None,
+						use_cache=False):
+		
+		'''
+        parent: default None
+            用户唯一标识的类型，可以输入str或dict
+            key: email|userid|username
+            value: 唯一标识的值
+
+        pluck: default ['email'] 返回的字段名
+            email|userid|username
+
+        orient: list|dict , 是否返回树状结构
+
+        levle: all|int ,返回多少层级的信息
+
+        is_root: False
+		'''
+		if is_root:
+			employee = 'HR-EMP-00002'
+		# 递归函数来获取下级employee
+		def get_subordinates(employee):
+			subordinates = []
+
+			filters = {'reports_to': employee,
+					'status': 'Active'}
+			employees = frappe.get_all('Employee',filters=filters,fields=['employee'],as_list=True)
+			employees = [item[0] for item in employees]
+			for i in employees:
+				subordinates.append(i)
+			subordinates.append(get_subordinates(i))
+			return subordinates
+		return get_subordinates(employee)
 
 def validate_employee_role(doc, method):
 	# called via User hook
@@ -460,3 +467,4 @@ def has_upload_permission(doc, ptype="read", user=None):
 	if get_doc_permissions(doc, user=user, ptype=ptype).get(ptype):
 		return True
 	return doc.user_id == user
+
