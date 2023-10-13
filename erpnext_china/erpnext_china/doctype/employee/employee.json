@@ -303,7 +303,7 @@
     "fieldname": "qualification_level",
     "fieldtype": "Select",
     "label": "Qualification Level",
-    "options": "Bachelor's\nAssociate's\nMaster's\nUnder Graduate\nDoctoral",
+    "options": "大专\n本科\n硕士研究生\n博士研究生\n高中及以下",
     "reqd": 1
   },
   {
