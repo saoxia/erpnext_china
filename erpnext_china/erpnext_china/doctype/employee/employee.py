@@ -459,6 +459,11 @@ def get_employee_tree(parent=None,
 	if is_root:
 		# 树的最顶点
 		employee = 'HR-EMP-00002'
+	elif '@' in parent:
+		# 邮箱地址拿第一个员工编号
+		filters = {'user_id': parent, 'status': 'Active'}
+		employee = frappe.get_all('Employee',filters=filters,fields=['employee'],as_list=True)
+		employee = employee[0][0]
 	else:
 		employee = parent
 	# 递归函数来获取下级employee
