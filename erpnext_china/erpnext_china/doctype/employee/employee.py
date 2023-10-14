@@ -462,8 +462,8 @@ def get_employee_tree(parent=None,
 	elif '@' in parent:
 		# 邮箱地址拿第一个员工编号
 		filters = {'user_id': parent, 'status': 'Active'}
-		employee = frappe.get_all('Employee',filters=filters,fields=['employee'],as_list=True)
-		employee = employee[0][0]
+		employee = frappe.get_all('Employee',filters=filters,pluck='employee')
+		employee = employee[0]
 	else:
 		employee = parent
 	# 递归函数来获取下级employee
@@ -472,8 +472,7 @@ def get_employee_tree(parent=None,
 
 		filters = {'reports_to': employee,
 				'status': 'Active'}
-		employees = frappe.get_all('Employee',filters=filters,fields=['employee'],as_list=True)
-		employees = [item[0] for item in employees]
+		employees = frappe.get_all('Employee',filters=filters,pluck='employee')
 		for i in employees:
 			subordinates.append(i)
 			subordinates.append(get_subordinates(i))
@@ -486,7 +485,6 @@ def get_employee_tree(parent=None,
 		# 返回email的列表
 		filters = {'employee': ['in',subordinates],
 				'status': 'Active'}
-		subordinates_email = frappe.get_all('Employee',filters=filters,fields=['user_id'],as_list=True)
-		subordinates= [item[0] for item in subordinates_email]
+		subordinates_email = frappe.get_all('Employee',filters=filters,pluck='user_id')
 		
 	return subordinates
