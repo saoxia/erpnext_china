@@ -485,6 +485,6 @@ def get_employee_tree(parent=None,
 		# 返回email的列表
 		filters = {'employee': ['in',subordinates],
 				'status': 'Active'}
-		subordinates_email = frappe.get_all('Employee',filters=filters,pluck='user_id')
+		subordinates = frappe.get_all('Employee',filters=filters,pluck='user_id')
 		
 	return subordinates
