@@ -467,7 +467,18 @@ def get_employee_tree(parent=None,
 	else:
 		employee = parent
 
-	
+	# 递归函数来获取下级employee
+	def get_subordinates(employee):
+		subordinates = []
+
+		filters = {'reports_to': employee,
+				'status': 'Active'}
+		employees = frappe.get_all('Employee',filters=filters,pluck='employee')
+		if employees:
+			for i in employees:
+				subordinates.append(i)
+				subordinates += get_subordinates(i)
+		return subordinates
 	
 	subordinates = get_subordinates(employee)
 	
@@ -477,16 +488,4 @@ def get_employee_tree(parent=None,
 				'status': 'Active'}
 		subordinates = frappe.get_all('Employee',filters=filters,pluck='user_id')
 		
-	return subordinates
-
-# 递归函数来获取下级employee
-def get_subordinates(employee):
-	subordinates = []
-
-	filters = {'reports_to': employee,
-			'status': 'Active'}
-	employees = frappe.get_all('Employee',filters=filters,pluck='employee')
-	for i in employees:
-		subordinates.append(i)
-		subordinates.append(get_subordinates(i))
 	return subordinates
