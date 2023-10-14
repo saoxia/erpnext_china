@@ -15,6 +15,7 @@ from erpnext.accounts.party import set_taxes
 from erpnext.controllers.selling_controller import SellingController
 from erpnext.crm.utils import CRMNote, copy_comments, link_communications, link_open_events
 
+from erpnext_china.erpnext_china.doctype.employee.employee import get_employee_tree
 
 class Lead(SellingController, CRMNote):
 	def onload(self):
@@ -471,11 +472,14 @@ def add_lead_to_prospect(lead, prospect):
 	)
 
 def lead_has_query_permission(user):
+
 	if frappe.db.get_value('Has Role',{'parent':user,'role':'System Manager'}):
 		# 如果角色包含管理员，则看到全量
 		conditions = ''
 	else:
 		# 其他情况则只能看到自己拥有的线索
 		# 待添加上级可以看到下级的线索
-		conditions = f"owner in ('{user}')" 
+		users = get_employee_tree(parent=user)
+		users = str(tuple(users))
+		conditions = f"owner in {users}" 
 	return conditions
