@@ -474,8 +474,8 @@ def get_employee_tree(parent=None,
 			subordinates.append(get_subordinates(i))
 		return subordinates
 	
-	if orient == 'list':
-		subordinates = get_subordinates(employee)
+	
+	subordinates = get_subordinates(employee)
 	
 	if (pluck == 'email') and (orient == 'list'):
 		# 返回email的列表
