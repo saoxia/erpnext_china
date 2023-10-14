@@ -234,3 +234,6 @@ doctype_js = {
     'Lead':'erpnext_china/doctype/lead/lead.js',
     'Opportunity':'erpnext_china/doctype/opportunity/opportunity.js'
 }
+permission_query_conditions = {
+    "Lead": "erpnext_china.erpnext_china.doctype.lead.lead.lead_has_query_permission",
+}
