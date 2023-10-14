@@ -474,7 +474,7 @@ def add_lead_to_prospect(lead, prospect):
 def lead_has_query_permission(user):
 	users = get_employee_tree(parent=user)
 	users.append(user)
-	users = str(tuple(users))
+	users_str = str(tuple(users)).replace(',)',')')
 
 	if frappe.db.get_value('Has Role',{'parent':user,'role':'System Manager'}):
 		# 如果角色包含管理员，则看到全量
@@ -484,5 +484,5 @@ def lead_has_query_permission(user):
 		# 待添加上级可以看到下级的线索
 		users = get_employee_tree(parent=user)
 		users = str(tuple(users))
-		conditions = f"owner in {users}" 
+		conditions = f"owner in {users_str}" 
 	return conditions
