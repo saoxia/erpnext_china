@@ -70,6 +70,8 @@
   "whatsapp",
   "phone",
   "phone_ext",
+  "wechat",
+  "qq",
   "address_contact_section",
   "address_html",
   "customer_address",
@@ -152,9 +154,9 @@
    "no_copy": 1
   },
   {
-   "default": "Sales",
    "fieldname": "opportunity_type",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Opportunity Type",
    "oldfieldname": "enquiry_type",
@@ -526,6 +528,7 @@
   {
    "fieldname": "phone_ext",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Phone Ext."
   },
   {
@@ -606,18 +609,31 @@
   {
    "fieldname": "city",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "City"
   },
   {
    "fieldname": "state",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "State"
   },
   {
    "fieldname": "country",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Country",
    "options": "Country"
+  },
+  {
+    "fieldname": "qq",
+    "fieldtype": "Data",
+    "label": "QQ"
+  },
+  {
+    "fieldname": "wechat",
+    "fieldtype": "Data",
+    "label": "WeChat"
   }
  ],
  "icon": "fa fa-info-sign",
