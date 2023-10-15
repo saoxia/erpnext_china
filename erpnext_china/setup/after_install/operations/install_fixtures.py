@@ -76,7 +76,8 @@ def save_workspace_blocks(file_path):
 	updated_content = file_content \
 		.replace('<b>Your Shortcuts</b>', '<b>快捷入口</b>') \
 		.replace('<b>Reports &amp; Masters</b>', '<b>功能&报表</b>') \
-		.replace('<b>Quick Access</b>', '<b>快捷入口</b>')
+		.replace('<b>Quick Access</b>', '<b>快捷入口</b>') \
+		.replace('<b>Masters & Reports</b>', '<b>功能&报表</b>')
 
 	#使修改后的workspace生效
 	data = json.loads(updated_content)
