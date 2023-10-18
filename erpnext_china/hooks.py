@@ -232,7 +232,8 @@ override_doctype_class = {
 
 doctype_js = {
     'Lead':'erpnext_china/doctype/lead/lead.js',
-    'Opportunity':'erpnext_china/doctype/opportunity/opportunity.js'
+    'Opportunity':'erpnext_china/doctype/opportunity/opportunity.js',
+    'Quotation':'erpnext_china/doctype/quotation/quotation.js',
 }
 permission_query_conditions = {
     "Lead": "erpnext_china.erpnext_china.doctype.lead.lead.lead_has_query_permission",
