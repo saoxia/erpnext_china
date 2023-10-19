@@ -470,6 +470,7 @@
   {
    "fieldname": "annual_revenue",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Annual Revenue"
   },
   {
@@ -481,6 +482,7 @@
   {
    "fieldname": "market_segment",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Market Segment",
    "options": "Market Segment"
   },
