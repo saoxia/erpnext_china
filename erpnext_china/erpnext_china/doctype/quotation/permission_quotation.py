@@ -2,7 +2,7 @@ import frappe
 
 from erpnext_china.erpnext_china.doctype.employee.employee import get_employee_tree
 
-def quotation_order_has_query_permission(user):
+def quotation_has_query_permission(user):
 	users = get_employee_tree(parent=user)
 	users.append(user)
 	users_str = str(tuple(users)).replace(',)',')')
