@@ -237,4 +237,6 @@ doctype_js = {
 }
 permission_query_conditions = {
     "Lead": "erpnext_china.erpnext_china.doctype.lead.lead.lead_has_query_permission",
+    "Quotation": "erpnext_china.erpnext_china.doctype.quotation.premission_quotation.quotation_has_query_permission",
+    "Opportunity": "erpnext_china.erpnext_china.doctype.opportunity.premission_opportunity.opportunity_has_query_permission",  
 }
