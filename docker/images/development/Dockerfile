@@ -85,10 +85,10 @@ RUN apt-get update \
 
 USER frappe
 
-ARG FRAPPE_BRANCH=version-15-beta
+ARG FRAPPE_BRANCH=version-15
 ARG FRAPPE_PATH=https://github.com/frappe/frappe
 ARG ERPNEXT_REPO=https://github.com/frappe/erpnext
-ARG ERPNEXT_BRANCH=version-15-beta
+ARG ERPNEXT_BRANCH=version-15
 RUN bench init \
   --frappe-branch=${FRAPPE_BRANCH} \
   --frappe-path=${FRAPPE_PATH} \
@@ -97,7 +97,7 @@ RUN bench init \
   cd /home/frappe/frappe-bench && \
   bench get-app --branch=${ERPNEXT_BRANCH} ${ERPNEXT_REPO} && \
   bench get-app --branch develop https://github.com/saoxia/erpnext_china && \
-  # bench get-app --branch version-15-beta https://github.com/frappe/hrms && \
+  # bench get-app --branch version-15 https://github.com/frappe/hrms && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
 
