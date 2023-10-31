@@ -118,8 +118,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN sed 's/#Port 22/Port 22222/' /etc/ssh/sshd_config > /etc/ssh/sshd_config_temp && mv /etc/ssh/sshd_config_temp /etc/ssh/sshd_config \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && ssh-keygen -A
-RUN echo 'root:bi123456' | chpasswd 
-RUN echo 'frappe:bi123456' | chpasswd 
+RUN echo 'root:Bi123456@!' | chpasswd 
+RUN echo 'frappe:Bi123456@!' | chpasswd 
 
 # 添加frappe的sudo权限
 RUN echo "frappe ALL=(ALL:ALL) ALL" >> /etc/sudoers
