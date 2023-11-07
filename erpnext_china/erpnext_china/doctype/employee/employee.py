@@ -65,7 +65,7 @@ class Employee(NestedSet):
 		)
 
 	def set_age(self):
-		id_card = self.chinese_id_number
+		id_card = self.custom_chinese_id_number
 		try:
 			days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
 			self.custom_age = int(days.days/365)
@@ -73,7 +73,7 @@ class Employee(NestedSet):
 			pass
 
 	def set_date_of_birth(self):
-		id_card = self.chinese_id_number
+		id_card = self.custom_chinese_id_number
 		try:
 			self.date_of_birth = f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}'
 		except:
@@ -81,7 +81,7 @@ class Employee(NestedSet):
 
 	def set_gender(self):
 		try:
-			gender_id = int(self.chinese_id_number[-1])%2
+			gender_id = int(self.custom_chinese_id_number[-1])%2
 			if gender_id == 1:
 				self.gender = 'Female'
 			else:
