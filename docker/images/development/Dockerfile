@@ -112,6 +112,7 @@ COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public
 COPY patches/erpnext/install.py /home/frappe/frappe-bench/apps/erpnext/erpnext/setup/install.py
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
 
+
 FROM base as erpnext
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
