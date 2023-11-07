@@ -112,6 +112,9 @@ COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public
 COPY patches/erpnext/install.py /home/frappe/frappe-bench/apps/erpnext/erpnext/setup/install.py
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
 
+# 修改send_response_only函数http编码为utf-8
+COPY patches/server.py /usr/local/lib/python3.11/http/server.py
+RUN chmod -R 777 /usr/local/lib/python3.11/http/server.py
 
 FROM base as erpnext
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
