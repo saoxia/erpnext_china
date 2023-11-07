@@ -24,7 +24,7 @@ class SocialLoginKey(Document):
 		authorize_url: DF.Data | None
 		base_url: DF.Data | None
 		client_id: DF.Data | None
-		agent_id: DF.Data | None
+		custom_agent_id: DF.Data | None
 		client_secret: DF.Password | None
 		custom_base_url: DF.Check
 		enable_social_login: DF.Check
@@ -194,7 +194,7 @@ class SocialLoginKey(Document):
 			"api_endpoint_args": None,
 			"authorize_url": "https://login.work.weixin.qq.com/wwlogin/sso/login",
 			"access_token_url": "-",
-			"auth_url_data": json.dumps({"agentid": self.agent_id, "appid": self.client_id}),
+			"auth_url_data": json.dumps({"agentid": self.custom_agent_id, "appid": self.client_id}),
 		}
 		# Initialize the doc and return, used in patch
 		# Or can be used for creating key from controller
@@ -207,6 +207,6 @@ class SocialLoginKey(Document):
 	
 	def before_save(self):
 		if self.provider_name == '企业微信':
-			self.auth_url_data = json.dumps({"agentid": self.agent_id,
+			self.auth_url_data = json.dumps({"agentid": self.custom_agent_id,
 										"appid": self.client_id})
 			self.user_id_property = 'userid'
