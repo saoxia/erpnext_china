@@ -14,6 +14,7 @@ from frappe.utils.nestedset import NestedSet
 
 from erpnext.utilities.transaction_base import delete_events
 
+from datetime import datetime
 
 class EmployeeUserDisabledError(frappe.ValidationError):
 	pass
@@ -42,6 +43,11 @@ class Employee(NestedSet):
 		self.validate_status()
 		self.validate_reports_to()
 		self.validate_preferred_email()
+		
+		#定制
+		self.set_age()
+		self.set_gender()
+		self.set_date_of_birth()
 
 		if self.user_id:
 			self.validate_user_details()
@@ -57,6 +63,31 @@ class Employee(NestedSet):
 		self.employee_name = " ".join(
 			filter(lambda x: x, [self.first_name, self.middle_name, self.last_name])
 		)
+
+	def set_age(self):
+		id_card = self.chinese_id_number
+		try:
+			days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
+			self.custom_age = int(days.days/365)
+		except:
+			pass
+
+	def set_date_of_birth(self):
+		id_card = self.chinese_id_number
+		try:
+			self.date_of_birth = f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}'
+		except:
+			pass
+
+	def set_gender(self):
+		try:
+			gender_id = int(self.chinese_id_number[-1])%2
+			if gender_id == 1:
+				self.gender = 'Female'
+			else:
+				self.gender = 'Male'
+		except:
+			pass
 
 	def validate_user_details(self):
 		if self.user_id:
@@ -121,6 +152,10 @@ class Employee(NestedSet):
 
 		if self.gender:
 			user.gender = self.gender
+
+		if self.custom_age:
+			user.custom_age = self.custom_age
+
 
 		if self.image:
 			if not user.user_image:

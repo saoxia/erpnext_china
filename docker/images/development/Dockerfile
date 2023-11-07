@@ -107,7 +107,6 @@ RUN bench init \
 
 COPY patches/frappe/login.html /home/frappe/frappe-bench/apps/frappe/frappe/www/login.html
 COPY patches/frappe/login.py /home/frappe/frappe-bench/apps/frappe/frappe/www/login.py
-#COPY patches/frappe/users.json /home/frappe/frappe-bench/apps/frappe/frappe/core/workspace/users/users.json
 COPY patches/frappe/install_fixtures.py /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/install_fixtures.py
 COPY patches/frappe/setup_wizard.js /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.js
 COPY patches/frappe/setup_wizard.py /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.py
