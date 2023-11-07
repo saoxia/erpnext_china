@@ -1367,6 +1367,7 @@
    "owner": "Administrator",
    "property": "read_only",
    "property_type": "Check",
+   "reqd": 0,
    "row_name": null,
    "value": "1"
   },
@@ -1390,6 +1391,7 @@
    "owner": "Administrator",
    "property": "read_only",
    "property_type": "Check",
+   "reqd": 0,
    "row_name": null,
    "value": "1"
   },
