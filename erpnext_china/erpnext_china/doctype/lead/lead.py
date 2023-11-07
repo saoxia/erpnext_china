@@ -185,8 +185,8 @@ class Lead(SellingController, CRMNote):
 				"gender": self.gender,
 				"designation": self.job_title,
 				"company_name": self.company_name,
-				"wechat": self.wechat,
-				"qq": self.qq,
+				"wechat": self.custom_wechat,
+				"qq": self.custom_qq,
 			}
 		)
 
