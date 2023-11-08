@@ -38,9 +38,5 @@ WORKDIR /home/frappe/frappe-bench
 RUN bench get-app --branch develop https://github.com/frappe/erpnext
 RUN bench get-app --branch develop https://github.com/saoxia/erpnext_china
 
-COPY patch/user.json ./apps/frappe/frappe/core/doctype/user/user.json
-COPY patch/install_fixtures.py ./apps/frappe/frappe/desk/page/setup_wizard/install_fixtures.py
-COPY patch/contact.json ./apps/frappe/frappe/contacts/doctype/contact/contact.json
-COPY common_site_config.json ./sites/common_site_config.json
-COPY Procfile ./Procfile
+
 #CMD ["bench", "start"]
