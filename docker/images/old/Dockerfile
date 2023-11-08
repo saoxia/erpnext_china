@@ -31,16 +31,12 @@ RUN echo 'frappe:666666' | chpasswd
 WORKDIR /home/frappe
 RUN chmod -R 777 .
 USER frappe
-RUN bench init --frappe-branch version-15-beta frappe-bench --frappe-path=https://github.com/frappe/frappe
+RUN bench init --frappe-branch version-15 frappe-bench --frappe-path=https://github.com/frappe/frappe
 
 WORKDIR /home/frappe/frappe-bench
 
-#RUN bench get-app --branch develop https://github.com/frappe/hrms
-#RUN bench get-app --branch develop https://github.com/frappe/erpnext
-RUN bench get-app --branch main https://github.com/saoxia/digitwise
-RUN bench get-app --branch version-15-beta https://github.com/saoxia/hrms
-RUN bench get-app --branch 15 https://github.com/saoxia/erpnext
-RUN bench get-app insights
+RUN bench get-app --branch develop https://github.com/frappe/erpnext
+RUN bench get-app --branch develop https://github.com/saoxia/erpnext_china
 
 COPY patch/user.json ./apps/frappe/frappe/core/doctype/user/user.json
 COPY patch/install_fixtures.py ./apps/frappe/frappe/desk/page/setup_wizard/install_fixtures.py
