@@ -4,6 +4,7 @@
  "file_watcher_port": 6787,
  "frappe_user": "frappe",
  "gunicorn_workers": 29,
+ "maintenance_mode": 0,
  "live_reload": true,
  "rebase_on_pull": false,
  "redis_cache": "redis://127.0.0.1:6379",
