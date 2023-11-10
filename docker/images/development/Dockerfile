@@ -113,6 +113,7 @@ COPY patches/frappe/install.py /home/frappe/frappe-bench/apps/frappe/frappe/util
 COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/about.js
 COPY patches/erpnext/install.py /home/frappe/frappe-bench/apps/erpnext/erpnext/setup/install.py
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
+COPY patches/erpnext/cn_saas_chart_of_accounts.json /home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/account/chart_of_accounts/verified/cn_saas_chart_of_accounts.json
 
 
 
