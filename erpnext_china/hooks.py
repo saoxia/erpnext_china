@@ -4,6 +4,7 @@ app_publisher = "Digitwise Ltd."
 app_description = "ERPNext中国本地化"
 app_email = "lingyu_li@foxmail.com"
 app_license = "mit"
+app_logo_url = "/assets/frappe/images/frappe-framework-logo.svg"
 # required_apps = []
 
 
