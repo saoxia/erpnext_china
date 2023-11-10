@@ -15,7 +15,7 @@ from erpnext.accounts.party import set_taxes
 from erpnext.controllers.selling_controller import SellingController
 from erpnext.crm.utils import CRMNote, copy_comments, link_communications, link_open_events
 
-from erpnext_china.erpnext_china.doctype.employee.employee import get_employee_tree
+from erpnext_china.erpnext_china.custom_form_script.employee.employee import get_employee_tree
 
 class Lead(SellingController, CRMNote):
 	def onload(self):
