@@ -114,7 +114,7 @@ COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public
 COPY patches/erpnext/install.py /home/frappe/frappe-bench/apps/erpnext/erpnext/setup/install.py
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
 COPY patches/erpnext/cn_saas_chart_of_accounts.json /home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/account/chart_of_accounts/verified/cn_saas_chart_of_accounts.json
-
+COPY patches/erpnext/cn_accounting_standards_for_business_enterprises.json /home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/account/chart_of_accounts/verified/cn_accounting_standards_for_business_enterprises.json
 
 
 FROM base as erpnext
