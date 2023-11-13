@@ -1,18 +1,6 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 import frappe
-from frappe import _, scrub, throw
-from frappe.model.naming import set_name_by_naming_series
-from frappe.permissions import (
-	add_user_permission,
-	get_doc_permissions,
-	has_permission,
-	remove_user_permission,
-)
-from frappe.utils import cstr, getdate, today, validate_email_address
-from frappe.utils.nestedset import NestedSet
-
-from erpnext.utilities.transaction_base import delete_events
 
 from datetime import datetime
 
