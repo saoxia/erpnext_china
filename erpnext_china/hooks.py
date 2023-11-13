@@ -18,7 +18,6 @@ override_whitelisted_methods = {
 override_doctype_class = {
     'Social Login Key':'erpnext_china.erpnext_china.custom_form_script.social_login_key.social_login_key.SocialLoginKey',
 	'Employee':'erpnext_china.erpnext_china.custom_form_script.employee.employee.CustomEmployee',
-	'Lead':'erpnext_china.erpnext_china.custom_form_script.lead.lead.Lead',
 }
 
 doctype_js = {
@@ -27,7 +26,7 @@ doctype_js = {
     'Quotation':'erpnext_china/custom_form_script/quotation/quotation.js',
 }
 permission_query_conditions = {
-    "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.lead.lead_has_query_permission",
+    "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.permission_lead.lead_has_query_permission",
     "Quotation": "erpnext_china.erpnext_china.custom_form_script.quotation.permission_quotation.quotation_has_query_permission",
-    "Opportunity": "erpnext_china.erpnext_china.custom_form_script.opportunity.permission_opportunity.opportunity_has_query_permission",  
+    "Opportunity": "erpnext_china.erpnext_china.custom_form_script.opportunity.permission_opportunity.opportunity_has_query_permission", 
 }
