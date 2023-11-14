@@ -19,7 +19,7 @@ V14：理论兼容，未测试
 
 首先，获取app
 ```sh
-$ bench get-app https://github.com/digitwise/erpnext_china.git
+$ bench get-app https://github.com/saoxia/erpnext_china.git
 ```
 
 然后，安装erpnext和erpnext_china
