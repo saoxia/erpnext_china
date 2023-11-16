@@ -21,7 +21,7 @@ class CustomEmployee(Employee):
 		self.validate_preferred_email()
 		
 		#定制
-		self.set_age()
+		# self.set_age()
 		self.set_gender()
 		self.set_date_of_birth()
 		self.set_city_of_birth()
