@@ -63,8 +63,8 @@ class CustomEmployee(Employee):
 	def set_city_of_birth(self):
 		id_card = self.custom_chinese_id_number
 		try:
-			with open((Path(__file__) / 'china_city_code.json'),'rb') as f:
-    			china_city_code_json = f.read()
+			with open((Path(__file__) / 'china_city_code.json'),'rb') as file:
+				china_city_code_json = file.read()
 			china_city_code_dict = json.loads(china_city_code_json)
 			self.custom_city_of_birth = china_city_code_dict[id_card[:6]]
 		except:
