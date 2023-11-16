@@ -21,7 +21,6 @@ class CustomEmployee(Employee):
 		self.validate_preferred_email()
 		
 		#定制
-		# self.set_age()
 		self.set_gender()
 		self.set_date_of_birth()
 		self.set_city_of_birth()
@@ -35,7 +34,6 @@ class CustomEmployee(Employee):
 
 
 
-	#def set_age(self):
 	#	id_card = self.custom_chinese_id_number
 	#	try:
 	#		days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
@@ -58,14 +56,13 @@ class CustomEmployee(Employee):
 			pass
 
 	def set_gender(self):
-		try:
+		if id_card:
 			gender_id = int(self.custom_chinese_id_number[-1])%2
 			if gender_id == 1:
 				self.gender = 'Female'
 			else:
 				self.gender = 'Male'
-		except:
-			pass
+
 
 	def set_city_of_birth(self):
 		id_card = self.custom_chinese_id_number
@@ -100,9 +97,6 @@ class CustomEmployee(Employee):
 
 		if self.gender:
 			user.gender = self.gender
-
-		#if self.custom_age:
-		#	user.custom_age = self.custom_age
 
 		if self.city_of_birth:
 			user.custom_city_of_birth = self.city_of_birth
