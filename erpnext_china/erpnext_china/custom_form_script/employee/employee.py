@@ -35,13 +35,19 @@ class CustomEmployee(Employee):
 
 
 
-	def set_age(self):
+	#def set_age(self):
+	#	id_card = self.custom_chinese_id_number
+	#	try:
+	#		days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
+	#		self.custom_age = int(days.days/365)
+	#	except:
+	#		pass
+
+	def custom_age(self):
 		id_card = self.custom_chinese_id_number
-		try:
+		if id_card:
 			days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
 			self.custom_age = int(days.days/365)
-		except:
-			pass
 
 	def set_date_of_birth(self):
 		id_card = self.custom_chinese_id_number
@@ -94,8 +100,8 @@ class CustomEmployee(Employee):
 		if self.gender:
 			user.gender = self.gender
 
-		if self.custom_age:
-			user.custom_age = self.custom_age
+		#if self.custom_age:
+		#	user.custom_age = self.custom_age
 
 		if self.city_of_birth:
 			user.custom_city_of_birth = self.city_of_birth

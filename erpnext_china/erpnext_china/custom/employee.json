@@ -1315,7 +1315,7 @@
    "in_standard_filter": 0,
    "insert_after": "custom_age",
    "is_system_generated": 0,
-   "is_virtual": 0,
+   "is_virtual": 1,
    "label": "City of Birth",
    "length": 0,
    "mandatory_depends_on": null,
