@@ -43,11 +43,12 @@ class CustomEmployee(Employee):
 	#	except:
 	#		pass
 
+	@property
 	def custom_age(self):
 		id_card = self.custom_chinese_id_number
 		if id_card:
 			days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
-			self.custom_age = int(days.days/365)
+			return  int(days.days/365)
 
 	def set_date_of_birth(self):
 		id_card = self.custom_chinese_id_number
