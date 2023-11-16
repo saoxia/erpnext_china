@@ -3,7 +3,7 @@
 import frappe
 from erpnext.setup.doctype.employee.employee import Employee
 from datetime import datetime
-
+import json
 
 class CustomEmployee(Employee):
 	def validate(self):
@@ -23,6 +23,7 @@ class CustomEmployee(Employee):
 		self.set_age()
 		self.set_gender()
 		self.set_date_of_birth()
+		self.set_city_of_birth()
 
 		if self.user_id:
 			self.validate_user_details()
@@ -58,6 +59,15 @@ class CustomEmployee(Employee):
 		except:
 			pass
 
+	def set_city_of_birth(self):
+		id_card = self.custom_chinese_id_number
+		try:
+			with open('china_city_code.json','rb') as f:
+    			china_city_code_json = f.read()
+			china_city_code_dict = json.loads(china_city_code_json)
+			self.city_of_birth = china_city_code_dict[id_card[:6]]
+		except:
+			pass
 
 
 	def update_user(self):
@@ -88,6 +98,8 @@ class CustomEmployee(Employee):
 		if self.custom_age:
 			user.custom_age = self.custom_age
 
+		if self.city_of_birth:
+			user.city_of_birth = self.city_of_birth
 
 		if self.image:
 			if not user.user_image:
