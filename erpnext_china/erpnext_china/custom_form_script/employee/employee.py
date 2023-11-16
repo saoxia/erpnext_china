@@ -65,7 +65,7 @@ class CustomEmployee(Employee):
 			with open('china_city_code.json','rb') as f:
     			china_city_code_json = f.read()
 			china_city_code_dict = json.loads(china_city_code_json)
-			self.city_of_birth = china_city_code_dict[id_card[:6]]
+			self.custom_city_of_birth = china_city_code_dict[id_card[:6]]
 		except:
 			pass
 
@@ -99,7 +99,7 @@ class CustomEmployee(Employee):
 			user.custom_age = self.custom_age
 
 		if self.city_of_birth:
-			user.city_of_birth = self.city_of_birth
+			user.custom_city_of_birth = self.city_of_birth
 
 		if self.image:
 			if not user.user_image:
