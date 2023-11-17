@@ -32,15 +32,6 @@ class CustomEmployee(Employee):
 			if existing_user_id:
 				remove_user_permission("Employee", self.name, existing_user_id)
 
-
-
-	#	id_card = self.custom_chinese_id_number
-	#	try:
-	#		days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
-	#		self.custom_age = int(days.days/365)
-	#	except:
-	#		pass
-
 	@property
 	def custom_age(self):
 		id_card = self.custom_chinese_id_number
@@ -56,6 +47,7 @@ class CustomEmployee(Employee):
 			pass
 
 	def set_gender(self):
+		id_card = self.custom_chinese_id_number
 		if id_card:
 			gender_id = int(self.custom_chinese_id_number[-1])%2
 			if gender_id == 1:
