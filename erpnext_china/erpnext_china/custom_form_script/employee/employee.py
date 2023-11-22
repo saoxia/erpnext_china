@@ -95,7 +95,7 @@ class CustomEmployee(Employee):
 			user.gender = self.gender
 
 		if self.city_of_birth:
-			user.custom_city_of_birth = self.city_of_birth
+			user.custom_city_of_birth = self.custom_city_of_birth
 
 		if self.image:
 			if not user.user_image:
