@@ -62,8 +62,8 @@ class CustomEmployee(Employee):
 			with open((Path(__file__).parent / 'china_city_code.json'),'rb') as file:
 				china_city_code_json = file.read()
 			china_city_code_dict = json.loads(china_city_code_json)
-			city_of_birth = china_city_code_dict[id_card[:6]]
-			self.custom_city_of_birth = city_of_birth
+
+			self.custom_city_of_birth = china_city_code_dict[id_card[:6]]
 
 
 	def update_user(self):
