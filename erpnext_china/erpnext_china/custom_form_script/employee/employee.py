@@ -62,55 +62,7 @@ class CustomEmployee(Employee):
 			with open((Path(__file__).parent / 'china_city_code.json'),'rb') as file:
 				china_city_code_json = file.read()
 			china_city_code_dict = json.loads(china_city_code_json)
-
-			self.city_of_birth = china_city_code_dict[id_card[:6]]
-
-
-	def update_user(self):
-		# add employee role if missing
-		user = frappe.get_doc("User", self.user_id)
-		user.flags.ignore_permissions = True
-
-		if "Employee" not in user.get("roles"):
-			user.append_roles("Employee")
-
-		# copy details like Fullname, DOB and Image to User
-		if self.employee_name and not (user.first_name and user.last_name):
-			employee_name = self.employee_name.split(" ")
-			if len(employee_name) >= 3:
-				user.last_name = " ".join(employee_name[2:])
-				user.middle_name = employee_name[1]
-			elif len(employee_name) == 2:
-				user.last_name = employee_name[1]
-
-			user.first_name = employee_name[0]
-
-		if self.date_of_birth:
-			user.birth_date = self.date_of_birth
-
-		if self.gender:
-			user.gender = self.gender
-
-		if self.city_of_birth:
-			user.custom_city_of_birth = self.city_of_birth
-
-		if self.image:
-			if not user.user_image:
-				user.user_image = self.image
-				try:
-					frappe.get_doc(
-						{
-							"doctype": "File",
-							"file_url": self.image,
-							"attached_to_doctype": "User",
-							"attached_to_name": self.user_id,
-						}
-					).insert(ignore_if_duplicate=True)
-				except frappe.DuplicateEntryError:
-					# already exists
-					pass
-
-		user.save()
+			self.custom_city_of_birth = china_city_code_dict[id_card[:6]]
 
 
 @frappe.whitelist()
