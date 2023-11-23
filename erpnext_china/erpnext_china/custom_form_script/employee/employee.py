@@ -63,7 +63,7 @@ class CustomEmployee(Employee):
 				china_city_code_json = file.read()
 			china_city_code_dict = json.loads(china_city_code_json)
 
-			self.custom_city_of_birth = china_city_code_dict[id_card[:6]]
+			self.city_of_birth = china_city_code_dict[id_card[:6]]
 
 
 	def update_user(self):
@@ -91,8 +91,8 @@ class CustomEmployee(Employee):
 		if self.gender:
 			user.gender = self.gender
 
-		if self.custom_city_of_birth:
-			user.custom_city_of_birth = self.custom_city_of_birth
+		if self.city_of_birth:
+			user.custom_city_of_birth = self.city_of_birth
 
 		if self.image:
 			if not user.user_image:
