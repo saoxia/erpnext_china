@@ -49,7 +49,7 @@ class CustomEmployee(Employee):
 	def set_gender(self):
 		id_card = self.custom_chinese_id_number
 		if id_card:
-			gender_id = int(self.custom_chinese_id_number[-1])%2
+			gender_id = int(self.custom_chinese_id_number[-2])%2
 			if gender_id == 1:
 				self.gender = 'Female'
 			else:
