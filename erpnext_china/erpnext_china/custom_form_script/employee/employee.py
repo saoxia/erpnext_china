@@ -51,9 +51,9 @@ class CustomEmployee(Employee):
 		if id_card:
 			gender_id = int(self.custom_chinese_id_number[-2])%2
 			if gender_id == 1:
-				self.gender = 'Female'
-			else:
 				self.gender = 'Male'
+			else:
+				self.gender = 'Female'
 
 
 	def set_city_of_birth(self):
