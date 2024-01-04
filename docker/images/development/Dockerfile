@@ -100,8 +100,6 @@ RUN bench init \
   /home/frappe/frappe-bench && \
   cd /home/frappe/frappe-bench && \
   bench get-app --branch=${ERPNEXT_BRANCH} ${ERPNEXT_REPO} && \
-  bench get-app --branch version-15 https://github.com/frappe/hrms && \
-  bench get-app --branch master https://github.com/frappe/wiki && \
   bench get-app --branch develop https://github.com/saoxia/erpnext_china
 
 COPY patches/frappe/login.html /home/frappe/frappe-bench/apps/frappe/frappe/www/login.html
