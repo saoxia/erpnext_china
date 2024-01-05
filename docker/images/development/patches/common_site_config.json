@@ -13,7 +13,7 @@
  "restart_supervisor_on_update": false,
  "restart_systemd_on_update": false,
  "serve_default_site": true,
- "shallow_clone": true,
+ "shallow_clone": flase,
  "socketio_port": 9005,
  "use_redis_auth": false,
  "http_port": 80,
