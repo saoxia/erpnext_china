@@ -102,13 +102,11 @@ RUN bench init \
   bench get-app --branch=${ERPNEXT_BRANCH} ${ERPNEXT_REPO} && \
   bench get-app --branch develop https://github.com/saoxia/erpnext_china
 
-COPY patches/frappe/login.html /home/frappe/frappe-bench/apps/frappe/frappe/www/login.html
-COPY patches/frappe/login.py /home/frappe/frappe-bench/apps/frappe/frappe/www/login.py
+
 COPY patches/frappe/install_fixtures.py /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/install_fixtures.py
 COPY patches/frappe/setup_wizard.js /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.js
 COPY patches/frappe/setup_wizard.py /home/frappe/frappe-bench/apps/frappe/frappe/desk/page/setup_wizard/setup_wizard.py
 COPY patches/frappe/install.py /home/frappe/frappe-bench/apps/frappe/frappe/utils/install.py
-COPY patches/frappe/about.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/about.js
 COPY patches/erpnext/install.py /home/frappe/frappe-bench/apps/erpnext/erpnext/setup/install.py
 COPY patches/common_site_config.json /home/frappe/frappe-bench/sites/common_site_config.json
 COPY patches/erpnext/cn_saas_chart_of_accounts.json /home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/account/chart_of_accounts/verified/cn_saas_chart_of_accounts.json
