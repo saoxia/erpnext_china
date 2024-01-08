@@ -892,9 +892,9 @@
     "modified": "2024-01-06 15:05:48.732255",
     "modified_by": "Administrator",
     "module": null,
-    "name": "Employee-gender-mandatory",
+    "name": "Employee-gender-reqd",
     "owner": "Administrator",
-    "property": "mandatory",
+    "property": "reqd",
     "property_type": "Check",
     "row_name": null,
     "value": "0"
@@ -915,9 +915,9 @@
     "modified": "2024-01-06 15:05:48.732255",
     "modified_by": "Administrator",
     "module": null,
-    "name": "Employee-date_of_birth-mandatory",
+    "name": "Employee-date_of_birth-reqd",
     "owner": "Administrator",
-    "property": "mandatory",
+    "property": "reqd",
     "property_type": "Check",
     "row_name": null,
     "value": "0"
