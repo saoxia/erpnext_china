@@ -2,7 +2,7 @@
 // License: GNU General Public License v3. See license.txt
 
 frappe.ui.form.on('Sales Order', {
-	refresh(frm) {
+	onload(frm) {
 		// your code here
 		frm.fields_dict['items'].grid.get_field('uom').get_query = function(doc, cdt, cdn){
 			var row = locals[cdt][cdn];
