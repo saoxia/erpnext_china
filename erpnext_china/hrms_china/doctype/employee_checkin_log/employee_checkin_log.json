@@ -93,7 +93,7 @@
  "links": [],
  "modified": "2024-01-09 15:52:43.703688",
  "modified_by": "Administrator",
- "module": "mdm",
+ "module": "hrms_china",
  "name": "Employee Checkin Log",
  "naming_rule": "Expression",
  "owner": "Administrator",
