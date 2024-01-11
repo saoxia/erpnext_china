@@ -1,0 +1,128 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-09 16:13:11.178174",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "start_time",
+  "end_time",
+  "column_break_shah",
+  "holiday_list",
+  "enable_auto_attendance",
+  "auto_attendance_settings_section",
+  "begin_check_in_before_shift_start_time_in_minutes",
+  "begin_check_in_after_shift_start_time_in_minutes",
+  "begin_late_after_shift_start_time_in_minutes_sec",
+  "column_break_expr",
+  "allow_check_out_after_shift_end_time_in_minutes",
+  "allow_check_out_before_shift_end_time_in_minutes",
+  "minimum_interval_between_shifts_in_minutes"
+ ],
+ "fields": [
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Start Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "End Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_shah",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "auto_attendance_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Auto Attendance Settings"
+  },
+  {
+   "default": "60",
+   "fieldname": "begin_check_in_before_shift_start_time_in_minutes",
+   "fieldtype": "Int",
+   "label": "Begin check in before shift start time (in minutes)"
+  },
+  {
+   "default": "60",
+   "fieldname": "allow_check_out_after_shift_end_time_in_minutes",
+   "fieldtype": "Int",
+   "label": "Allow check out after shift end time (in minutes)"
+  },
+  {
+   "fieldname": "column_break_expr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "30",
+   "description": "\u8bf4\u660e\uff1a\u8f93\u5165\u4e3a0\u7981\u7528",
+   "fieldname": "begin_check_in_after_shift_start_time_in_minutes",
+   "fieldtype": "Int",
+   "label": "Begin check in after shift start time (in minutes)"
+  },
+  {
+   "default": "0",
+   "description": "\u8bf4\u660e\uff1a\u8f93\u5165\u4e3a0\u7981\u7528",
+   "fieldname": "begin_late_after_shift_start_time_in_minutes_sec",
+   "fieldtype": "Int",
+   "label": "Begin late after shift start time (in minutes) sec "
+  },
+  {
+   "default": "30",
+   "description": "\u8bf4\u660e\uff1a\u8f93\u5165\u4e3a0\u7981\u7528",
+   "fieldname": "allow_check_out_before_shift_end_time_in_minutes",
+   "fieldtype": "Int",
+   "label": "Allow check out before shift end time (in minutes)"
+  },
+  {
+   "default": "60",
+   "description": "\u8bf4\u660e\uff1a\u8f93\u5165\u4e3a0\u7981\u7528",
+   "fieldname": "minimum_interval_between_shifts_in_minutes",
+   "fieldtype": "Int",
+   "label": "Minimum interval between shifts (in minutes)"
+  },
+  {
+   "fieldname": "holiday_list",
+   "fieldtype": "Link",
+   "label": "Holiday List",
+   "options": "Holiday List"
+  },
+  {
+   "default": "0",
+   "description": "Mark attendance based on 'Employee Checkin' for Employees assigned to this shift.",
+   "fieldname": "enable_auto_attendance",
+   "fieldtype": "Check",
+   "label": "Enable Auto Attendance"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-09 17:38:35.562913",
+ "modified_by": "Administrator",
+ "module": "mdm",
+ "name": "Attendance Shift Type",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

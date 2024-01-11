@@ -1,0 +1,118 @@
+{
+ "actions": [],
+ "autoname": "format:EMP-CKIN-{YYYY}-{MM}-{######}",
+ "creation": "2024-01-09 14:22:53.465378",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "log_type",
+  "column_break_fmyu",
+  "checkin_time",
+  "location_or_device_id",
+  "address",
+  "longitude",
+  "latitude",
+  "image",
+  "explanation"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fmyu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "log_type",
+   "fieldtype": "Select",
+   "label": "Log Type",
+   "options": "内勤-考勤机\n外勤-手机定位\n手动添加",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.log_type=='内勤-考勤机'",
+   "fieldname": "location_or_device_id",
+   "fieldtype": "Data",
+   "label": "Location or Device ID"
+  },
+  {
+   "depends_on": "eval:doc.log_type=='外勤-手机定位'",
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "depends_on": "eval:doc.log_type=='外勤-手机定位'",
+   "fieldname": "longitude",
+   "fieldtype": "Data",
+   "label": "Longitude"
+  },
+  {
+   "depends_on": "eval:doc.log_type=='外勤-手机定位'",
+   "fieldname": "latitude",
+   "fieldtype": "Data",
+   "label": "Latitude"
+  },
+  {
+   "depends_on": "eval:doc.log_type=='外勤-手机定位'",
+   "fieldname": "image",
+   "fieldtype": "Image",
+   "label": "Image"
+  },
+  {
+   "depends_on": "eval:doc.log_type=='手动添加'",
+   "fieldname": "explanation",
+   "fieldtype": "Small Text",
+   "label": "Explanation"
+  },
+  {
+   "default": "Now",
+   "fieldname": "checkin_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Checkin Time",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-09 15:52:43.703688",
+ "modified_by": "Administrator",
+ "module": "mdm",
+ "name": "Employee Checkin Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
