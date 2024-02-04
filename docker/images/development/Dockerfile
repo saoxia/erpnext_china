@@ -39,7 +39,7 @@ RUN useradd -ms /bin/bash frappe \
     jq \
     # NodeJS
     && mkdir -p ${NVM_DIR} \
-    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash \
+    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
     && . ${NVM_DIR}/nvm.sh \
     && nvm install ${NODE_VERSION} \
     && nvm use v${NODE_VERSION} \
@@ -123,5 +123,6 @@ USER frappe
 COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
 
 WORKDIR /home/frappe/frappe-bench
-
-CMD ["/bin/bash"]
+COPY patches/bench_start.sh /home/frappe/frappe-bench/bench_start.sh
+EXPOSE 8000-8005 9000-9005 6787 22222 443 80
+CMD ["sh /home/frappe/frappe-bench/bench_start.sh"]
