@@ -125,4 +125,4 @@ COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe
 WORKDIR /home/frappe/frappe-bench
 COPY patches/bench_start.sh /home/frappe/frappe-bench/bench_start.sh
 EXPOSE 8000-8005 9000-9005 6787 22222 443 80
-CMD ["sh /home/frappe/frappe-bench/bench_start.sh"]
+CMD ["/bin/bash"]
