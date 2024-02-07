@@ -1,0 +1,127 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}}]",
+ "creation": "2024-02-07 15:00:10.122539",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "share",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "HRMS",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5458\u5de5",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5458\u5de5",
+   "link_count": 0,
+   "link_to": "Employee",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u90e8\u95e8",
+   "link_count": 0,
+   "link_to": "Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u804c\u4f4d",
+   "link_count": 0,
+   "link_to": "Designation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5206\u652f\u673a\u6784\uff08\u5206\u516c\u53f8\uff09",
+   "link_count": 0,
+   "link_to": "Branch",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8282\u5047\u65e5",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5047\u671f\u5217\u8868",
+   "link_count": 0,
+   "link_to": "Holiday List",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u7b7e\u5230\u8bb0\u5f55",
+   "link_count": 0,
+   "link_to": "Employee Checkin Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u73ed\u522b",
+   "link_count": 0,
+   "link_to": "Attendance Shift Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-02-07 15:39:36.521221",
+ "modified_by": "Administrator",
+ "module": "hrms_china",
+ "name": "HRMS",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 15.0,
+ "shortcuts": [],
+ "title": "HRMS"
+}
