@@ -1,6 +1,6 @@
 import frappe
 
-from erpnext_china.erpnext_china.custom_form_script.employee.employee import get_employee_tree
+from erpnext_china.hrms_china.custom_form_script.employee.employee import get_employee_tree
 
 def quotation_has_query_permission(user):
 	users = get_employee_tree(parent=user)
