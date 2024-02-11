@@ -11,6 +11,13 @@
  ],
  "fields": [
   {
+    "description": "Leave empty means for all DocTypes",
+    "fieldname": "applied_to_doctype",
+    "fieldtype": "Link",
+    "label": "Applied To DocType",
+    "options": "DocType"
+  },
+  {
    "fieldname": "button_permission_check_doctype",
    "fieldtype": "Table",
    "label": "Button Permission Check Doctype",
@@ -19,18 +26,11 @@
   {
    "fieldname": "section_break_mxei",
    "fieldtype": "Section Break"
-  },
-  {
-   "description": "Leave empty means for all DocTypes",
-   "fieldname": "applied_to_doctype",
-   "fieldtype": "Table",
-   "label": "Applied To DocType",
-   "options": "Button Permission Applied To DocType"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-11 21:03:27.844638",
+ "modified": "2024-02-11 23:03:27.844638",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Button Permission",
