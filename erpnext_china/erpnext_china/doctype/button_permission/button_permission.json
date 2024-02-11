@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-11 20:42:56.170453",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "button_permission_check_doctype",
+  "section_break_mxei",
+  "applied_to_doctype"
+ ],
+ "fields": [
+  {
+   "fieldname": "button_permission_check_doctype",
+   "fieldtype": "Table",
+   "label": "Button Permission Check Doctype",
+   "options": "Button Permission Check Doctype"
+  },
+  {
+   "fieldname": "section_break_mxei",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Leave empty means for all DocTypes",
+   "fieldname": "applied_to_doctype",
+   "fieldtype": "Table",
+   "label": "Applied To DocType",
+   "options": "Button Permission Applied To DocType"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-11 21:03:27.844638",
+ "modified_by": "Administrator",
+ "module": "ERPNext China",
+ "name": "Button Permission",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
