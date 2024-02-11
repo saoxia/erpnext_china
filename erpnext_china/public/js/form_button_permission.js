@@ -11,9 +11,11 @@ const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 
 
 		frappe.call({
-			'method': "erpnext_china.api.get_button_permission",
+			'method': "erpnext_china.erpnext_china.doctype.button_permission.button_permission.get_button_permission",
 			'args': {
-				'doctype':doctype_name,
+				'doctype':doctype,
+				'args':{'doctype':doctype
+			},
 				'label':__('Update Items')
 			},
 			'callback': function(r){
