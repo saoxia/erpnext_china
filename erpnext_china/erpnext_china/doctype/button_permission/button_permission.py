@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 # import frappe
+import frappe
 from frappe.model.document import Document
 from frappe.modules.import_file import get_file_path
 
@@ -21,6 +22,6 @@ def get_standard_permissions(doctype):
 		return read_doc_from_file(path).get("permissions")
 
 @frappe.whitelist()
-def get_button_permission(doctype):
+def get_button_permission(doctype,label):
 	r = get_standard_permissions(doctype)
 	return 'a'
