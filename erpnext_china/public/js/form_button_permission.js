@@ -1,19 +1,13 @@
 const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 	add_custom_button(label, fn, group) {
-		let doctype = this.doctype;
-		let groups = {
-			'创建':['更新项目']
-		};
-	
-		//let labels = groups[group];
-		let labels = [__('Update Items')];
-		
-
-
+		if (typeof group === 'undefined') {
+			group = null;
+		}
 		frappe.call({
 			'method': "erpnext_china.erpnext_china.doctype.button_permission.button_permission.get_button_permission",
 			'args': {'doctype':doctype,
-					'label':__('Update Items')
+					'label':label,
+					'group':group
 			},
 			'callback': function(r){
 				console.log(r.message)
@@ -22,7 +16,7 @@ const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 		});
 		
 
-		if (labels.includes(label)) {
+		if (label === label) {
 		 	
 			// temp! old parameter used to be icon
 			if (group && group.indexOf("fa fa-") !== -1) group = null;

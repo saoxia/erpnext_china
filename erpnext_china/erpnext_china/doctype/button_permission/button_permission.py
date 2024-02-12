@@ -25,14 +25,12 @@ def get_standard_permissions(doctype):
 		return read_doc_from_file(path).get("permissions")
 
 @frappe.whitelist()
-def get_button_permission(doctype,label):
+def get_button_permission(doctype,label,group):
 	# 获取当前按钮所限制的权限
+    cols = ['parent','label','group','doctype_name','level','read','write','create','select','delete_','print','email','report','import','export','share','amend','cancel','submit']
+    button_permission_df = pd.DataFrame(frappe.db.get_all('Button Permission Check Doctype',{},cols))
 
-
-
-
-
-	base_role = {'role' : '',
+    base_role = {'role' : '',
 		'permlevel' : 0,
 		'read' : 0,
 		'write' : 0,
@@ -48,16 +46,12 @@ def get_button_permission(doctype,label):
 		'amend' : 0,
 		'cancel' : 0,
 		'submit' : 0}
-	cols = ['read','write','create','select','delete','print','email','report','import','export','share','amend','cancel','submit']
-	# 获取doctype配置了权限的角色及具体权限
-	df = pd.DataFrame(get_standard_permissions(doctype))
-	df.permlevel = df.permlevel.fillna(0) # level值为nan的填充为0
-	# 获取当前用户的角色列表
-	roles = get_roles(frappe.session.user)
-	df = df[df.role.isin(roles)] # 筛选出用户具备的角色和权限
-	df_group = df.groupby('permlevel').sum() # 汇总为level级的权限
-	df_group = (df_group[cols]>0)*1
-	
-	
-
-	return 'iaa'
+    # 获取doctype配置了权限的角色及具体权限
+    df = pd.DataFrame(get_standard_permissions(doctype))
+    df.permlevel = df.permlevel.fillna(0) # level值为nan的填充为0
+    # 获取当前用户的角色列表
+    roles = get_roles(frappe.session.user)
+    df = df[df.role.isin(roles)] # 筛选出用户具备的角色和权限
+    df_group = df.groupby('permlevel').sum() # 汇总为level级的权限
+    #df_group = (df_group[cols]>0)*1
+    return 'iaa'
