@@ -1,22 +1,14 @@
 const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 	add_custom_button(label, fn, group) {
-		if (typeof group === 'undefined') {
-			group = null;
+		const button_perms = frappe.button_perms;
+                
+		if (this.doctype in frappe.button_perms) {
+			console.log('----------------')
+		} else {
+			console.log('++++++++++++++++')
 		}
-		frappe.call({
-			'method': "erpnext_china.erpnext_china.doctype.button_permission.button_permission.get_button_permission",
-			'args': {'doctype':doctype,
-					'label':label,
-					'group':group
-			},
-			'callback': function(r){
-				console.log(r.message)
-			}
-		
-		});
-		
 
-		if (label === label) {
+		if ('1'==='1') {
 		 	
 			// temp! old parameter used to be icon
 			if (group && group.indexOf("fa fa-") !== -1) group = null;
