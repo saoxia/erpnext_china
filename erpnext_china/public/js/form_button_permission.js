@@ -1,6 +1,6 @@
 const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 	add_custom_button(label, fn, group) {
-		let doctype_name = this.doctype;
+		let doctype = this.doctype;
 		let groups = {
 			'创建':['更新项目']
 		};
@@ -12,11 +12,8 @@ const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 
 		frappe.call({
 			'method': "erpnext_china.erpnext_china.doctype.button_permission.button_permission.get_button_permission",
-			'args': {
-				'doctype':doctype,
-				'args':{'doctype':doctype
-			},
-				'label':__('Update Items')
+			'args': {'doctype':doctype
+					'label':__('Update Items')
 			},
 			'callback': function(r){
 				console.log(r.message)

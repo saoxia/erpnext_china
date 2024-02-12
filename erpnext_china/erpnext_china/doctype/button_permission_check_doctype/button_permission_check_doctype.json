@@ -21,7 +21,10 @@
   "report",
   "import",
   "export",
-  "share"
+  "share",
+  "amend",
+  "cancel",
+  "submit"
  ],
  "fields": [
   {
@@ -132,7 +135,25 @@
    "fieldname": "share",
    "fieldtype": "Check",
    "label": "Share"
-  }
+  },
+  {
+    "default": "0",
+    "fieldname": "amend",
+    "fieldtype": "Check",
+    "label": "Anebd"
+   },
+   {
+    "default": "0",
+    "fieldname": "cancel",
+    "fieldtype": "Check",
+    "label": "Cancel"
+   },
+   {
+    "default": "0",
+    "fieldname": "submit",
+    "fieldtype": "Check",
+    "label": "Submit"
+   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,

@@ -1,13 +1,14 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname" : "field:applied_to_doctype",
  "creation": "2024-02-11 20:42:56.170453",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "applied_to_doctype",
   "button_permission_check_doctype",
-  "section_break_mxei",
-  "applied_to_doctype"
+  "section_break_mxei"
  ],
  "fields": [
   {
@@ -15,7 +16,8 @@
     "fieldname": "applied_to_doctype",
     "fieldtype": "Link",
     "label": "Applied To DocType",
-    "options": "DocType"
+    "options": "DocType",
+    "unique": 1 
   },
   {
    "fieldname": "button_permission_check_doctype",
@@ -30,10 +32,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-11 23:03:27.844638",
+ "modified": "2024-02-11 23:13:27.844638",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Button Permission",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
