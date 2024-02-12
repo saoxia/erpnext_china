@@ -2,7 +2,7 @@ const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 	add_custom_button(label, fn, group) {
 		const button_perms = frappe.button_perms;
                 
-		if (this.doctype in frappe.button_perms) {
+		if (this.doctype in button_perms) {
 			console.log('----------------')
 		} else {
 			console.log('++++++++++++++++')
