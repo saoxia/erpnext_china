@@ -11,7 +11,7 @@ $(document).on('app_ready', function() {
 					// 将字典转换为字符串
 					var button_perms_jsonString = JSON.stringify(button_perms);
 					// 使用localStorage存储字符串
-					localStorage.setItem('button_perms_jsonString', jsonString);
+					localStorage.setItem('button_perms_jsonString', button_perms_jsonString);
 				}
 			}
 		});
