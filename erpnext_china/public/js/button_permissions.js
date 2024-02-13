@@ -1,5 +1,5 @@
 $(document).on('app_ready', function() {
-	if (document.referrer.endsWith("/login")) {
+	if (/\/login\/.*/.test(document.referrer)) {
 		frappe.call({
 			'method': "erpnext_china.erpnext_china.doctype.button_permission.button_permission.get_button_permission",
 			'callback': function(response) {
