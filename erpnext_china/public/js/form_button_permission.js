@@ -1,7 +1,14 @@
 const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
-	add_custom_button(label, fn, group) {
-		const button_perms = frappe.button_perms;
+	add_custom_button(label, fn, group) {		
+		// const button_perms = frappe.button_perms;
+
 		
+		// 从localStorage中获取存储的字符串
+		var storedJsonString = localStorage.getItem('button_perms_jsonString');
+		// 将存储的字符串转换回字典
+		var button_perms = JSON.parse(storedJsonString);
+
+
 		if (this.doctype in button_perms) {
 			if (!(button_perms[this.doctype]['label_info'].includes((label+'__'+group).replace('undefined','')))) {
 				// temp! old parameter used to be icon
