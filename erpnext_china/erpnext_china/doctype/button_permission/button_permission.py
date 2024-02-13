@@ -49,7 +49,12 @@ def get_button_permission():
             perms_ = row[row==1].index.to_list()
             if False not in np.isin(has_perms,perms_):
                 r = True
-        return r,(_(array['label']),_(array['group']))
+            
+        if _(array['group']) == None:
+            r2 = _(array['label']) + '__'
+        else:
+            r2 = _(array['label']) + '__' +_(array['group'])
+        return r,r2
     button_perms_df[['has_perm','label_info']] = button_perms_df.apply(check_perms,axis=1,result_type='expand')
     # 筛选出没有权限lebels
     no_perms = button_perms_df[['parent','label_info']][~button_perms_df['has_perm']]
