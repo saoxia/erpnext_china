@@ -8,6 +8,7 @@
 3. 区域列表自动添加完整的中国三级行政区划；
 4. 第三方社交账号登录功能中添加使用企业微信登录的支持，[配置说明](.github/doc/企业微信登录配置说明.md)；
 5. 对workspace中不支持zh.csv文件汉化的位置，如Your Shortcuts、Report&Master等进行汉化；人工翻译优化官方的机器翻译；
+6. 添加对表单上方按钮的配置能力（通过doctype: button permission控制）；
 
 
 #### 版本兼容性
