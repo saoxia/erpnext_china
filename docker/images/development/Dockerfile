@@ -3,7 +3,6 @@ ARG DEBIAN_BASE=bookworm
 FROM python:${PYTHON_VERSION}-slim-${DEBIAN_BASE} AS base
 
 # 修改send_response_only函数http编码为utf-8
-COPY patches/server.py /usr/local/lib/python3.11/http/server.py
 RUN chmod -R 777 /usr/local/lib/python3.11/http/server.py
 
 ARG WKHTMLTOPDF_VERSION=0.12.6.1-3
