@@ -3,11 +3,10 @@ ARG DEBIAN_BASE=bookworm
 FROM python:${PYTHON_VERSION}-slim-${DEBIAN_BASE} AS base
 
 # 修改send_response_only函数http编码为utf-8
-RUN chmod -R 777 /usr/local/lib/python3.11/http/server.py
 
 ARG WKHTMLTOPDF_VERSION=0.12.6.1-3
 ARG WKHTMLTOPDF_DISTRO=bookworm
-ARG NODE_VERSION=18.18.2
+ARG NODE_VERSION=20.11.1
 ENV NVM_DIR=/home/frappe/.nvm
 ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH}
 
