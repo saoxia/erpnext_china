@@ -140,7 +140,7 @@
     "default": "0",
     "fieldname": "amend",
     "fieldtype": "Check",
-    "label": "Anebd"
+    "label": "amend"
    },
    {
     "default": "0",
