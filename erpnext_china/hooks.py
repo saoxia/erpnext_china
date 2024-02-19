@@ -24,7 +24,6 @@ override_doctype_class = {
 }
 
 doctype_js = {
-    'Lead':'erpnext_china/custom_form_script/lead/lead.js',
     'Opportunity':'erpnext_china/custom_form_script/opportunity/opportunity.js',
     'Quotation':'erpnext_china/custom_form_script/quotation/quotation.js',
     'Sales Order':'erpnext_china/custom_form_script/sales_order/sales_order.js',
