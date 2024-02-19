@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo Bi12345678! | sudo -S service nginx restart
-sudo service ssh restart
+echo Bi12345678! | sudo service ssh restart
 nohup node /home/frappe/frappe-bench/apps/frappe/socketio.js &
 /home/frappe/frappe-bench/env/bin/gunicorn \
   --chdir=/home/frappe/frappe-bench/sites \

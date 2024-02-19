@@ -1,5 +1,5 @@
 {
- "background_workers": 3,
+ "background_workers": 8,
  "developer_mode": true,
  "file_watcher_port": 6787,
  "frappe_user": "frappe",
@@ -14,7 +14,7 @@
  "restart_systemd_on_update": false,
  "serve_default_site": true,
  "shallow_clone": false,
- "socketio_port": 9005,
+ "socketio_port": 9000,
  "use_redis_auth": false,
  "http_port": 80,
  "webserver_port": 80,
