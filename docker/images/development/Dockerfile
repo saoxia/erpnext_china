@@ -32,6 +32,7 @@ RUN useradd -ms /bin/bash frappe \
     postgresql-client \
     # For healthcheck
     wait-for-it \
+    supervisord \
     jq \
     # NodeJS
     && mkdir -p ${NVM_DIR} \
