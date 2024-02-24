@@ -30,6 +30,8 @@ RUN useradd -ms /bin/bash frappe \
     # Postgres
     libpq-dev \
     postgresql-client \
+    redis-server \
+    redis-tools \
     # For healthcheck
     wait-for-it \
     supervisor \
