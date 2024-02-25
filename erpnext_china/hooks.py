@@ -17,7 +17,7 @@ app_include_css = "business.bundle.css"
 override_whitelisted_methods = {
 	# Legacy (& Consistency) OAuth2 APIs
 	#"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",
-    "frappe.core.doctype.user.user.switch_theme": "erpnext_china.overrides.user.user.switch_theme"
+    "frappe.core.doctype.user.user.switch_theme": "erpnext_china.erpnext_china.overrides.user.user.switch_theme"
 }
 
 override_doctype_class = {
