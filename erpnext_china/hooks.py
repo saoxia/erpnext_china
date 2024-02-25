@@ -11,11 +11,13 @@ app_logo_url = "/assets/erpnext/images/erpnext-logo.svg"
 after_install = "erpnext_china.setup.after_install.operations.install_fixtures.install"
 
 
-app_include_js = ["erpnext_china.bundle.js"]
+app_include_js = ["erpnext_china.bundle.js","business.bundle.js"]
+app_include_css = "business.bundle.css"
 
 override_whitelisted_methods = {
 	# Legacy (& Consistency) OAuth2 APIs
 	#"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",
+    "frappe.core.doctype.user.user.switch_theme": "erpnext_china.overrides.user.user.switch_theme"
 }
 
 override_doctype_class = {

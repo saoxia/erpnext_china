@@ -1,0 +1,20 @@
+
+[data-theme="business"] {
+
+:root {
+    --background-color: #36414c;
+    --primary-color: #ffa00a;
+    --secondary-color: #7574ff;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --gray-color: #888;
+
+    --page-head-height: 50px;
+    --navbar-height: 50px;
+    }
+    
+/* Heading Color */
+.head-title, .form-section .section-head, .form-dashboard-section .section-head, .comment-box .comment-input-header{
+    color: var(--primary-color);
+    }
+}
