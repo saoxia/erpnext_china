@@ -3,6 +3,16 @@
     --white: #F3F5F9;
     
     --navbar-bg: var(--blue);
+    --icon-stroke: 
     --bg-color: var(--white);
+    
+    .widget.links-widget-box {
+        border: 1px solid var(--white);
+    }
+    .widget.spacer {
+        background: var(--white);
+        padding: 1px;
+        max-height: 1px;
+    }
     color-scheme: light;
 }
