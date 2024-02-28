@@ -1,15 +1,16 @@
 [data-theme="business"] {
     --blue: #36414c;
     --white: #F3F5F9;
-    
+    --bg_white: EDEDED;
+
     --navbar-bg: var(--blue);
     --bg-color: var(--white);
     
     .widget.links-widget-box {
-        border: 1px solid var(--white);
+        border: 1px solid var(--bg_white);
     }
     .widget.spacer {
-        background: var(--white);
+        background: var(--bg_white);
         padding: 1px;
         max-height: 1px;
     }
