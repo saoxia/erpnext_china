@@ -34,5 +34,12 @@ permission_query_conditions = {
     "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.permission_lead.lead_has_query_permission",
     "Quotation": "erpnext_china.erpnext_china.custom_form_script.quotation.permission_quotation.quotation_has_query_permission",
     "Opportunity": "erpnext_china.erpnext_china.custom_form_script.opportunity.permission_opportunity.opportunity_has_query_permission",
-    "Sales Order": "erpnext_china.erpnext_china.custom_form_script.sales_order.permission_sales_order.sales_order_has_query_permission", 
+    "Sales Order": "erpnext_china.erpnext_china.custom_form_script.sales_order.permission_sales_order.has_query_permission", 
+}
+
+has_permission = {
+    "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.permission_lead.has_permission",
+    "Quotation": "erpnext_china.erpnext_china.custom_form_script.quotation.permission_quotation.has_permission",
+    "Opportunity": "erpnext_china.erpnext_china.custom_form_script.opportunity.permission_opportunity.has_permission",
+	"Sales Order": "erpnext_china.erpnext_china.custom_form_script.sales_order.permission_sales_order.has_permission", 
 }
