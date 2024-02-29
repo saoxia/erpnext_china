@@ -31,7 +31,6 @@ def has_permission(doc, user=None, permission_type=None):
 		# 其他情况则只能看到自己拥有的销售订单
 		# 待添加上级可以看到下级的销售订单
 		users = get_employee_tree(parent=user)
-		users = str(tuple(users))
 		if doc.owner in users:
 			return True
 		else:

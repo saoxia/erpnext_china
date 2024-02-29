@@ -30,7 +30,6 @@ def has_permission(doc, user=None, permission_type=None):
 		return True
 	else:
 		users = get_employee_tree(parent=user)
-		users = str(tuple(users))
 		if doc.owner in users:
 			return True
 		else:
