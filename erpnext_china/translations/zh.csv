@@ -8838,3 +8838,54 @@ Automatic,自动,
 Timeless Night,夜晚,
 Frappe Light,经典,
 manual,手动,
+Fin Balance Sheet,资产负债表（两栏式）
+Balance Sheet Settings,资产负债表（两栏式）设置
+Balance Sheet Settings Item,资产负债表（两栏式）设置明细
+Fin Profit and Loss Statement,利润表
+Profit and Loss Statement Settings,利润表设置
+Profit and Loss Statement Settings Item,利润表设置明细
+Calculate Rows,计算公式
+Material Issue Reason Code,其它出库原因代码
+Reason Code,原因代码
+Material Issue Default Account,其它出库默认科目
+Cash Flow Code,现金流编码
+Default Cash Flow Code,默认现金流编码
+Cash Flow Name,现金流名称
+Cash Flow Type,现金流类别
+Is Formula,是公式
+Formula,公式
+Is Outflow,是流出
+Cash Flow Items,现金流明细
+Get Cash Flow Items,获取现金凭证明细
+Order Settlement,制造费用差异结算
+Order Settlement Items,制造费用差异结算明细
+Cash Flow Subtotal,现金流量小计
+Cash Flow Report,现金流量表
+Download Cash Flow,下载现金流量表
+Accounts CN,中国会计模块
+Report Sequence,报表顺序号
+Manual Split,手工拆分
+Zelin Accounting,中国会计
+Default Party Type,默认往来类型
+Yearly Amount,本年累计金额
+Monthly Amount,本月金额
+GL Entry {0} total amount {1} does not match amount {2} in general ledger,被拆分凭证 {0} 汇总金额 {1} 与会计总账金额 {2} 不一致
+Please enter Order Settlement Items,请输入制造费用差异结算明细
+Get Order Settlement Items,获取制造费用差异结算明细
+Allocatable Expenses,待分摊费用
+Allocatable Expense,待分摊费用
+Included Expense,已结转库存费用
+Actual Expense,实际费用
+Allocated Expense,分摊费用
+Expense variance settlement,制造费用差异结算
+Cancel Expense variance settlement,取消制造费用差异结算
+Workstations,工站
+Expenses Included in Valuation in comany master missing,请先在公司主数据中维护结转库存的费用科目
+Finish goods receipt via Stock Entry with type Manufacturing,工单成品入库明细
+FG Receipt,入库单号
+Production Cost Account,生产成本科目
+Production Input Account, 生产成本投入科目
+Production Output Account, 生产成本产出科目
+Actual Tax Amount,实际税额(手工输入)
+Amount From,金额来源
+Balance,余额
