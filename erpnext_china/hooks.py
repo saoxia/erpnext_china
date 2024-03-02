@@ -47,7 +47,3 @@ has_permission = {
     "Item": "erpnext_china.erpnext_china.custom_form_script.item.permission_item.has_permission",
     "Item Group": "erpnext_china.erpnext_china.custom_form_script.item_group.permission_item_group.has_permission",
 }
-
-select bom_id,
- sub_goods_id as `物料ID`
-from xinhu.oerp_bom_list obl 
