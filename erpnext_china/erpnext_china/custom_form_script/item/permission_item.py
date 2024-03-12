@@ -30,7 +30,7 @@ def has_query_permission(user):
 		# 销售可以看到所有成品
 		item_groups = get_item_group_list('成品')
 		item_groups_str = str(tuple(item_groups)).replace(',)',')')
-		conditions = f"(item_group in {item_groups_str}) and (disabled == 0) and (has_variants == 0)" 
+		conditions = f"(item_group in {item_groups_str}) and (disabled = 0) and (has_variants = 0)" 
 	else:
 		# 其他情况则只能看到自己,上级可以看到下级
 		users = get_employee_tree(parent=user)
