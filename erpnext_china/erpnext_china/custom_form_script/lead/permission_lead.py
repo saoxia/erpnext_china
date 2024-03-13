@@ -11,7 +11,7 @@ def has_query_permission(user):
 		users = get_employee_tree(parent=user)
 		users.append(user)
 		users_str = str(tuple(users)).replace(',)',')')
-		conditions = f"owner in {users_str}" 
+		conditions = f"(owner in {users_str}) or (lead_owner in {users_str})" 
 	return conditions
 
 def has_permission(doc, user, permission_type=None):
@@ -22,7 +22,7 @@ def has_permission(doc, user, permission_type=None):
 		# 其他情况则只能看到自己,上级可以看到下级
 		users = get_employee_tree(parent=user)
 		users.append(user)
-		if doc.owner in users:
+		if (doc.owner in users) or (doc.lead_owner in users):
 			return True
 		else:
 			return False
