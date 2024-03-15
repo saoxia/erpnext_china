@@ -23,10 +23,10 @@ def get_item_group_list(parent):
 
 def has_query_permission(user):
 
-	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager']]}):
+	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager','仓库管理']]}):
 		# 如果角色包含管理员，则看到全量
 		conditions = ''
-	elif frappe.db.get_value('Has Role',{'parent':user,'role':['in',['销售']]}):
+	elif frappe.db.get_value('Has Role',{'parent':user,'role':['in',['销售','销售会计','销售支持']]}):
 		# 销售可以看到所有成品
 		item_groups = get_item_group_list('成品')
 		item_groups_str = str(tuple(item_groups)).replace(',)',')')
@@ -40,10 +40,10 @@ def has_query_permission(user):
 	return conditions
 
 def has_permission(doc, user, permission_type=None):
-	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager','销售会计','销售支持']]}):
+	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager','仓库管理']]}):
 		# 如果角色包含管理员，则看到全量
 		return True
-	elif frappe.db.get_value('Has Role',{'parent':user,'role':['in',['销售']]}):
+	elif frappe.db.get_value('Has Role',{'parent':user,'role':['in',['销售','销售会计','销售支持']]}):
 		# 销售可以看到所有成品组
 		item_groups = get_item_group_list('成品')
 		if doc.item_group in item_groups:
