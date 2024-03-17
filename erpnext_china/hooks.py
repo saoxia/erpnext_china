@@ -29,6 +29,7 @@ doctype_js = {
     'Opportunity':'erpnext_china/custom_form_script/opportunity/opportunity.js',
     'Quotation':'erpnext_china/custom_form_script/quotation/quotation.js',
     'Sales Order':'erpnext_china/custom_form_script/sales_order/sales_order.js',
+    'Stock Entry':'erpnext_china/custom_form_script/stock_entry/stock_entry.js',
 }
 permission_query_conditions = {
     "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.permission_lead.has_query_permission",
