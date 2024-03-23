@@ -32,19 +32,7 @@ doctype_js = {
     'Stock Entry':'erpnext_china/custom_form_script/stock_entry/stock_entry.js',
 }
 permission_query_conditions = {
-    "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.permission_lead.has_query_permission",
-    "Quotation": "erpnext_china.erpnext_china.custom_form_script.quotation.permission_quotation.has_query_permission",
-    "Opportunity": "erpnext_china.erpnext_china.custom_form_script.opportunity.permission_opportunity.has_query_permission",
-    "Sales Order": "erpnext_china.erpnext_china.custom_form_script.sales_order.permission_sales_order.has_query_permission", 
-    "Item": "erpnext_china.erpnext_china.custom_form_script.item.permission_item.has_query_permission",
-    "Item Group": "erpnext_china.erpnext_china.custom_form_script.item_group.permission_item_group.has_query_permission",
 }
 
 has_permission = {
-    "Lead": "erpnext_china.erpnext_china.custom_form_script.lead.permission_lead.has_permission",
-    "Quotation": "erpnext_china.erpnext_china.custom_form_script.quotation.permission_quotation.has_permission",
-    "Opportunity": "erpnext_china.erpnext_china.custom_form_script.opportunity.permission_opportunity.has_permission",
-	"Sales Order": "erpnext_china.erpnext_china.custom_form_script.sales_order.permission_sales_order.has_permission", 
-    "Item": "erpnext_china.erpnext_china.custom_form_script.item.permission_item.has_permission",
-    "Item Group": "erpnext_china.erpnext_china.custom_form_script.item_group.permission_item_group.has_permission",
 }
