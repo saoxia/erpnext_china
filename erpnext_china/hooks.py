@@ -14,6 +14,14 @@ after_install = "erpnext_china.setup.after_install.operations.install_fixtures.i
 app_include_js = ["erpnext_china.bundle.js"]
 app_include_css = "business.bundle.css"
 
+scheduler_events = {
+	"cron": {
+		"0/3 * * * *": [
+			"erpnext_china.hrms_china.custom_form_script.social_login_key.social_login_key.update_wecom_access_token",
+		],
+	},
+}
+
 override_whitelisted_methods = {
 	# Legacy (& Consistency) OAuth2 APIs
 	#"frappe.www.login.login_via_wecom": "frappe.integrations.oauth2_logins.login_via_wecom",

@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+from erpnext_china.utils.oauth2_logins import get_access_token
 
 class SocialLoginKey(Document):
 	# begin: auto-generated types
@@ -210,3 +211,19 @@ class SocialLoginKey(Document):
 			self.auth_url_data = json.dumps({"agentid": self.custom_agent_id,
 										"appid": self.client_id})
 			self.user_id_property = 'userid'
+
+@frappe.whitelist(allow_guest=True)
+def update_wecom_access_token():
+	providers = frappe.get_all("Social Login Key", fields=["*"])
+
+	out = {}
+	for provider in providers:
+		out[provider.name] = {
+			"client_id": provider.client_id,
+			"client_secret": get_decrypted_password("Social Login Key", provider.name, "client_secret"),
+		}
+	access_token = get_access_token(out['企业微信']['client_id'],out['企业微信']['client_secret'])
+
+	frappe.db.sql(f"""
+	INSERT INTO tabSingles (doctype, field,value) VALUES ('WeCom Setting', 'access_token',{access_token}) ON DUPLICATE KEY UPDATE access_token = {access_token};
+	""")
