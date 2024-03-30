@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-30 15:25:18.936020",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "client_credentials_section",
+  "client_id",
+  "agent_id",
+  "column_break_mwzw",
+  "client_secret",
+  "access_token"
+ ],
+ "fields": [
+  {
+   "collapsible": 1,
+   "fieldname": "client_credentials_section",
+   "fieldtype": "Section Break",
+   "label": "Client Credentials"
+  },
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Data",
+   "label": "Client ID"
+  },
+  {
+   "fieldname": "agent_id",
+   "fieldtype": "Data",
+   "label": "Agent ID"
+  },
+  {
+   "fieldname": "column_break_mwzw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "client_secret",
+   "fieldtype": "Data",
+   "label": "Client Secret"
+  },
+  {
+   "fieldname": "access_token",
+   "fieldtype": "Data",
+   "label": "Access Token",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-03-30 15:39:13.444574",
+ "modified_by": "Administrator",
+ "module": "hrms_china",
+ "name": "WeCom Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
