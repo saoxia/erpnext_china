@@ -22,3 +22,4 @@ def update_access_token():
 	access_token = get_access_token(client_info['client_id'],client_info['client_secret'])
 
 	frappe.db.set_single_value('WeCom Setting', 'access_token', access_token)
+	frappe.db.commit()
