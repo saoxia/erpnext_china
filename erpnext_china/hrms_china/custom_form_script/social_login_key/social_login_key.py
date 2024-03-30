@@ -7,6 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 
+from frappe.utils.password import get_decrypted_password
 from erpnext_china.utils.oauth2_logins import get_access_token
 
 class SocialLoginKey(Document):
