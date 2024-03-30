@@ -8,12 +8,13 @@ from frappe.utils.oauth import login_oauth_user
 from frappe.utils.password import get_decrypted_password
 
 @frappe.whitelist(allow_guest=True)
-def login_via_wecom(code: str, state: str):
-	def get_access_token(corpid,corpsecret):
-		# 获取access_token
-		r = requests.get(f'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}')
-		return r.json()['access_token']
+def get_access_token(corpid,corpsecret):
+	# 获取access_token
+	r = requests.get(f'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}')
+	return r.json()['access_token']
 
+@frappe.whitelist(allow_guest=True)
+def login_via_wecom(code: str, state: str):
 	def get_userid(code,corpid,corpsecret):
 		access_token = get_access_token(corpid,corpsecret)
 		info = requests.get(f'https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo?access_token={access_token}&code={code}').json()
