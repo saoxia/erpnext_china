@@ -17,7 +17,7 @@ app_include_css = "business.bundle.css"
 scheduler_events = {
 	"cron": {
 		"0/3 * * * *": [
-			"erpnext_china.hrms_china.custom_form_script.social_login_key.social_login_key.update_wecom_access_token",
+			"erpnext_china.hrms_china.doctype.wecom_setting.wecom_setting.update_access_token",
 		],
 	},
 }

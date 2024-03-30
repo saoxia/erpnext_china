@@ -213,18 +213,3 @@ class SocialLoginKey(Document):
 										"appid": self.client_id})
 			self.user_id_property = 'userid'
 
-@frappe.whitelist(allow_guest=True)
-def update_wecom_access_token():
-	providers = frappe.get_all("Social Login Key", fields=["*"])
-
-	out = {}
-	for provider in providers:
-		out[provider.name] = {
-			"client_id": provider.client_id,
-			"client_secret": get_decrypted_password("Social Login Key", provider.name, "client_secret"),
-		}
-	access_token = get_access_token(out['企业微信']['client_id'],out['企业微信']['client_secret'])
-
-	frappe.db.sql(f"""
-	INSERT INTO tabSingles (doctype, field,value) VALUES ('WeCom Setting', 'access_token',{access_token}) ON DUPLICATE KEY UPDATE access_token = {access_token};
-	""")
