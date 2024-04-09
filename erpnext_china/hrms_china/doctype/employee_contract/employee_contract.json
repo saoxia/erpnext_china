@@ -6,34 +6,52 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "contract_id",
   "contract_start_date",
   "contract_end_date",
-  "contract_id"
+  "contract_type",
+  "contract_file"
  ],
  "fields": [
   {
    "fieldname": "contract_start_date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Contract Start Date"
+   "label": "Contract Start Date",
+   "reqd": 1
   },
   {
    "fieldname": "contract_end_date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Contract End Date"
+   "label": "Contract End Date",
+   "reqd": 1
   },
   {
    "fieldname": "contract_id",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Contract ID"
+   "label": "Contract ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contract_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Contract Type",
+   "options": "\u52b3\u52a8\u5408\u540c\n\u4fdd\u5bc6\u534f\u8bae\n\u7ade\u4e1a\u534f\u8bae",
+   "reqd": 1
+  },
+  {
+   "fieldname": "contract_file",
+   "fieldtype": "Attach",
+   "label": "Contract File"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-10 18:12:53.739853",
+ "modified": "2024-04-09 12:21:17.338988",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Employee Contract",
