@@ -1,0 +1,133 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-11 10:37:15.488303",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_xzwr",
+  "amended_from",
+  "employee_name",
+  "column_break_fjlm",
+  "department",
+  "section_break_apsn",
+  "leave_type",
+  "section_break_cher",
+  "from_datetime",
+  "column_break_hrql",
+  "end_datetime",
+  "section_break_zhxu",
+  "leave_period",
+  "section_break_obyz",
+  "description",
+  "file"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_xzwr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "no_copy": 1,
+   "options": "Leave Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "column_break_fjlm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Data",
+   "label": "Department"
+  },
+  {
+   "fieldname": "section_break_apsn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "leave_type",
+   "fieldtype": "Select",
+   "label": "Leave Type",
+   "options": "\u4e8b\u5047\n\u75c5\u5047\n\u8c03\u4f11\n\u5a5a\u5047\n\u4e27\u5047\n\u4ea7\u5047\n\u966a\u4ea7\u5047"
+  },
+  {
+   "fieldname": "section_break_cher",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "leave_period",
+   "fieldtype": "Data",
+   "label": "Leave Period"
+  },
+  {
+   "fieldname": "from_datetime",
+   "fieldtype": "Datetime",
+   "label": "From Datetime"
+  },
+  {
+   "fieldname": "column_break_hrql",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_datetime",
+   "fieldtype": "Datetime",
+   "label": "End Datetime"
+  },
+  {
+   "fieldname": "section_break_zhxu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_obyz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "file",
+   "fieldtype": "Table",
+   "label": "FIle",
+   "options": "Leave Request Files"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-04-11 10:59:28.004135",
+ "modified_by": "Administrator",
+ "module": "hrms_china",
+ "name": "Leave Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

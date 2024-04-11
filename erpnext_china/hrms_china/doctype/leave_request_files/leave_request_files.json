@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-11 10:54:30.943114",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "file_describe",
+  "file"
+ ],
+ "fields": [
+  {
+   "fieldname": "file_describe",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "File Describe",
+   "reqd": 1
+  },
+  {
+   "fieldname": "file",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "FIle"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-04-11 10:59:40.179023",
+ "modified_by": "Administrator",
+ "module": "hrms_china",
+ "name": "Leave Request Files",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
