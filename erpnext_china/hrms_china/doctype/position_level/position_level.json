@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:position_level_name",
  "creation": "2024-04-17 11:57:22.980649",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,15 +15,16 @@
    "in_list_view": 1,
    "label": "Position Level Name",
    "reqd": 1,
-   "search_index": 1
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-17 11:58:22.225507",
+ "modified": "2024-04-17 18:12:22.995373",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Position Level",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -38,6 +40,7 @@
    "write": 1
   }
  ],
+ "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
