@@ -1,0 +1,142 @@
+{
+ "actions": [],
+ "autoname": "format:HR-SA-{employee}-{start_date}-{end_date}-{##}",
+ "creation": "2024-04-17 09:59:40.655515",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_info_section",
+  "employee",
+  "employee_name",
+  "department",
+  "designation",
+  "column_break_llds",
+  "posting_date",
+  "column_break_vewz",
+  "status",
+  "company",
+  "payroll_info_section",
+  "payroll_frequency",
+  "start_date",
+  "end_date",
+  "section_break_jmal",
+  "salary_detail"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_info_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Info"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "column_break_llds",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_vewz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\u8349\u7a3f\n\u5df2\u63d0\u4ea4\n\u53d6\u6d88"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payroll_info_section",
+   "fieldtype": "Section Break",
+   "label": "Payroll Info"
+  },
+  {
+   "fieldname": "payroll_frequency",
+   "fieldtype": "Select",
+   "label": "Payroll Frequency",
+   "options": "\u6309\u6708\u53d1\u653e"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "section_break_jmal",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_bulk_edit": 1,
+   "fieldname": "salary_detail",
+   "fieldtype": "Table",
+   "label": "Salary Detail",
+   "options": "Salary Detail"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-04-17 10:24:15.720478",
+ "modified_by": "Administrator",
+ "module": "hrms_china",
+ "name": "Salary Slip",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
