@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}}]",
+ "content": "[{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}},{\"id\":\"Gc5n9riQFi\",\"type\":\"card\",\"data\":{\"card_name\":\"\u85aa\u916c\",\"col\":4}}]",
  "creation": "2024-02-07 15:00:10.122539",
  "custom_blocks": [],
  "docstatus": 0,
@@ -109,9 +109,38 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u85aa\u916c",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Salary Slip",
+   "link_count": 0,
+   "link_to": "Salary Slip",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Salary Component",
+   "link_count": 0,
+   "link_to": "Salary Component",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-02-07 15:39:36.521221",
+ "modified": "2024-04-24 05:20:42.312574",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "HRMS",
@@ -120,7 +149,17 @@
  "parent_page": "",
  "public": 1,
  "quick_lists": [],
- "roles": [],
+ "roles": [
+  {
+   "role": "Desk User"
+  },
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "HR Manager"
+  }
+ ],
  "sequence_id": 15.0,
  "shortcuts": [],
  "title": "HRMS"
