@@ -5,7 +5,7 @@
    "label": "\u5165\u804c\u79bb\u804c\u4eba\u6570"
   }
  ],
- "content": "[{\"id\":\"uGQd1OqOF2\",\"type\":\"chart\",\"data\":{\"chart_name\":\"\u5165\u804c\u79bb\u804c\u4eba\u6570\",\"col\":12}},{\"id\":\"pljsRvl8Si\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>\u5feb\u6377\u5165\u53e3</b></span>\",\"col\":12}},{\"id\":\"p7KRKUpKiZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"\u5458\u5de5\",\"col\":3}},{\"id\":\"lQOuQTmQv5\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}},{\"id\":\"Gc5n9riQFi\",\"type\":\"card\",\"data\":{\"card_name\":\"\u85aa\u916c\",\"col\":4}}]",
+ "content": "[{\"id\":\"uGQd1OqOF2\",\"type\":\"chart\",\"data\":{\"chart_name\":\"\u5165\u804c\u79bb\u804c\u4eba\u6570\",\"col\":12}},{\"id\":\"OZrDPI4shC\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"pljsRvl8Si\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>\u5feb\u6377\u5165\u53e3</b></span>\",\"col\":12}},{\"id\":\"p7KRKUpKiZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"\u5458\u5de5\",\"col\":3}},{\"id\":\"lQOuQTmQv5\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}},{\"id\":\"Gc5n9riQFi\",\"type\":\"card\",\"data\":{\"card_name\":\"\u85aa\u916c\",\"col\":4}}]",
  "creation": "2024-02-07 15:00:10.122539",
  "custom_blocks": [],
  "docstatus": 0,
@@ -155,7 +155,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-04-24 15:36:22.727443",
+ "modified": "2024-04-24 15:52:43.030187",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "HRMS",
