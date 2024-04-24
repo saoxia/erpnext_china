@@ -8,7 +8,7 @@
  "doctype": "Dashboard Chart",
  "document_type": "",
  "dynamic_filters_json": "{\"company\":\"frappe.defaults.get_user_default(\\\"Company\\\")\", \"from_date\":\"frappe.defaults.get_user_default(\\\"year_start_date\\\")\", \"to_date\":\"frappe.defaults.get_user_default(\\\"year_end_date\\\")\"}",
- "filters_json": "{\"time_interval\":\"Monthly\",\"from_date\":\"2024-01-01\"}",
+ "filters_json": "{\"time_interval\":\"Monthly\"}",
  "group_by_type": "Count",
  "idx": 0,
  "is_public": 1,
