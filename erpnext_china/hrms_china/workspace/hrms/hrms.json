@@ -1,6 +1,11 @@
 {
- "charts": [],
- "content": "[{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}},{\"id\":\"Gc5n9riQFi\",\"type\":\"card\",\"data\":{\"card_name\":\"\u85aa\u916c\",\"col\":4}}]",
+ "charts": [
+  {
+   "chart_name": "Hiring vs Attrition Count",
+   "label": "\u5165\u804c\u79bb\u804c\u4eba\u6570"
+  }
+ ],
+ "content": "[{\"id\":\"uGQd1OqOF2\",\"type\":\"chart\",\"data\":{\"chart_name\":\"\u5165\u804c\u79bb\u804c\u4eba\u6570\",\"col\":12}},{\"id\":\"pljsRvl8Si\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>\u5feb\u6377\u5165\u53e3</b></span>\",\"col\":12}},{\"id\":\"p7KRKUpKiZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"\u5458\u5de5\",\"col\":3}},{\"id\":\"lQOuQTmQv5\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"yg2Zm145t7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">\u529f\u80fd &amp; \u62a5\u8868</span>\",\"col\":12}},{\"id\":\"xo6eR46aPS\",\"type\":\"card\",\"data\":{\"card_name\":\"\u5458\u5de5\",\"col\":4}},{\"id\":\"TlXTdKWI1o\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8282\u5047\u65e5\",\"col\":4}},{\"id\":\"a1Obspbhsa\",\"type\":\"card\",\"data\":{\"card_name\":\"\u8003\u52e4\",\"col\":4}},{\"id\":\"Gc5n9riQFi\",\"type\":\"card\",\"data\":{\"card_name\":\"\u85aa\u916c\",\"col\":4}}]",
  "creation": "2024-02-07 15:00:10.122539",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,55 +18,6 @@
  "is_hidden": 0,
  "label": "HRMS",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u5458\u5de5",
-   "link_count": 4,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u5458\u5de5",
-   "link_count": 0,
-   "link_to": "Employee",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u90e8\u95e8",
-   "link_count": 0,
-   "link_to": "Department",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u804c\u4f4d",
-   "link_count": 0,
-   "link_to": "Designation",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u5206\u652f\u673a\u6784\uff08\u5206\u516c\u53f8\uff09",
-   "link_count": 0,
-   "link_to": "Branch",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -138,9 +94,68 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5458\u5de5",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5458\u5de5",
+   "link_count": 0,
+   "link_to": "Employee",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u90e8\u95e8",
+   "link_count": 0,
+   "link_to": "Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u804c\u4f4d",
+   "link_count": 0,
+   "link_to": "Designation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u5206\u652f\u673a\u6784\uff08\u5206\u516c\u53f8\uff09",
+   "link_count": 0,
+   "link_to": "Branch",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Position Level",
+   "link_count": 0,
+   "link_to": "Position Level",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-04-24 05:20:42.312574",
+ "modified": "2024-04-24 15:36:22.727443",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "HRMS",
@@ -161,6 +176,16 @@
   }
  ],
  "sequence_id": 15.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "\u5458\u5de5",
+   "link_to": "Employee",
+   "stats_filter": "[[\"Employee\",\"status\",\"=\",\"Active\",false]]",
+   "type": "DocType"
+  }
+ ],
  "title": "HRMS"
 }
