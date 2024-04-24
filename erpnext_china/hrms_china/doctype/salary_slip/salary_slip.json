@@ -20,7 +20,8 @@
   "start_date",
   "end_date",
   "section_break_jmal",
-  "salary_detail"
+  "salary_detail",
+  "amended_from"
  ],
  "fields": [
   {
@@ -111,12 +112,22 @@
    "fieldtype": "Table",
    "label": "Salary Detail",
    "options": "Salary Detail"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Salary Slip",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-17 10:24:15.720478",
+ "modified": "2024-04-24 17:29:59.454085",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Salary Slip",
@@ -138,5 +149,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }
