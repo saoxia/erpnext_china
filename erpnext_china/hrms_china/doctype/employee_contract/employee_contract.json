@@ -39,7 +39,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Contract Type",
-   "options": "\u52b3\u52a8\u5408\u540c\n\u4fdd\u5bc6\u534f\u8bae\n\u7ade\u4e1a\u534f\u8bae",
+   "options": "劳动合同\n保密协议\n竞业协议\n兼职合同",
    "reqd": 1
   },
   {
