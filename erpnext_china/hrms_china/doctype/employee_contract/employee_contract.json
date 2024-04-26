@@ -31,8 +31,7 @@
    "fieldname": "contract_id",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Contract ID",
-   "reqd": 1
+   "label": "Contract ID"
   },
   {
    "fieldname": "contract_type",
