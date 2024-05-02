@@ -24,6 +24,7 @@ class CustomEmployee(Employee):
 		self.set_gender()
 		self.set_date_of_birth()
 		self.set_city_of_birth()
+		self.set_degree()
 
 		if self.user_id:
 			self.validate_user_details()
@@ -38,6 +39,13 @@ class CustomEmployee(Employee):
 		if id_card:
 			days = datetime.now()-datetime.strptime(f'{id_card[6:10]}-{id_card[10:12]}-{id_card[12:14]}','%Y-%m-%d')
 			return  int(days.days/365)
+
+	def set_degree(self):
+		d = ['博士研究生','硕士研究生','本科','大专','高中(中专)']
+		m = 999
+		for i in self.education:
+			m = min(d.index(i.level),m)
+		self.degree(d[m])
 
 	def set_date_of_birth(self):
 		id_card = self.custom_chinese_id_number
