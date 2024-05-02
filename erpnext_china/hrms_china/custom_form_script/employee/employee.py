@@ -45,7 +45,7 @@ class CustomEmployee(Employee):
 		m = 999
 		for i in self.education:
 			m = min(d.index(i.level),m)
-		self.degree(d[m])
+		self.custom_degree(d[m])
 
 	def set_date_of_birth(self):
 		id_card = self.custom_chinese_id_number
