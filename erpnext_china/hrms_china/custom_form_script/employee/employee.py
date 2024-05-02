@@ -43,10 +43,12 @@ class CustomEmployee(Employee):
 	def set_degree(self):
 		d = ['博士研究生','硕士研究生','本科','大专','高中(中专)']
 		m = 999
-		for i in self.education:
-			m = min(d.index(i.level),m)
-		self.custom_degree = d[m]
-
+		try:
+			for i in self.education:
+				m = min(d.index(i.level),m)
+			self.custom_degree = d[m]
+		except:
+			pass
 	def set_date_of_birth(self):
 		id_card = self.custom_chinese_id_number
 		try:
