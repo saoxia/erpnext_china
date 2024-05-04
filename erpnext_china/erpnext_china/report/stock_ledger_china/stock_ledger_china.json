@@ -13,12 +13,12 @@
  "modified": "2024-05-04 16:47:16.860058",
  "modified_by": "Administrator",
  "module": "ERPNext China",
- "name": "Stock Ledger China",
+ "name": "Stock Ledger",
  "owner": "Administrator",
  "prepared_report": 0,
  "ref_doctype": "Stock Ledger Entry",
  "reference_report": "Stock Ledger",
- "report_name": "Stock Ledger China",
+ "report_name": "Stock Ledger",
  "report_type": "Custom Report",
  "roles": [
   {
