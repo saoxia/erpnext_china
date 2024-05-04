@@ -49,6 +49,7 @@ class CustomEmployee(Employee):
 			self.custom_degree = d[m]
 		except:
 			pass
+			
 	def set_date_of_birth(self):
 		id_card = self.custom_chinese_id_number
 		try:
