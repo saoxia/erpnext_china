@@ -15,7 +15,7 @@ app_include_js = ["erpnext_china.bundle.js"]
 app_include_css = "business.bundle.css"
 
 website_redirects = [
-    {"source": "/report/Stock Ledger(.*)", "target": "/report/Stock Ledger China\1", match_with_query_string=True},
+    {"source": "/report/Stock Ledger(.*)", "target": "/report/Stock Ledger China\1"},
 ]
 
 
