@@ -188,7 +188,11 @@ def get_columns(filters):
 			"width": 100,
 		},
 		{"label": _("Item Name"), "fieldname": "item_name", "width": 100},
-		{"label": _("Uoms String"), "fieldname": "custom_uoms_string", "width": 90},
+		{
+			"label": _("UOMs String"),
+			"fieldname": "custom_uoms_string",
+			"width": 90,
+		},
 		{
 			"label": _("Stock UOM"),
 			"fieldname": "stock_uom",

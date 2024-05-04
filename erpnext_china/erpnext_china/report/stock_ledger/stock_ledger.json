@@ -9,7 +9,7 @@
  "is_standard": "Yes", 
  "modified": "2017-02-24 20:14:07.626391", 
  "modified_by": "Administrator", 
- "module": "ERPNext China", 
+ "module": "Stock", 
  "name": "Stock Ledger", 
  "owner": "Administrator", 
  "ref_doctype": "Stock Ledger Entry", 
