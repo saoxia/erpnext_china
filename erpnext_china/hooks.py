@@ -14,6 +14,11 @@ after_install = "erpnext_china.setup.after_install.operations.install_fixtures.i
 app_include_js = ["erpnext_china.bundle.js"]
 app_include_css = "business.bundle.css"
 
+website_redirects = [
+    {"source": "/report/Stock Ledger", "target": "/report/Stock Ledger China"},
+]
+
+
 scheduler_events = {
 	"cron": {
 		"0/3 * * * *": [
