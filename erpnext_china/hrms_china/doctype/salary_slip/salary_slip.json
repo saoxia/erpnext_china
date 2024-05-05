@@ -33,6 +33,7 @@
    "fieldname": "employee",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Employee",
    "options": "Employee",
    "reqd": 1
@@ -40,17 +41,20 @@
   {
    "fieldname": "employee_name",
    "fieldtype": "Read Only",
+   "in_standard_filter": 1,
    "label": "Employee Name"
   },
   {
    "fieldname": "department",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Department",
    "options": "Department"
   },
   {
    "fieldname": "designation",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Designation",
    "options": "Designation"
   },
