@@ -31,6 +31,7 @@ override_whitelisted_methods = {
 override_doctype_class = {
     'Social Login Key':'erpnext_china.hrms_china.custom_form_script.social_login_key.social_login_key.SocialLoginKey',
 	'Employee':'erpnext_china.hrms_china.custom_form_script.employee.employee.CustomEmployee',
+	'Lead':'erpnext_china.erpnext_china.custom_form_script.lead.laed.CustomLead',
 }
 
 doctype_js = {
