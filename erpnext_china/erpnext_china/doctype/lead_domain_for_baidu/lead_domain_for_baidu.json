@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-31 09:01:55.591591",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "baiduid",
+  "password",
+  "column_break_zsxv",
+  "employee"
+ ],
+ "fields": [
+  {
+   "fieldname": "baiduid",
+   "fieldtype": "Data",
+   "label": "BaiduID"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "label": "Password"
+  },
+  {
+   "fieldname": "column_break_zsxv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-01 09:08:40.760964",
+ "modified_by": "Administrator",
+ "module": "ERPNext China",
+ "name": "Lead Domain for Baidu",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
