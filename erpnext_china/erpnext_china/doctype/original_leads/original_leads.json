@@ -1,0 +1,759 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:clue_id",
+ "creation": "2024-06-05 17:40:10.371532",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_tab",
+  "basic_section",
+  "source",
+  "clue_id",
+  "crm_lead",
+  "commit_time",
+  "site_url",
+  "site_id",
+  "site_name",
+  "contact_info_section",
+  "lead_name",
+  "clue_phone_number",
+  "wechat_account",
+  "area_province",
+  "area",
+  "original_json_data_section",
+  "parsed",
+  "original_json_data",
+  "exception_msg",
+  "from_baidu_tab",
+  "column_break_kyzi",
+  "ad_uc_name",
+  "flow_channel_name",
+  "ad_attributes_section",
+  "plan_id",
+  "plan_name",
+  "unit_id",
+  "unit_name",
+  "column_break_iubu",
+  "keyword_id",
+  "keyword",
+  "search_word",
+  "column_break_xrrs",
+  "creative_id",
+  "creative_name",
+  "baidu_basic_attributes_of_clues_section",
+  "solution_type",
+  "solution_type_name",
+  "solution_id",
+  "solution_name",
+  "section_break_ezyp",
+  "wechat_name",
+  "solution_ref_type_name",
+  "account_name",
+  "column_break_hwtu",
+  "im_name",
+  "clue_user_msg_count",
+  "ai_service_message_num",
+  "human_service_msg_count",
+  "bd_vid",
+  "consulturl",
+  "section_break_ravk",
+  "show_type_name",
+  "page_id",
+  "page_name",
+  "column_break_efni",
+  "url",
+  "section_break_uekz",
+  "form_detail",
+  "section_break_pofi",
+  "connect",
+  "connect_name",
+  "call_duration",
+  "axe_phone_number",
+  "refund_supportive",
+  "column_break_dmlc",
+  "refund_view_url",
+  "return_call_url",
+  "section_break_olyy",
+  "ip",
+  "user_name",
+  "column_break_cjtx",
+  "user_agent",
+  "url_parameters_section",
+  "token",
+  "push_delay",
+  "section_break_mydc",
+  "ucid",
+  "uc_name",
+  "additional_content",
+  "from_douyin_tab",
+  "douyin_basic_attributes_of_clues_section",
+  "column_break_sbbx",
+  "qq",
+  "gender",
+  "age",
+  "address",
+  "remark_dict",
+  "form_remark",
+  "store_address",
+  "store_remark",
+  "store_pack_remark",
+  "county_name",
+  "clue_data_source_detail",
+  "promotion_id",
+  "promotion_name",
+  "mid_info",
+  "column_break_oklx",
+  "adv_id",
+  "cid",
+  "remark",
+  "ad_id",
+  "ad_name",
+  "adv_name",
+  "clue_source",
+  "clue_type",
+  "module_id",
+  "module_name",
+  "date",
+  "app_name",
+  "req_id",
+  "location",
+  "store_id",
+  "store_name",
+  "clue_convert_status",
+  "business",
+  "store_pack_id",
+  "store_pack_name",
+  "store_location",
+  "flow_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "ucid",
+   "fieldtype": "Data",
+   "label": "UC ID"
+  },
+  {
+   "fieldname": "connect",
+   "fieldtype": "Data",
+   "label": "Connect"
+  },
+  {
+   "fieldname": "ip",
+   "fieldtype": "Data",
+   "label": "IP"
+  },
+  {
+   "fieldname": "url",
+   "fieldtype": "Text",
+   "label": "Url"
+  },
+  {
+   "fieldname": "consulturl",
+   "fieldtype": "Text",
+   "label": "Consult Url"
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Area"
+  },
+  {
+   "fieldname": "keyword",
+   "fieldtype": "Data",
+   "label": "Keyword"
+  },
+  {
+   "fieldname": "lead_name",
+   "fieldtype": "Data",
+   "label": "Lead Name"
+  },
+  {
+   "fieldname": "token",
+   "fieldtype": "Data",
+   "label": "Token"
+  },
+  {
+   "fieldname": "push_delay",
+   "fieldtype": "Data",
+   "label": "Push Delay"
+  },
+  {
+   "fieldname": "clue_id",
+   "fieldtype": "Data",
+   "label": "Clue ID",
+   "length": 255,
+   "unique": 1
+  },
+  {
+   "fieldname": "uc_name",
+   "fieldtype": "Data",
+   "label": "UC Name"
+  },
+  {
+   "fieldname": "commit_time",
+   "fieldtype": "Datetime",
+   "label": "Commit Time"
+  },
+  {
+   "fieldname": "solution_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Solution Type"
+  },
+  {
+   "fieldname": "solution_type_name",
+   "fieldtype": "Data",
+   "label": "Solution Type Name"
+  },
+  {
+   "fieldname": "clue_phone_number",
+   "fieldtype": "Data",
+   "label": "Clue Phone Number",
+   "length": 15
+  },
+  {
+   "fieldname": "return_call_url",
+   "fieldtype": "Text",
+   "label": "Return Call Url"
+  },
+  {
+   "fieldname": "flow_channel_name",
+   "fieldtype": "Data",
+   "label": "Flow Channel Name"
+  },
+  {
+   "fieldname": "show_type_name",
+   "fieldtype": "Data",
+   "label": "Show Type Name"
+  },
+  {
+   "fieldname": "connect_name",
+   "fieldtype": "Data",
+   "label": "Connect Name"
+  },
+  {
+   "fieldname": "call_duration",
+   "fieldtype": "Data",
+   "label": "Call Duration"
+  },
+  {
+   "fieldname": "form_detail",
+   "fieldtype": "Text",
+   "label": "Form Detail"
+  },
+  {
+   "fieldname": "im_name",
+   "fieldtype": "Data",
+   "label": "IM Name"
+  },
+  {
+   "fieldname": "clue_user_msg_count",
+   "fieldtype": "Data",
+   "label": "Clue User Msg Count"
+  },
+  {
+   "fieldname": "human_service_msg_count",
+   "fieldtype": "Data",
+   "label": "Human Service Msg Count"
+  },
+  {
+   "fieldname": "ai_service_message_num",
+   "fieldtype": "Data",
+   "label": "AI Service Message Num"
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Data",
+   "label": "Site ID"
+  },
+  {
+   "fieldname": "site_name",
+   "fieldtype": "Data",
+   "label": "Site Name"
+  },
+  {
+   "fieldname": "site_url",
+   "fieldtype": "Text",
+   "label": "Site Url"
+  },
+  {
+   "fieldname": "page_id",
+   "fieldtype": "Data",
+   "label": "Page ID"
+  },
+  {
+   "fieldname": "page_name",
+   "fieldtype": "Data",
+   "label": "JMY Page Name"
+  },
+  {
+   "fieldname": "bd_vid",
+   "fieldtype": "Data",
+   "label": "BD Vid"
+  },
+  {
+   "fieldname": "solution_id",
+   "fieldtype": "Data",
+   "label": "Solution ID"
+  },
+  {
+   "fieldname": "solution_name",
+   "fieldtype": "Data",
+   "label": "Solution Name"
+  },
+  {
+   "fieldname": "user_name",
+   "fieldtype": "Data",
+   "label": "Baidu User Name"
+  },
+  {
+   "fieldname": "solution_ref_type_name",
+   "fieldtype": "Data",
+   "label": "Solution Ref Type Name"
+  },
+  {
+   "fieldname": "account_name",
+   "fieldtype": "Data",
+   "label": "Page Account Name"
+  },
+  {
+   "fieldname": "user_agent",
+   "fieldtype": "Text",
+   "label": "Browser User Agent"
+  },
+  {
+   "fieldname": "wechat_name",
+   "fieldtype": "Data",
+   "label": "Wechat Name"
+  },
+  {
+   "fieldname": "wechat_account",
+   "fieldtype": "Data",
+   "label": "Wechat Account"
+  },
+  {
+   "fieldname": "axe_phone_number",
+   "fieldtype": "Data",
+   "label": "Axe Phone Number"
+  },
+  {
+   "fieldname": "refund_view_url",
+   "fieldtype": "Text",
+   "label": "Refund View Url"
+  },
+  {
+   "fieldname": "additional_content",
+   "fieldtype": "Text",
+   "label": "Additional Content"
+  },
+  {
+   "fieldname": "ad_uc_name",
+   "fieldtype": "Data",
+   "label": "Ad Uc Name"
+  },
+  {
+   "fieldname": "area_province",
+   "fieldtype": "Data",
+   "label": "Area Province"
+  },
+  {
+   "fieldname": "plan_id",
+   "fieldtype": "Data",
+   "label": "Plan ID"
+  },
+  {
+   "fieldname": "plan_name",
+   "fieldtype": "Data",
+   "label": "Plan Name"
+  },
+  {
+   "fieldname": "unit_id",
+   "fieldtype": "Data",
+   "label": "Unit ID"
+  },
+  {
+   "fieldname": "unit_name",
+   "fieldtype": "Data",
+   "label": "Unit Name"
+  },
+  {
+   "fieldname": "creative_id",
+   "fieldtype": "Data",
+   "label": "Creative ID"
+  },
+  {
+   "fieldname": "creative_name",
+   "fieldtype": "Data",
+   "label": "Creative Name"
+  },
+  {
+   "fieldname": "keyword_id",
+   "fieldtype": "Data",
+   "label": "Keyword ID"
+  },
+  {
+   "fieldname": "search_word",
+   "fieldtype": "Data",
+   "label": "Search Word"
+  },
+  {
+   "fieldname": "url_parameters_section",
+   "fieldtype": "Section Break",
+   "label": "Auth Info"
+  },
+  {
+   "fieldname": "ad_attributes_section",
+   "fieldtype": "Section Break",
+   "label": "AD Attributes"
+  },
+  {
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "label": "Source",
+   "options": "Baidu\nDouyin"
+  },
+  {
+   "fieldname": "column_break_xrrs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "refund_supportive",
+   "fieldtype": "Data",
+   "label": "Refund Supportive"
+  },
+  {
+   "fieldname": "column_break_kyzi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.source == \"Baidu\"",
+   "fieldname": "from_baidu_tab",
+   "fieldtype": "Tab Break",
+   "label": "From Baidu"
+  },
+  {
+   "depends_on": "eval:doc.source == 'Douyin'",
+   "fieldname": "from_douyin_tab",
+   "fieldtype": "Tab Break",
+   "label": "From Douyin"
+  },
+  {
+   "fieldname": "basic_section",
+   "fieldtype": "Section Break",
+   "label": "Lead Basic"
+  },
+  {
+   "fieldname": "douyin_basic_attributes_of_clues_section",
+   "fieldtype": "Section Break",
+   "label": "Douyin Basic attributes of clues"
+  },
+  {
+   "fieldname": "adv_id",
+   "fieldtype": "Data",
+   "label": "Adv ID"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "label": "Gender",
+   "options": "Gender"
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Data",
+   "label": "Age",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "contact_info_section",
+   "fieldtype": "Section Break",
+   "label": "Contact Info"
+  },
+  {
+   "fieldname": "cid",
+   "fieldtype": "Data",
+   "label": "CID"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Data",
+   "label": "Remark"
+  },
+  {
+   "fieldname": "ad_id",
+   "fieldtype": "Data",
+   "label": "AD ID"
+  },
+  {
+   "fieldname": "ad_name",
+   "fieldtype": "Data",
+   "label": "AD Name"
+  },
+  {
+   "fieldname": "adv_name",
+   "fieldtype": "Data",
+   "label": "ADV Name"
+  },
+  {
+   "fieldname": "clue_source",
+   "fieldtype": "Select",
+   "label": "Clue Source",
+   "options": "\u5b57\u8282-\u5de8\u91cf\u5e7f\u544a\n\u5176\u4ed6\u6e20\u9053-\u5916\u90e8\u5bfc\u5165\n\u5b57\u8282-\u6296\u97f3\u4f01\u4e1a\u53f7\n\u5b57\u8282-\u5de8\u91cf\u7ebf\u7d22\n\u5b57\u8282-\u4e91\u5e97\n\u5b57\u8282-\u661f\u56fe\n\u5b57\u8282-\u83b7\u5ba2\u5b9d\n\u5b57\u8282-\u4f4f\u5c0f\u5e2e"
+  },
+  {
+   "fieldname": "clue_type",
+   "fieldtype": "Select",
+   "label": "Clue Type",
+   "options": "\u5b57\u8282-\u8868\u5355\u63d0\u4ea4\n\u5b57\u8282-\u5728\u7ebf\u54a8\u8be2\n\u5b57\u8282-\u667a\u80fd\u7535\u8bdd\n\u5b57\u8282-\u7f51\u9875\u56de\u547c\n\u5b57\u8282-\u5361\u5238\n\u5b57\u8282-\u62bd\u5956"
+  },
+  {
+   "fieldname": "module_id",
+   "fieldtype": "Data",
+   "label": "Module ID"
+  },
+  {
+   "fieldname": "module_name",
+   "fieldtype": "Data",
+   "label": "Module Name"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "baidu_basic_attributes_of_clues_section",
+   "fieldtype": "Section Break",
+   "label": "Baidu Basic attributes of clues"
+  },
+  {
+   "fieldname": "original_json_data_section",
+   "fieldtype": "Section Break",
+   "label": "Original JSON Data"
+  },
+  {
+   "fieldname": "original_json_data",
+   "fieldtype": "JSON",
+   "label": "json"
+  },
+  {
+   "fieldname": "remark_dict",
+   "fieldtype": "Text",
+   "label": "Remark Dict"
+  },
+  {
+   "fieldname": "form_remark",
+   "fieldtype": "Data",
+   "label": "Form Remark"
+  },
+  {
+   "fieldname": "app_name",
+   "fieldtype": "Data",
+   "label": "App Name"
+  },
+  {
+   "fieldname": "req_id",
+   "fieldtype": "Data",
+   "label": "Request ID"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "store_id",
+   "fieldtype": "Data",
+   "label": "Store ID"
+  },
+  {
+   "fieldname": "store_name",
+   "fieldtype": "Data",
+   "label": "Store Name"
+  },
+  {
+   "fieldname": "clue_convert_status",
+   "fieldtype": "Data",
+   "label": "Clue Convert Status"
+  },
+  {
+   "fieldname": "business",
+   "fieldtype": "Data",
+   "label": "Business"
+  },
+  {
+   "fieldname": "store_pack_id",
+   "fieldtype": "Data",
+   "label": "Store Pack ID"
+  },
+  {
+   "fieldname": "store_pack_name",
+   "fieldtype": "Data",
+   "label": "Store Pack Name"
+  },
+  {
+   "fieldname": "store_location",
+   "fieldtype": "Data",
+   "label": "Store Location"
+  },
+  {
+   "fieldname": "column_break_sbbx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "flow_type",
+   "fieldtype": "Select",
+   "label": "Flow Type",
+   "options": "\u7ecf\u8425-\u81ea\u7136\u6d41\u91cf\u7ebf\u7d22\n\u7ecf\u8425-\u5e7f\u544a\u76f4\u63a5\u7ebf\u7d22\n\u7ecf\u8425-\u5e7f\u544a\u95f4\u63a5\u7ebf\u7d22\n\u5e7f\u544a\u7ebf\u7d22\n\u65e0"
+  },
+  {
+   "fieldname": "store_address",
+   "fieldtype": "Data",
+   "label": "Store Address"
+  },
+  {
+   "fieldname": "store_remark",
+   "fieldtype": "Data",
+   "label": "Store Remark"
+  },
+  {
+   "fieldname": "store_pack_remark",
+   "fieldtype": "Data",
+   "label": "Store Pack Remark"
+  },
+  {
+   "fieldname": "county_name",
+   "fieldtype": "Data",
+   "label": "County Name"
+  },
+  {
+   "fieldname": "clue_data_source_detail",
+   "fieldtype": "Data",
+   "label": "Clue Data Source Detail"
+  },
+  {
+   "fieldname": "promotion_id",
+   "fieldtype": "Data",
+   "label": "Promotion ID"
+  },
+  {
+   "fieldname": "promotion_name",
+   "fieldtype": "Data",
+   "label": "Promotion Name"
+  },
+  {
+   "fieldname": "mid_info",
+   "fieldtype": "Text",
+   "label": "Mid Info"
+  },
+  {
+   "fieldname": "qq",
+   "fieldtype": "Data",
+   "label": "QQ"
+  },
+  {
+   "fieldname": "basic_tab",
+   "fieldtype": "Tab Break",
+   "label": "\u8be6\u7ec6\u4fe1\u606f"
+  },
+  {
+   "fieldname": "crm_lead",
+   "fieldtype": "Link",
+   "label": "CRM Lead",
+   "options": "Lead"
+  },
+  {
+   "fieldname": "column_break_oklx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "parsed",
+   "fieldtype": "Check",
+   "label": "Parse Success"
+  },
+  {
+   "fieldname": "exception_msg",
+   "fieldtype": "Long Text",
+   "label": "Parse Exception Message"
+  },
+  {
+   "fieldname": "column_break_iubu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_mydc",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "section_break_pofi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_ravk",
+   "fieldtype": "Section Break",
+   "label": "Page Info"
+  },
+  {
+   "fieldname": "section_break_ezyp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_hwtu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_efni",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dmlc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_olyy",
+   "fieldtype": "Section Break",
+   "label": "Baidu User Info"
+  },
+  {
+   "fieldname": "column_break_cjtx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_uekz",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-12 14:18:42.315830",
+ "modified_by": "Administrator",
+ "module": "ERPNext China",
+ "name": "Original Leads",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
