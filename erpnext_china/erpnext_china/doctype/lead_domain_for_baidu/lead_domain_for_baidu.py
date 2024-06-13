@@ -18,12 +18,12 @@ def lead_via_baidu(**kwargs):
 
     # 验证token
     if not verify_token(kwargs.get('token')):
-        return 'The request from unknown sources'
+        return 'The request from unknown sources!'
 
     original_clue_id = kwargs.get('clue_id')
     # 这里几乎不可能出现没有线索ID的情况
     if not original_clue_id:
-        return 'Must have a clue id'
+        return 'Must have a clue id!'
     
     # bd- 防止与抖音的线索ID撞车
     clue_id = 'bd-' + str(original_clue_id)
