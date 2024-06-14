@@ -24,7 +24,6 @@
   "original_json_data_section",
   "parsed",
   "original_json_data",
-  "exception_msg",
   "from_baidu_tab",
   "column_break_kyzi",
   "ad_uc_name",
@@ -87,45 +86,41 @@
   "uc_name",
   "additional_content",
   "from_douyin_tab",
-  "douyin_basic_attributes_of_clues_section",
-  "column_break_sbbx",
-  "qq",
   "gender",
   "age",
+  "qq",
   "address",
-  "remark_dict",
-  "form_remark",
-  "store_address",
-  "store_remark",
-  "store_pack_remark",
   "county_name",
-  "clue_data_source_detail",
-  "promotion_id",
-  "promotion_name",
-  "mid_info",
-  "column_break_oklx",
-  "adv_id",
-  "cid",
+  "location",
   "remark",
+  "section_break_qini",
+  "clue_source",
+  "clue_data_source_detail",
+  "clue_type",
+  "app_name",
+  "flow_type",
+  "date",
+  "section_break_ymsv",
   "ad_id",
   "ad_name",
+  "promotion_id",
+  "promotion_name",
+  "column_break_qvzk",
+  "adv_id",
   "adv_name",
-  "clue_source",
-  "clue_type",
+  "cid",
+  "section_break_kkxo",
   "module_id",
   "module_name",
-  "date",
-  "app_name",
   "req_id",
-  "location",
-  "store_id",
-  "store_name",
   "clue_convert_status",
   "business",
-  "store_pack_id",
-  "store_pack_name",
-  "store_location",
-  "flow_type"
+  "douyin_basic_attributes_of_clues_section",
+  "column_break_sbbx",
+  "form_remark",
+  "remark_dict",
+  "column_break_oklx",
+  "mid_info"
  ],
  "fields": [
   {
@@ -193,6 +188,7 @@
   {
    "fieldname": "commit_time",
    "fieldtype": "Datetime",
+   "in_list_view": 1,
    "label": "Commit Time"
   },
   {
@@ -410,6 +406,7 @@
   {
    "fieldname": "source",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Source",
    "options": "Baidu\nDouyin"
   },
@@ -445,8 +442,7 @@
   },
   {
    "fieldname": "douyin_basic_attributes_of_clues_section",
-   "fieldtype": "Section Break",
-   "label": "Douyin Basic attributes of clues"
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "adv_id",
@@ -568,16 +564,6 @@
    "label": "Location"
   },
   {
-   "fieldname": "store_id",
-   "fieldtype": "Data",
-   "label": "Store ID"
-  },
-  {
-   "fieldname": "store_name",
-   "fieldtype": "Data",
-   "label": "Store Name"
-  },
-  {
    "fieldname": "clue_convert_status",
    "fieldtype": "Data",
    "label": "Clue Convert Status"
@@ -588,21 +574,6 @@
    "label": "Business"
   },
   {
-   "fieldname": "store_pack_id",
-   "fieldtype": "Data",
-   "label": "Store Pack ID"
-  },
-  {
-   "fieldname": "store_pack_name",
-   "fieldtype": "Data",
-   "label": "Store Pack Name"
-  },
-  {
-   "fieldname": "store_location",
-   "fieldtype": "Data",
-   "label": "Store Location"
-  },
-  {
    "fieldname": "column_break_sbbx",
    "fieldtype": "Column Break"
   },
@@ -611,21 +582,6 @@
    "fieldtype": "Select",
    "label": "Flow Type",
    "options": "\u7ecf\u8425-\u81ea\u7136\u6d41\u91cf\u7ebf\u7d22\n\u7ecf\u8425-\u5e7f\u544a\u76f4\u63a5\u7ebf\u7d22\n\u7ecf\u8425-\u5e7f\u544a\u95f4\u63a5\u7ebf\u7d22\n\u5e7f\u544a\u7ebf\u7d22\n\u65e0"
-  },
-  {
-   "fieldname": "store_address",
-   "fieldtype": "Data",
-   "label": "Store Address"
-  },
-  {
-   "fieldname": "store_remark",
-   "fieldtype": "Data",
-   "label": "Store Remark"
-  },
-  {
-   "fieldname": "store_pack_remark",
-   "fieldtype": "Data",
-   "label": "Store Pack Remark"
   },
   {
    "fieldname": "county_name",
@@ -665,6 +621,7 @@
   {
    "fieldname": "crm_lead",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "CRM Lead",
    "options": "Lead"
   },
@@ -677,11 +634,6 @@
    "fieldname": "parsed",
    "fieldtype": "Check",
    "label": "Parse Success"
-  },
-  {
-   "fieldname": "exception_msg",
-   "fieldtype": "Long Text",
-   "label": "Parse Exception Message"
   },
   {
    "fieldname": "column_break_iubu",
@@ -729,11 +681,27 @@
   {
    "fieldname": "section_break_uekz",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_qini",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_ymsv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_qvzk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_kkxo",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-12 14:18:42.315830",
+ "modified": "2024-06-14 16:45:46.447369",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",

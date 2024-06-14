@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "sources": ["../../../../../../../../tmp/tmp-9734-E7Z7jHJfMVPD/erpnext_china/erpnext_china/public/scss/business.bundle.css"],
+  "sources": ["../../../../../../../../tmp/tmp-370-cF3xN8AVAjuc/erpnext_china/erpnext_china/public/scss/business.bundle.css"],
   "sourcesContent": ["[data-theme=business] {\n  --blue: #36414c;\n  --white: #F3F5F9;\n  --bg_white: #EDEDED;\n  --navbar-bg: var(--blue);\n  --bg-color: var(--white);\n  color-scheme: light;\n}\n[data-theme=business] .widget.links-widget-box {\n  border: 1px solid var(--bg_white);\n}\n[data-theme=business] .widget.spacer {\n  background: var(--bg_white);\n  padding: 1px;\n  max-height: 1px;\n}"],
   "mappings": ";AAAA;AACE;AACA;AACA;AACA;AACA;AACA;AAAA;AAEF;AACE;AAAA;AAEF;AACE;AACA;AACA;AAAA;",
   "names": []

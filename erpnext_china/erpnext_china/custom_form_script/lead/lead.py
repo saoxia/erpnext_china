@@ -1,11 +1,15 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
+from erpnext_china.utils.tools import get_doc_or_none
 import frappe
 from erpnext.crm.doctype.lead.lead import Lead
 
 class CustomLead(Lead):
 	def create_contact(self):
+		
+        # TODO 根据phone WeChat qq等判断联系人是否已经存
+		
 		if not self.lead_name:
 			self.set_full_name()
 			self.set_lead_name()
@@ -37,3 +41,23 @@ class CustomLead(Lead):
 		contact.reload()  # load changes by hooks on contact
 
 		return contact
+
+	@property
+	def url(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.site_url
+		return 
+	
+	@property
+	def keyword(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.keyword
+		return 
+
+

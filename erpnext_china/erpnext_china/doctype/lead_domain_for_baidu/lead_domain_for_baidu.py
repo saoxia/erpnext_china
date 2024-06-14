@@ -5,6 +5,7 @@
 import copy
 import json
 import traceback
+from erpnext_china.utils.tools import get_doc_or_none
 from frappe.exceptions import DoesNotExistError
 from frappe.model.document import Document
 import frappe
@@ -25,8 +26,7 @@ def lead_via_baidu(**kwargs):
     if not original_clue_id:
         return 'Must have a clue id!'
     
-    # bd- 防止与抖音的线索ID撞车
-    clue_id = 'bd-' + str(original_clue_id)
+    clue_id = str(original_clue_id)
     push_delay = kwargs.get('push_delay')
     try:
         record = get_doc_or_none('Original Leads', {'clue_id': clue_id})
@@ -154,15 +154,6 @@ def save_parse_failed_data(doctype: str, clue_id: str, kwargs: dict, exception: 
     #     return None
 
 
-def get_doc_or_none(doc: str, kw: dict):
-    """如果没有通过kw查询到doc，将DoesNotExistError错误处理返回None"""
-    try:
-        doc = frappe.get_last_doc(doc, filters=kw)
-        return doc
-    except DoesNotExistError as e:
-        return None
-
-
 def get_username_in_form_detail(kwargs: dict, source: str):
     """
     提取用户称呼，默认是线索的ID
@@ -187,24 +178,35 @@ def get_username_in_form_detail(kwargs: dict, source: str):
 
 def insert_or_get_crm_lead(lead_name, source, phone, mobile, wx, city, state, country='China'):
     """
-    通过手机号查找联系人是否已经存在
+    通过手机、电话、微信号查找线索是否已经存在
     """
-    record = get_doc_or_none('Lead', {
-        'phone': phone
-    })
-    if not record:
+    records = None
+    or_filters = {}
+    if phone: or_filters.update({'phone': phone})
+    if mobile: or_filters.update({'mobile_no': mobile})
+    if wx: or_filters.update({'custom_wechat': wx})
+
+    records = frappe.get_list(
+        "Lead",
+        or_filters=or_filters,
+        ignore_permissions=True
+    )
+
+    if len(records) == 0:
         crm_lead_data = {
             'doctype': 'Lead',
             'lead_name': lead_name,
             'source': source,
             'phone': phone,
             'mobile_no': mobile,
-            'whatsapp_no': wx,
+            'custom_wechat': wx,
             'city': city,
             'state': state,
             'country': country,
         }
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
+    else:
+        record = records[0]
     return record
 
 
@@ -215,7 +217,7 @@ def lead_via_douyin(**kwargs):
     if not original_id:
         return
 
-    clue_id = 'dy-' + str(original_id)
+    clue_id = str(original_id)
 
     try:
         record = get_doc_or_none('Original Leads', {'clue_id': clue_id})
