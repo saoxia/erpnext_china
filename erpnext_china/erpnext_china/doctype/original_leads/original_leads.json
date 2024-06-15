@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:clue_id",
+ "autoname": "Format:ORIGIN-LEAD-{YYYY}-{######}",
  "creation": "2024-06-05 17:40:10.371532",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -498,15 +498,13 @@
   },
   {
    "fieldname": "clue_source",
-   "fieldtype": "Select",
-   "label": "Clue Source",
-   "options": "\u5b57\u8282-\u5de8\u91cf\u5e7f\u544a\n\u5176\u4ed6\u6e20\u9053-\u5916\u90e8\u5bfc\u5165\n\u5b57\u8282-\u6296\u97f3\u4f01\u4e1a\u53f7\n\u5b57\u8282-\u5de8\u91cf\u7ebf\u7d22\n\u5b57\u8282-\u4e91\u5e97\n\u5b57\u8282-\u661f\u56fe\n\u5b57\u8282-\u83b7\u5ba2\u5b9d\n\u5b57\u8282-\u4f4f\u5c0f\u5e2e"
+   "fieldtype": "Data",
+   "label": "Clue Source"
   },
   {
    "fieldname": "clue_type",
-   "fieldtype": "Select",
-   "label": "Clue Type",
-   "options": "\u5b57\u8282-\u8868\u5355\u63d0\u4ea4\n\u5b57\u8282-\u5728\u7ebf\u54a8\u8be2\n\u5b57\u8282-\u667a\u80fd\u7535\u8bdd\n\u5b57\u8282-\u7f51\u9875\u56de\u547c\n\u5b57\u8282-\u5361\u5238\n\u5b57\u8282-\u62bd\u5956"
+   "fieldtype": "Data",
+   "label": "Clue Type"
   },
   {
    "fieldname": "module_id",
@@ -579,9 +577,8 @@
   },
   {
    "fieldname": "flow_type",
-   "fieldtype": "Select",
-   "label": "Flow Type",
-   "options": "\u7ecf\u8425-\u81ea\u7136\u6d41\u91cf\u7ebf\u7d22\n\u7ecf\u8425-\u5e7f\u544a\u76f4\u63a5\u7ebf\u7d22\n\u7ecf\u8425-\u5e7f\u544a\u95f4\u63a5\u7ebf\u7d22\n\u5e7f\u544a\u7ebf\u7d22\n\u65e0"
+   "fieldtype": "Data",
+   "label": "Flow Type"
   },
   {
    "fieldname": "county_name",
@@ -623,7 +620,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "CRM Lead",
-   "options": "Lead"
+   "options": "Lead",
+   "search_index": 1
   },
   {
    "fieldname": "column_break_oklx",
@@ -701,7 +699,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-14 16:45:46.447369",
+ "modified": "2024-06-15 18:46:38.331631",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",
