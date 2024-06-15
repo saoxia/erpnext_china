@@ -59,8 +59,9 @@ def lead_via_baidu(**kwargs):
                 kwargs.get('area_province'))
             
             # 添加crm 线索和原始线索之间的关系
-            original_lead_doc.crm_lead = crm_lead_doc.name
-            original_lead_doc.save()
+            if crm_lead_doc:
+                original_lead_doc.crm_lead = crm_lead_doc.name
+                original_lead_doc.save()
 
         # 如果数据已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
@@ -180,34 +181,39 @@ def insert_or_get_crm_lead(lead_name, source, phone, mobile, wx, city, state, co
     """
     通过手机、电话、微信号查找线索是否已经存在
     """
-    records = None
-    or_filters = {}
-    if phone: or_filters.update({'phone': phone})
-    if mobile: or_filters.update({'mobile_no': mobile})
-    if wx: or_filters.update({'custom_wechat': wx})
-
-    records = frappe.get_list(
-        "Lead",
-        or_filters=or_filters,
-        ignore_permissions=True
-    )
-
-    if len(records) == 0:
-        crm_lead_data = {
-            'doctype': 'Lead',
-            'lead_name': lead_name,
-            'source': source,
-            'phone': phone,
-            'mobile_no': mobile,
-            'custom_wechat': wx,
-            'city': city,
-            'state': state,
-            'country': country,
-        }
-        record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
+    # 如果phone、mobile、wx都没有，则不需要创建CRM线索
+    if not phone and not mobile and not wx:
+        return None
     else:
-        record = records[0]
-    return record
+        # 查询已经存在的CRM线索
+        or_filters = {}
+        if phone: or_filters.update({'phone': phone})
+        if mobile: or_filters.update({'mobile_no': mobile})
+        if wx: or_filters.update({'custom_wechat': wx})
+
+        records = frappe.get_list(
+            "Lead",
+            or_filters=or_filters,
+            ignore_permissions=True
+        )
+
+        # 如果CRM线索中不存在当前手机号/电话号/微信号的线索，则新增
+        if len(records) == 0:
+            crm_lead_data = {
+                'doctype': 'Lead',
+                'lead_name': lead_name,
+                'source': source,
+                'phone': phone,
+                'mobile_no': mobile,
+                'custom_wechat': wx,
+                'city': city,
+                'state': state,
+                'country': country,
+            }
+            record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
+        else: # 如果存在，则返回第一个
+            record = records[0]
+        return record
 
 
 @frappe.whitelist(allow_guest=True)
