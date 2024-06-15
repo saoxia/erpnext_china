@@ -49,24 +49,24 @@ def lead_via_baidu(**kwargs):
             )
             original_lead_doc = frappe.get_doc(kwargs).insert(ignore_permissions=True)
             # 同时生成一条CRM数据
-            # crm_lead_doc = insert_or_get_crm_lead(
-            #     username, 
-            #     '百度营销', 
-            #     kwargs.get('clue_phone_number'),
-            #     kwargs.get('clue_phone_number'), 
-            #     kwargs.get('wechat_account'),
-            #     kwargs.get('area'), 
-            #     kwargs.get('area_province'))
+            crm_lead_doc = insert_or_get_crm_lead(
+                username, 
+                '百度营销', 
+                kwargs.get('clue_phone_number'),
+                kwargs.get('clue_phone_number'), 
+                kwargs.get('wechat_account'),
+                kwargs.get('area'), 
+                kwargs.get('area_province'))
             
             # 添加crm 线索和原始线索之间的关系
-            # original_lead_doc.crm_lead = crm_lead_doc.name
-            # original_lead_doc.save()
+            original_lead_doc.crm_lead = crm_lead_doc.name
+            original_lead_doc.save()
 
         # 如果数据已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
             
             update_delay_fields(record, kwargs)
-            # update_crm_lead_fields(record, kwargs)
+            update_crm_lead_fields(record, kwargs)
 
     except Exception as e:
         frappe.db.rollback()
