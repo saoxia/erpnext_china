@@ -43,7 +43,16 @@ class CustomLead(Lead):
 		return contact
 
 	@property
-	def url(self):
+	def custom_original_lead_source(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.source
+		return 
+
+	@property
+	def custom_url(self):
 		original_lead = get_doc_or_none('Original Leads', {
 			'crm_lead': self.name
 		})
@@ -52,12 +61,37 @@ class CustomLead(Lead):
 		return 
 	
 	@property
-	def keyword(self):
+	def custom_keyword(self):
 		original_lead = get_doc_or_none('Original Leads', {
 			'crm_lead': self.name
 		})
 		if original_lead:
-			return original_lead.keyword
+			return original_lead.search_word
 		return 
 
+	@property
+	def custom_flow_channel_name(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.flow_channel_name
+		return 
 
+	@property
+	def custom_solution_type_name(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.solution_type_name
+		return 
+
+	# @property
+	# def custom_clue_source(self):
+	# 	original_lead = get_doc_or_none('Original Leads', {
+	# 		'crm_lead': self.name
+	# 	})
+	# 	if original_lead:
+	# 		return original_lead.clue_source
+	# 	return 
