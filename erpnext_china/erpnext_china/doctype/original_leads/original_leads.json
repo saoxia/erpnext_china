@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:clue_id",
+ "autoname": "Format:ORIGIN-LEAD-{YYYY}-{######}",
  "creation": "2024-06-05 17:40:10.371532",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -701,7 +701,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-14 16:45:46.447369",
+ "modified": "2024-06-15 18:19:07.415452",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",
