@@ -1,11 +1,15 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
+from erpnext_china.utils.tools import get_doc_or_none
 import frappe
 from erpnext.crm.doctype.lead.lead import Lead
 
 class CustomLead(Lead):
 	def create_contact(self):
+		
+        # TODO 根据phone WeChat qq等判断联系人是否已经存
+		
 		if not self.lead_name:
 			self.set_full_name()
 			self.set_lead_name()
@@ -37,3 +41,57 @@ class CustomLead(Lead):
 		contact.reload()  # load changes by hooks on contact
 
 		return contact
+
+	@property
+	def custom_original_lead_source(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.source
+		return 
+
+	@property
+	def custom_url(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.site_url
+		return 
+	
+	@property
+	def custom_keyword(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.search_word
+		return 
+
+	@property
+	def custom_flow_channel_name(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.flow_channel_name
+		return 
+
+	@property
+	def custom_solution_type_name(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.solution_type_name
+		return 
+
+	# @property
+	# def custom_clue_source(self):
+	# 	original_lead = get_doc_or_none('Original Leads', {
+	# 		'crm_lead': self.name
+	# 	})
+	# 	if original_lead:
+	# 		return original_lead.clue_source
+	# 	return 
