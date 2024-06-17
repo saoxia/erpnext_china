@@ -15,10 +15,14 @@ class LeaddomainforDouyin(Document):
 def get_or_insert(doctype: str, orginal_search_kw: dict, new_doc_data: dict):
     doc = lead_tools.get_doc_or_none(doctype, orginal_search_kw)
     if not doc:
-        doc = frappe.get_doc(new_doc_data.update({'doctype': doctype})).insert(ignore_permissions=True)
+        new_doc_data = new_doc_data.update({'doctype': doctype})
+        doc = frappe.get_doc(new_doc_data).insert(ignore_permissions=True)
     return doc
 
 def get_or_insert_clue_source(clue_source_id: str):
+    #  0 和 1 都是巨量广告，仅保留1
+    if clue_source_id == '0':
+        clue_source_id = '1'
     doctype = 'Original Clue Sources'
     return get_or_insert(doctype, {'clue_source_id': clue_source_id}, {
         'clue_source_id': clue_source_id,
@@ -87,7 +91,7 @@ def lead_via_douyin(**kwargs):
             clue_source_name = '线索来源未定义'
             if kwargs.get('clue_source'):
                 clue_source = get_or_insert_clue_source(str(kwargs.get('clue_source')))
-                clue_source_name = clue_source.name
+                clue_source_name = clue_source.clue_source_name
                 kwargs.update({'clue_source': clue_source.name})
             else:
                 kwargs.pop('clue_source', None)

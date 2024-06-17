@@ -49,7 +49,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.source
-		return 
 
 	@property
 	def custom_url(self):
@@ -58,7 +57,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.site_url
-		return 
 	
 	@property
 	def custom_keyword(self):
@@ -67,7 +65,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.search_word
-		return 
 
 	@property
 	def custom_flow_channel_name(self):
@@ -76,7 +73,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.flow_channel_name
-		return 
 
 	@property
 	def custom_solution_type_name(self):
@@ -85,7 +81,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.solution_type_name
-		return 
 
 	@property
 	def custom_clue_source(self):
@@ -94,7 +89,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.clue_source
-		return
 	
 	@property
 	def custom_clue_type(self):
@@ -103,7 +97,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.clue_type
-		return
 
 	@property
 	def custom_flow_type(self):
@@ -112,4 +105,3 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.flow_type
-		return

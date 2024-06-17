@@ -2,7 +2,6 @@ import frappe
 
 def init_original_clue_sources():
     clue_sources = {
-        "0": '字节-巨量广告',
         "1": '字节-巨量广告',
         "2": '其他渠道-外部导入',
         "5": '字节-抖音企业号',
