@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:clue_type_name",
+ "creation": "2024-06-16 11:35:38.901118",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "clue_type_id",
+  "clue_type_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "clue_type_id",
+   "fieldtype": "Data",
+   "label": "Clue Type ID",
+   "unique": 1
+  },
+  {
+   "fieldname": "clue_type_name",
+   "fieldtype": "Data",
+   "label": "Clue Type Name",
+   "unique": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-06-16 14:53:29.084668",
+ "modified_by": "Administrator",
+ "module": "ERPNext China",
+ "name": "Original Clue Types",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

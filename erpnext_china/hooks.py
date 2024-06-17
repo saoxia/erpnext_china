@@ -9,7 +9,8 @@ app_logo_url = "/assets/erpnext/images/erpnext-logo.svg"
 
 
 after_install = "erpnext_china.setup.after_install.operations.install_fixtures.install"
-
+# 在app更新后执行
+after_migrate = "erpnext_chain.setup.after_migrate.operations.init_data.init"
 
 app_include_js = ["erpnext_china.bundle.js"]
 app_include_css = "business.bundle.css"

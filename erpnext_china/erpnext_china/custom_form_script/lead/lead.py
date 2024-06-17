@@ -1,7 +1,7 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-from erpnext_china.utils.tools import get_doc_or_none
+from erpnext_china.utils.lead_tools import get_doc_or_none
 import frappe
 from erpnext.crm.doctype.lead.lead import Lead
 
@@ -87,11 +87,29 @@ class CustomLead(Lead):
 			return original_lead.solution_type_name
 		return 
 
-	# @property
-	# def custom_clue_source(self):
-	# 	original_lead = get_doc_or_none('Original Leads', {
-	# 		'crm_lead': self.name
-	# 	})
-	# 	if original_lead:
-	# 		return original_lead.clue_source
-	# 	return 
+	@property
+	def custom_clue_source(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.clue_source
+		return
+	
+	@property
+	def custom_clue_type(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.clue_type
+		return
+
+	@property
+	def custom_flow_type(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.flow_type
+		return
