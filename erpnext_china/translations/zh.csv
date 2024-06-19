@@ -9064,7 +9064,7 @@ Search Word,广告搜索词,
 Refund Supportive,参与赔付判定,
 Lead Name,称呼,
 Lead Tel,电话,
-Douyin,抖音,
+Douyin,字节,
 Baidu,百度,
 Adv ID,广告主id,
 Gender,性别,
@@ -9105,12 +9105,12 @@ Promotion Name,广告名称,
 Mid Info,mid_info,
 Flow Type,流量类型,
 From Baidu,百度拓展信息,
-From Douyin,抖音拓展信息,
+From Douyin,字节拓展信息,
 Lead Basic,线索基础,
 Original JSON Data,原始数据,
 Baidu Basic attributes of clues,百度线索属性,
 AD Attributes,广告属性,
-Douyin Basic attributes of clues,抖音线索属性,
+Douyin Basic attributes of clues,字节线索属性,
 Request ID,请求ID,
 CRM Lead,CRM线索,
 Parse Success,原始线索解析完成,
@@ -9119,3 +9119,4 @@ Page Info,页面信息
 Auth Info,数据认证信息
 Baidu User Info,网民网络信息
 Original Leads,原始线索
+Created Datetime,创建日期

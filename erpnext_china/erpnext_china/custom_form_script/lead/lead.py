@@ -1,7 +1,7 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-from erpnext_china.utils.tools import get_doc_or_none
+from erpnext_china.utils.lead_tools import get_doc_or_none
 import frappe
 from erpnext.crm.doctype.lead.lead import Lead
 
@@ -49,7 +49,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.source
-		return 
 
 	@property
 	def custom_url(self):
@@ -58,7 +57,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.site_url
-		return 
 	
 	@property
 	def custom_keyword(self):
@@ -67,7 +65,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.search_word
-		return 
 
 	@property
 	def custom_flow_channel_name(self):
@@ -76,7 +73,6 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.flow_channel_name
-		return 
 
 	@property
 	def custom_solution_type_name(self):
@@ -85,13 +81,27 @@ class CustomLead(Lead):
 		})
 		if original_lead:
 			return original_lead.solution_type_name
-		return 
 
-	# @property
-	# def custom_clue_source(self):
-	# 	original_lead = get_doc_or_none('Original Leads', {
-	# 		'crm_lead': self.name
-	# 	})
-	# 	if original_lead:
-	# 		return original_lead.clue_source
-	# 	return 
+	@property
+	def custom_clue_source(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.clue_source
+	
+	@property
+	def custom_clue_type(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.clue_type
+
+	@property
+	def custom_flow_type(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.flow_type

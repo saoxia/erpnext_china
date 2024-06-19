@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "Format:ORIGIN-LEAD-{YYYY}-{######}",
+ "autoname": "Format:ORIGIN-LEAD-{YYYY}-{MM}-{DD}-{######}",
  "creation": "2024-06-05 17:40:10.371532",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -12,6 +12,7 @@
   "clue_id",
   "crm_lead",
   "commit_time",
+  "created_datetime",
   "site_url",
   "site_id",
   "site_name",
@@ -451,9 +452,8 @@
   },
   {
    "fieldname": "gender",
-   "fieldtype": "Link",
-   "label": "Gender",
-   "options": "Gender"
+   "fieldtype": "Data",
+   "label": "Gender"
   },
   {
    "fieldname": "age",
@@ -498,13 +498,15 @@
   },
   {
    "fieldname": "clue_source",
-   "fieldtype": "Data",
-   "label": "Clue Source"
+   "fieldtype": "Link",
+   "label": "Clue Source",
+   "options": "Original Clue Sources"
   },
   {
    "fieldname": "clue_type",
-   "fieldtype": "Data",
-   "label": "Clue Type"
+   "fieldtype": "Link",
+   "label": "Clue Type",
+   "options": "Original Clue Types"
   },
   {
    "fieldname": "module_id",
@@ -538,7 +540,7 @@
   },
   {
    "fieldname": "remark_dict",
-   "fieldtype": "Text",
+   "fieldtype": "JSON",
    "label": "Remark Dict"
   },
   {
@@ -577,8 +579,9 @@
   },
   {
    "fieldname": "flow_type",
-   "fieldtype": "Data",
-   "label": "Flow Type"
+   "fieldtype": "Link",
+   "label": "Flow Type",
+   "options": "Original Flow Types"
   },
   {
    "fieldname": "county_name",
@@ -695,11 +698,17 @@
   {
    "fieldname": "section_break_kkxo",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "created_datetime",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Created Datetime"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-15 18:46:38.331631",
+ "modified": "2024-06-19 16:41:57.386237",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",
