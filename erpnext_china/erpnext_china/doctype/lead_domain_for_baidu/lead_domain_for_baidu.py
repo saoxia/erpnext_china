@@ -9,6 +9,7 @@ from erpnext_china.utils import lead_tools
 from frappe.exceptions import DoesNotExistError
 from frappe.model.document import Document
 import frappe
+from frappe.utils import datetime
 
 class LeadDomainforBaidu(Document):
 	pass
@@ -44,7 +45,8 @@ def lead_via_baidu(**kwargs):
                     'clue_id': clue_id,
                     'original_json_data': copy.deepcopy(kwargs),
                     'lead_name': username,
-                    'form_detail': form_detail
+                    'form_detail': form_detail,
+                    'created_datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 }
             )
             original_lead_doc = frappe.get_doc(kwargs).insert(ignore_permissions=True)
