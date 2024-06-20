@@ -498,15 +498,13 @@
   },
   {
    "fieldname": "clue_source",
-   "fieldtype": "Link",
-   "label": "Clue Source",
-   "options": "Original Clue Sources"
+   "fieldtype": "Data",
+   "label": "Clue Source"
   },
   {
    "fieldname": "clue_type",
-   "fieldtype": "Link",
-   "label": "Clue Type",
-   "options": "Original Clue Types"
+   "fieldtype": "Data",
+   "label": "Clue Type"
   },
   {
    "fieldname": "module_id",
@@ -579,9 +577,8 @@
   },
   {
    "fieldname": "flow_type",
-   "fieldtype": "Link",
-   "label": "Flow Type",
-   "options": "Original Flow Types"
+   "fieldtype": "Data",
+   "label": "Flow Type"
   },
   {
    "fieldname": "county_name",
@@ -708,7 +705,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-19 16:41:57.386237",
+ "modified": "2024-06-20 09:52:50.251787",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",

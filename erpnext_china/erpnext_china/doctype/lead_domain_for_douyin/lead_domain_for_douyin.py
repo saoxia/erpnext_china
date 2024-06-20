@@ -12,38 +12,40 @@ from frappe.utils import datetime, response
 class LeaddomainforDouyin(Document):
 	pass
 
-def get_or_insert(doctype: str, orginal_search_kw: dict, new_doc_data: dict):
-    doc = lead_tools.get_doc_or_none(doctype, orginal_search_kw)
-    if not doc:
-        new_doc_data = new_doc_data.update({'doctype': doctype})
-        doc = frappe.get_doc(new_doc_data).insert(ignore_permissions=True)
-    return doc
+def get_clue_source_str(clue_source_id: str):
+    clue_sources = {
+        "0": '字节-巨量广告',
+        "1": '字节-巨量广告',
+        "2": '其他渠道-外部导入',
+        "5": '字节-抖音企业号',
+        "7": '字节-巨量线索',
+        "8": '字节-云店',
+        "9": '字节-星图',
+        "10": '字节-获客宝',
+        "11": '字节-住小帮',
+    }
+    return clue_sources.get(clue_source_id, '未知')
 
-def get_or_insert_clue_source(clue_source_id: str):
-    #  0 和 1 都是巨量广告，仅保留1
-    if clue_source_id == '0':
-        clue_source_id = '1'
-    doctype = 'Original Clue Sources'
-    return get_or_insert(doctype, {'clue_source_id': clue_source_id}, {
-        'clue_source_id': clue_source_id,
-        'clue_source_name': '未录入的线索渠道'
-    })
+def get_flow_type_str(flow_type_id: str):
+    flow_types = {
+        "1": "经营-自然流量线索",
+        "2": "经营-广告直接线索",
+        "3": "经营-广告间接线索",
+        "4": "广告线索",
+        "5": "无",
+    }
+    return flow_types.get(flow_type_id, '未知')
 
-
-def get_or_insert_flow_type(flow_type_id: str):
-    doctype = 'Original Flow Types'
-    return get_or_insert(doctype, {'flow_type_id': flow_type_id}, {
-        'flow_type_id': flow_type_id,
-        'flow_type_name': '未录入的流量类型'
-    })
-
-
-def get_or_insert_clue_type(clue_type_id: str):
-    doctype = 'Original Clue Types'
-    return get_or_insert(doctype, {'clue_type_id': clue_type_id}, {
-        'clue_type_id': clue_type_id,
-        'clue_type_name': '未录入的线索类型'
-    })
+def get_clue_type_str(clue_type_id: str):
+    clue_types = {
+        "0": "字节-表单提交",
+        "1": "字节-在线咨询",
+        "2": "字节-智能电话",
+        "3": "字节-网页回呼",
+        "4": "字节-卡券",
+        "5": "字节-抽奖",
+    }
+    return clue_types.get(clue_type_id, '未知')
 
 def split_location(location: str):
     """省+市
@@ -72,6 +74,10 @@ def lead_via_douyin(**kwargs):
             
             # 山东+济南
             location = split_location(kwargs.get('location'))
+            clue_source_name = get_clue_source_str(str(kwargs.get('clue_source', '')))
+            flow_type_name = get_flow_type_str(str(kwargs.get('flow_type', '')))
+            clue_type_name = get_clue_type_str(str(kwargs.get('clue_type', '')))
+
             kwargs.update(
                 {
                     'doctype': 'Original Leads', 
@@ -86,27 +92,12 @@ def lead_via_douyin(**kwargs):
                     'commit_time': datetime.datetime.fromtimestamp(float(kwargs.get('create_time'))),
                     'site_url': kwargs.get('external_url'),
                     'gender': kwargs.get('gender'),
+                    'clue_source': clue_source_name,
+                    'flow_type': flow_type_name,
+                    'clue_type': clue_type_name,
+                    'created_datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 }
             )
-            clue_source_name = '线索来源未定义'
-            if kwargs.get('clue_source'):
-                clue_source = get_or_insert_clue_source(str(kwargs.get('clue_source')))
-                clue_source_name = clue_source.clue_source_name
-                kwargs.update({'clue_source': clue_source.name})
-            else:
-                kwargs.pop('clue_source', None)
-            
-            if kwargs.get('flow_type'): 
-                flow_type = get_or_insert_flow_type(str(kwargs.get('flow_type')))
-                kwargs.update({'flow_type': flow_type.name})
-            else:
-                kwargs.pop('flow_type', None)
-            
-            if kwargs.get('clue_type'):
-                clue_type = get_or_insert_clue_type(str(kwargs.get('clue_type')))
-                kwargs.update({'clue_type': clue_type.name})
-            else:
-                kwargs.pop('clue_type', None)
 
             original_lead_doc = frappe.get_doc(kwargs).insert(ignore_permissions=True)
             # 同时生成一条CRM数据
