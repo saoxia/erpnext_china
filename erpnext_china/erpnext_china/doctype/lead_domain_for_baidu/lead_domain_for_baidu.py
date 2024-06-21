@@ -32,12 +32,15 @@ def lead_via_baidu(**kwargs):
     try:
         record = lead_tools.get_doc_or_none('Original Leads', {'clue_id': clue_id})
         
-        # 如果数据不存在则直接进行插入
+        # 如果原始线索不存在则直接进行插入
         if not record:
             username = lead_tools.get_username_in_form_detail(kwargs, 'baidu')
             form_detail = kwargs.get('form_detail')
             if not isinstance(form_detail, str):
                 form_detail = json.dumps(form_detail, ensure_ascii=False)
+            additional_content = kwargs.get('additional_content')
+            if not isinstance(additional_content, str):
+                additional_content = json.dumps(additional_content, ensure_ascii=False)
             kwargs.update(
                 {   
                     'doctype': 'Original Leads', 
@@ -46,6 +49,7 @@ def lead_via_baidu(**kwargs):
                     'original_json_data': copy.deepcopy(kwargs),
                     'lead_name': username,
                     'form_detail': form_detail,
+                    'additional_content': additional_content,
                     'created_datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 }
             )
@@ -66,7 +70,10 @@ def lead_via_baidu(**kwargs):
                 original_lead_doc.crm_lead = crm_lead_doc.name
                 original_lead_doc.save()
 
-        # 如果数据已经存在**并且**是通过延迟接口推送过来的则进行更新
+            # CRM线索创建或查询出来后，判断客户是否和线索有关联
+            
+
+        # 如果原始线索已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
             
             update_delay_fields(record, kwargs)
