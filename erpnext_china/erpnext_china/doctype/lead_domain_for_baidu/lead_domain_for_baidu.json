@@ -8,7 +8,8 @@
   "baiduid",
   "password",
   "column_break_zsxv",
-  "employee"
+  "employee",
+  "token"
  ],
  "fields": [
   {
@@ -30,11 +31,16 @@
    "fieldtype": "Link",
    "label": "Employee",
    "options": "Employee"
+  },
+  {
+   "fieldname": "token",
+   "fieldtype": "Data",
+   "label": "Token"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-01 09:08:40.760964",
+ "modified": "2024-06-24 10:52:02.569211",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Baidu",
@@ -53,8 +59,10 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
+ "title_field": "employee",
  "track_changes": 1
 }
