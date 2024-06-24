@@ -46,7 +46,8 @@ def format_flow_channel_name(name: str, prefix: str):
 def get_username_in_form_detail(kwargs: dict, source: str):
     """
     提取用户称呼，默认是线索的ID
-    :param source: baidu | douyin
+    
+    source: baidu | douyin
     """
     if source not in ['baidu', 'douyin']:
         return "未知"
@@ -67,7 +68,7 @@ def get_username_in_form_detail(kwargs: dict, source: str):
 
     return kwargs.get('name', '匿名') or "匿名"
 
-
+###### 未完成，需要调整 ######
 def crm_lead_linked_customer(crm_lead):
     """通过联系方式找到客户
     """
@@ -113,7 +114,7 @@ def crm_lead_linked_customer(crm_lead):
 
 
 
-def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, user, country='China'):
+def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, account, country='China'):
     """
     通过手机、电话、微信号查找线索是否已经存在，如果存在返回doc，不存在则创建
     """
@@ -145,7 +146,7 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, us
             'city': city,
             'state': state,
             'country': country,
-            'lead_owner': user,
+            # 'employee_baidu_account': account,
         }
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)

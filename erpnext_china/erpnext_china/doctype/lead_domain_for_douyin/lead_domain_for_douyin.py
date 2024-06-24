@@ -66,6 +66,7 @@ def lead_via_douyin(**kwargs):
     if not clue_id:
         frappe.local.response['http_status_code'] = 400
         frappe.local.response.update({'code': 400, 'message': 'Must have id!'})
+        return
     try:
         record = lead_tools.get_doc_or_none('Original Leads', {'clue_id': clue_id})
         # 如果数据不存在则直接进行插入
@@ -117,6 +118,7 @@ def lead_via_douyin(**kwargs):
                 original_lead_doc.save()
         frappe.local.response['http_status_code'] = 200
         frappe.local.response.update({"code": 0, "message": "success"})
+        return
     except Exception as e:
         # 如果出现异常，回滚之前的操作
         frappe.db.rollback()

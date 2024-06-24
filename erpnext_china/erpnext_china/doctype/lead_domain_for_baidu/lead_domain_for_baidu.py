@@ -21,7 +21,9 @@ def lead_via_baidu(**kwargs):
     original_clue_id = kwargs.get('clue_id')
     # 这里几乎不可能出现没有线索ID的情况
     if not original_clue_id:
-        return 'Must have a clue id!'
+        frappe.local.response['http_status_code'] = 400
+        frappe.local.response.update({'message': 'Must have id!'})
+        return
     
     clue_id = str(original_clue_id)
     push_delay = kwargs.get('push_delay')
@@ -30,25 +32,26 @@ def lead_via_baidu(**kwargs):
         baidu_account = get_employee_account(kwargs.get('uc_name'))
         # 验证token
         if not verify_token(kwargs.get('token'), baidu_account.token if baidu_account else ''):
-            return 'The request from unknown sources!'
+            frappe.local.response['http_status_code'] = 403
+            frappe.local.response.update({'message': 'The request from unknown sources!'})
+            return 
         
         record = lead_tools.get_doc_or_none('Original Leads', {'clue_id': clue_id})
         
+        user, employee = None, None
+        if baidu_account:
+            employee = lead_tools.get_doc_or_none('Employee', {"name": baidu_account.employee})
+        if employee:
+            user = employee.user_id
+
+        if user:
+            # 切换到当前线索来源百度营销通对应的用户
+            frappe.set_user(user)
         # 如果原始线索不存在则直接进行插入
         if not record:
             
             lead_name = lead_tools.get_username_in_form_detail(kwargs, 'baidu')
             kwargs = format_fields(kwargs)
-
-            user, employee = None, None
-            if baidu_account:
-                employee = lead_tools.get_doc_or_none('Employee', {"name": baidu_account.employee})
-            if employee:
-                user = employee.user_id
-
-            if user:
-                # 切换到当前线索来源百度营销通对应的用户
-                frappe.set_user(user)
 
             kwargs.update(
                 {   
@@ -73,7 +76,7 @@ def lead_via_baidu(**kwargs):
                 kwargs.get('wechat_account'),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
-                user
+                baidu_account.name if baidu_account else None
             )
             
             # 添加crm 线索和原始线索之间的关系
