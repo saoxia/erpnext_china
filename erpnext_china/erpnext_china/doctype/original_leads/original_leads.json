@@ -718,7 +718,7 @@
    "fieldname": "employee_douyin_account",
    "fieldtype": "Link",
    "label": "Employee Douyin Account",
-   "options": "Lead domain for Douyin"
+   "options": "Lead Domain for Douyin"
   },
   {
    "fieldname": "user",
@@ -739,7 +739,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-24 11:49:34.920087",
+ "modified": "2024-06-25 11:50:05.525635",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",

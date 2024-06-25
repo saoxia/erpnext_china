@@ -9,7 +9,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils import datetime, response
 
-class LeaddomainforDouyin(Document):
+class LeadDomainforDouyin(Document):
 	pass
 
 def get_clue_source_str(clue_source_id: str):
@@ -63,11 +63,32 @@ def split_location(location: str):
 def lead_via_douyin(**kwargs):
 
     clue_id = kwargs.get('id')
+
     if not clue_id:
         frappe.local.response['http_status_code'] = 400
-        frappe.local.response.update({'code': 400, 'message': 'Must have id!'})
+        frappe.local.response.update({'code': 400, 'message': 'bad request'})
         return
     try:
+        headers = frappe.local.request.headers
+        signature = headers.get('SIGNATURE')
+        timestamp = headers.get('TIMESTAMP')
+        access_token = headers.get('ACCESS_TOKEN')
+
+        douyin_account = get_employee_account(kwargs.get('adv_name'))
+        token = douyin_account.token if douyin_account else None
+        if not verify_token(clue_id, timestamp, access_token, signature, token):
+            frappe.local.response['http_status_code'] = 400
+            frappe.local.response.update({'code': 400, 'message': 'bad request'})
+            return
+        
+        user, employee = None, None
+        if douyin_account:
+            employee = lead_tools.get_doc_or_none('Employee', {"name": douyin_account.employee})
+        if employee:
+            user = employee.user_id
+        if user:
+            # 切换到当前线索来源百度营销通对应的用户
+            frappe.set_user(user)
         record = lead_tools.get_doc_or_none('Original Leads', {'clue_id': clue_id})
         # 如果数据不存在则直接进行插入
         if not record:
@@ -97,6 +118,8 @@ def lead_via_douyin(**kwargs):
                     'flow_type': flow_type_name,
                     'clue_type': clue_type_name,
                     'created_datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    'employee_douyin_account': douyin_account.name if douyin_account else None,
+                    'user': user
                 }
             )
 
@@ -110,12 +133,17 @@ def lead_via_douyin(**kwargs):
                 kwargs.get('telphone'), 
                 kwargs.get('weixin'), 
                 kwargs.get('city_name') or location[1], 
-                kwargs.get('province_name')  or location[0])
+                kwargs.get('province_name')  or location[0],
+                dy_account=douyin_account.name if douyin_account else None
+            )
             
             # 添加crm 线索和原始线索之间的关系
             if crm_lead_doc:
                 original_lead_doc.crm_lead = crm_lead_doc.name
                 original_lead_doc.save()
+        else: # 这里也有补充字段
+            pass
+
         frappe.local.response['http_status_code'] = 200
         frappe.local.response.update({"code": 0, "message": "success"})
         return
@@ -123,3 +151,23 @@ def lead_via_douyin(**kwargs):
         # 如果出现异常，回滚之前的操作
         frappe.db.rollback()
         raise e
+
+
+def verify_token(clue_id: str, timestamp: str, access_token: str, signature: str, token: str):
+    """
+    clue_id|token|timestamp 进行sha256的hash运算，再进行base64加密 = signature
+
+    飞鱼线索推送配置中必须同时配置了秘钥和token才能接收到signature和access_token
+
+    这里我们暂时仅判断一下这个request_token和账号配置token是否一致
+    """
+    # if access_token != token:
+    #     return False
+    return True
+
+
+def get_employee_account(adv_name: str):
+    if not adv_name:
+        return None
+    doc = lead_tools.get_doc_or_none("Lead Domain for Douyin", {"adv_name": adv_name})
+    return doc

@@ -114,7 +114,8 @@ def crm_lead_linked_customer(crm_lead):
 
 
 
-def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, account, country='China'):
+def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, 
+                           bd_account=None, dy_account=None, country='China'):
     """
     通过手机、电话、微信号查找线索是否已经存在，如果存在返回doc，不存在则创建
     """
@@ -146,7 +147,9 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, ac
             'city': city,
             'state': state,
             'country': country,
-            # 'employee_baidu_account': account,
+            'custom_employee_baidu_account': bd_account,
+            'custom_employee_douyin_account': dy_account,
+            'lead_owner': '', # 这个给个默认线索负责人为空
         }
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)

@@ -76,7 +76,7 @@ def lead_via_baidu(**kwargs):
                 kwargs.get('wechat_account'),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
-                baidu_account.name if baidu_account else None
+                bd_account=baidu_account.name if baidu_account else None
             )
             
             # 添加crm 线索和原始线索之间的关系

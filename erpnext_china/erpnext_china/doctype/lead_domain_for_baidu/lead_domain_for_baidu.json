@@ -40,7 +40,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-24 10:52:02.569211",
+ "modified": "2024-06-25 10:59:26.767120",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Baidu",
@@ -63,6 +63,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "employee",
+ "title_field": "baiduid",
  "track_changes": 1
 }
