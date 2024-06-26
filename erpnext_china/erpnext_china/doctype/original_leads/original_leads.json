@@ -8,6 +8,10 @@
  "field_order": [
   "basic_tab",
   "basic_section",
+  "username",
+  "user",
+  "employee_baidu_account",
+  "employee_douyin_account",
   "source",
   "clue_id",
   "crm_lead",
@@ -701,11 +705,41 @@
    "fieldtype": "Datetime",
    "in_list_view": 1,
    "label": "Created Datetime"
+  },
+  {
+   "depends_on": "eval:doc.source == \"Baidu\"",
+   "fieldname": "employee_baidu_account",
+   "fieldtype": "Link",
+   "label": "Employee Baidu Account",
+   "options": "Lead Domain for Baidu"
+  },
+  {
+   "depends_on": "eval:doc.source == 'Douyin'",
+   "fieldname": "employee_douyin_account",
+   "fieldtype": "Link",
+   "label": "Employee Douyin Account",
+   "options": "Lead Domain for Douyin"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "bold": 1,
+   "fieldname": "username",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "is_virtual": 1,
+   "label": "Username",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-20 09:52:50.251787",
+ "modified": "2024-06-25 11:50:05.525635",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",

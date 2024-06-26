@@ -5,20 +5,51 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_mlue"
+  "adv_name",
+  "password",
+  "column_break_ifty",
+  "employee",
+  "private_key",
+  "token"
  ],
  "fields": [
   {
-   "fieldname": "section_break_mlue",
-   "fieldtype": "Section Break"
+   "fieldname": "adv_name",
+   "fieldtype": "Data",
+   "label": "DouyinID"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "label": "Password"
+  },
+  {
+   "fieldname": "column_break_ifty",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "token",
+   "fieldtype": "Data",
+   "label": "Token"
+  },
+  {
+   "fieldname": "private_key",
+   "fieldtype": "Data",
+   "label": "Private Key"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-16 09:28:02.391813",
+ "modified": "2024-06-25 10:57:12.063516",
  "modified_by": "Administrator",
  "module": "ERPNext China",
- "name": "Lead domain for Douyin",
+ "name": "Lead Domain for Douyin",
  "owner": "Administrator",
  "permissions": [
   {
@@ -34,7 +65,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "adv_name"
 }
