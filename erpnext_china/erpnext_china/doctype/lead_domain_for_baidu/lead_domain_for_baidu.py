@@ -59,7 +59,8 @@ def lead_via_baidu(**kwargs):
                     'original_json_data': copy.deepcopy(kwargs),
                     'lead_name': lead_name,
                     'employee_baidu_account': baidu_account.name if baidu_account else None,
-                    'user': user
+                    'user': user,
+                    'product_category': baidu_account.product_category if baidu_account else None,
                 }
             )
             
@@ -75,7 +76,9 @@ def lead_via_baidu(**kwargs):
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
                 original_lead_name=original_lead_doc.name,
-                bd_account=baidu_account.name if baidu_account else None
+                auto_allocation=baidu_account.auto_allocation if baidu_account else False,
+                bd_account=baidu_account.name if baidu_account else None,
+                product_category=baidu_account.product_category if baidu_account else None,
             )
             
             # 添加crm 线索和原始线索之间的关系

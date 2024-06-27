@@ -121,7 +121,8 @@ def lead_via_douyin(**kwargs):
                     'clue_type': clue_type_name,
                     'created_datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     'employee_douyin_account': douyin_account.name if douyin_account else None,
-                    'user': user
+                    'user': user,
+                    'product_category': douyin_account.product_category if douyin_account else None,
                 }
             )
 
@@ -137,7 +138,9 @@ def lead_via_douyin(**kwargs):
                 kwargs.get('city_name') or location[1], 
                 kwargs.get('province_name')  or location[0],
                 original_lead_name=original_lead_doc.name,
-                dy_account=douyin_account.name if douyin_account else None
+                auto_allocation=douyin_account.auto_allocation if douyin_account else False,
+                dy_account=douyin_account.name if douyin_account else None,
+                product_category=douyin_account.product_category if douyin_account else None,
             )
             
             # 添加crm 线索和原始线索之间的关系
@@ -164,8 +167,8 @@ def verify_token(clue_id: str, timestamp: str, access_token: str, signature: str
 
     这里我们暂时仅判断一下这个request_token和账号配置token是否一致
     """
-    # if access_token != token:
-    #     return False
+    if access_token != token:
+        return False
     return True
 
 

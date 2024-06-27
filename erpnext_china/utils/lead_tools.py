@@ -115,8 +115,10 @@ def crm_lead_linked_customer(crm_lead):
 
 
 
-def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, original_lead_name,
-                           bd_account=None, dy_account=None, country='China'):
+def get_or_insert_crm_lead(
+        lead_name, source, phone, mobile, wx, 
+        city, state, original_lead_name, product_category='',
+        auto_allocation=False, bd_account=None, dy_account=None, country='China'):
     """
     如果存在返回doc，并添加评论有新的原始线索关联过来了，不存在则创建
 
@@ -131,6 +133,7 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, or
     :param original_lead_name: 创建当前线索的原始线索name
     :param bd_account: 百度平台账户
     :param dy_account: 飞鱼平台账户
+    :param auto_allocation: 是否自动分配
     """
     # 如果phone、mobile、wx都没有，则不需要创建CRM线索
     if not any([phone, mobile, wx]):
@@ -167,6 +170,8 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, or
             'custom_employee_baidu_account': bd_account,
             'custom_employee_douyin_account': dy_account,
             'lead_owner': '', # 这个给个默认线索负责人为空
+            'custom_auto_allocation': auto_allocation,
+            'custom_product_category': product_category,
         }
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)

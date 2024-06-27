@@ -7,6 +7,8 @@
  "field_order": [
   "baiduid",
   "password",
+  "auto_allocation",
+  "product_category",
   "column_break_zsxv",
   "employee",
   "token"
@@ -36,11 +38,24 @@
    "fieldname": "token",
    "fieldtype": "Data",
    "label": "Token"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_allocation",
+   "fieldtype": "Check",
+   "label": "Auto Allocation"
+  },
+  {
+   "fieldname": "product_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product Category",
+   "options": "Product Category"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-25 10:59:26.767120",
+ "modified": "2024-06-27 14:33:12.497334",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Baidu",

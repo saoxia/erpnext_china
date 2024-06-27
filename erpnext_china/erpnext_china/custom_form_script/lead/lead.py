@@ -8,7 +8,7 @@ from erpnext.crm.doctype.lead.lead import Lead
 class CustomLead(Lead):
 	def create_contact(self):
 		
-        # TODO 根据phone WeChat qq等判断联系人是否已经存
+		# TODO 根据phone WeChat qq等判断联系人是否已经存
 		
 		if not self.lead_name:
 			self.set_full_name()
@@ -60,6 +60,14 @@ class CustomLead(Lead):
 	
 	@property
 	def custom_keyword(self):
+		original_lead = get_doc_or_none('Original Leads', {
+			'crm_lead': self.name
+		})
+		if original_lead:
+			return original_lead.keyword
+
+	@property
+	def custom_search_word(self):
 		original_lead = get_doc_or_none('Original Leads', {
 			'crm_lead': self.name
 		})

@@ -12,6 +12,7 @@
   "user",
   "employee_baidu_account",
   "employee_douyin_account",
+  "product_category",
   "source",
   "clue_id",
   "crm_lead",
@@ -734,11 +735,17 @@
    "is_virtual": 1,
    "label": "Username",
    "read_only": 1
+  },
+  {
+   "fieldname": "product_category",
+   "fieldtype": "Link",
+   "label": "Product Category",
+   "options": "Product Category"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-26 16:17:20.793844",
+ "modified": "2024-06-27 15:04:38.864947",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",
