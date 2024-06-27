@@ -4,9 +4,7 @@
 # import frappe
 import copy
 import json
-import traceback
 from erpnext_china.utils import lead_tools
-from frappe.exceptions import DoesNotExistError
 from frappe.model.document import Document
 import frappe
 from frappe.utils import datetime
@@ -61,7 +59,8 @@ def lead_via_baidu(**kwargs):
                     'original_json_data': copy.deepcopy(kwargs),
                     'lead_name': lead_name,
                     'employee_baidu_account': baidu_account.name if baidu_account else None,
-                    'user': user
+                    'user': user,
+                    'product_category': baidu_account.product_category if baidu_account else None,
                 }
             )
             
@@ -76,16 +75,16 @@ def lead_via_baidu(**kwargs):
                 kwargs.get('wechat_account'),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
-                bd_account=baidu_account.name if baidu_account else None
+                original_lead_name=original_lead_doc.name,
+                auto_allocation=baidu_account.auto_allocation if baidu_account else False,
+                bd_account=baidu_account.name if baidu_account else None,
+                product_category=baidu_account.product_category if baidu_account else None,
             )
             
             # 添加crm 线索和原始线索之间的关系
             if crm_lead_doc:
                 original_lead_doc.crm_lead = crm_lead_doc.name
                 original_lead_doc.save()
-
-            # CRM线索创建或查询出来后，判断客户是否和线索有关联
-            
 
         # 如果原始线索已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
@@ -150,12 +149,13 @@ def update_delay_fields(record, kwargs):
 
 def update_crm_lead_fields(record, kwargs):
     # 通过原始线索的crm_lead 字段找到crm线索
+    doctype = 'Lead'
     crm_lead_name = record.crm_lead
-    crm_lead = lead_tools.get_doc_or_none('Lead', {
-        'name': crm_lead_name
-    })
+    crm_lead = lead_tools.get_doc_or_none(doctype, {'name': crm_lead_name})
     # 更新字段
-    if crm_lead:
+    # 这里必须有修改的权限的用户才能进行修改
+    # 防止多条原始线索对应一条CRM线索，后来的覆盖最初的
+    if crm_lead and lead_tools.verify_has_permission(doctype=doctype, ptype="write", doc=crm_lead):
         try:
             if kwargs.get('area'):
                 crm_lead.city = kwargs.get('area')

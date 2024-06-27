@@ -41,8 +41,10 @@ doctype_js = {
 }
 permission_query_conditions = {
     "Original Leads": "erpnext_china.erpnext_china.custom_permission.original_lead.permission_original_lead.has_query_permission",
+    # "Contact": "erpnext_china.erpnext_china.custom_permission.contact.permission_contact.has_query_permission",
 }
 
 has_permission = {
     "Original Leads": "erpnext_china.erpnext_china.custom_permission.original_lead.permission_original_lead.has_permission",
+    # "Contact": "erpnext_china.erpnext_china.custom_permission.contact.permission_contact.has_permission",
 }

@@ -81,6 +81,8 @@ def lead_via_douyin(**kwargs):
             frappe.local.response.update({'code': 400, 'message': 'bad request'})
             return
         
+        record = lead_tools.get_doc_or_none('Original Leads', {'clue_id': clue_id})
+        
         user, employee = None, None
         if douyin_account:
             employee = lead_tools.get_doc_or_none('Employee', {"name": douyin_account.employee})
@@ -89,7 +91,7 @@ def lead_via_douyin(**kwargs):
         if user:
             # 切换到当前线索来源百度营销通对应的用户
             frappe.set_user(user)
-        record = lead_tools.get_doc_or_none('Original Leads', {'clue_id': clue_id})
+        
         # 如果数据不存在则直接进行插入
         if not record:
             username = lead_tools.get_username_in_form_detail(kwargs, 'douyin')
@@ -119,7 +121,8 @@ def lead_via_douyin(**kwargs):
                     'clue_type': clue_type_name,
                     'created_datetime': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     'employee_douyin_account': douyin_account.name if douyin_account else None,
-                    'user': user
+                    'user': user,
+                    'product_category': douyin_account.product_category if douyin_account else None,
                 }
             )
 
@@ -134,7 +137,10 @@ def lead_via_douyin(**kwargs):
                 kwargs.get('weixin'), 
                 kwargs.get('city_name') or location[1], 
                 kwargs.get('province_name')  or location[0],
-                dy_account=douyin_account.name if douyin_account else None
+                original_lead_name=original_lead_doc.name,
+                auto_allocation=douyin_account.auto_allocation if douyin_account else False,
+                dy_account=douyin_account.name if douyin_account else None,
+                product_category=douyin_account.product_category if douyin_account else None,
             )
             
             # 添加crm 线索和原始线索之间的关系
@@ -161,8 +167,8 @@ def verify_token(clue_id: str, timestamp: str, access_token: str, signature: str
 
     这里我们暂时仅判断一下这个request_token和账号配置token是否一致
     """
-    # if access_token != token:
-    #     return False
+    if access_token != token:
+        return False
     return True
 
 
