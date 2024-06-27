@@ -1,6 +1,8 @@
 
+import datetime
 import json
 import frappe
+from frappe.model.document import Document
 
 
 def get_doc_or_none(doctype: str, kw: dict):
@@ -46,8 +48,7 @@ def format_flow_channel_name(name: str, prefix: str):
 def get_username_in_form_detail(kwargs: dict, source: str):
     """
     提取用户称呼，默认是线索的ID
-    
-    source: baidu | douyin
+    :param source: baidu | douyin
     """
     if source not in ['baidu', 'douyin']:
         return "未知"
@@ -97,10 +98,10 @@ def crm_lead_linked_customer(crm_lead):
         for contact in contacts:
             # 找到这个联系人是否已经和客户关联了
             dynamic_links = frappe.get_all('Dynamic Link',
-                filters={
+                filters=[
                     ["link_doctype", "=", "Customer"],
                     ["parent", "=", contact.name],
-                },
+                ],
                 fields=['link_name'],
             )
             # 找到联系人已经关联的客户
@@ -114,10 +115,22 @@ def crm_lead_linked_customer(crm_lead):
 
 
 
-def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, 
+def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state, original_lead_name,
                            bd_account=None, dy_account=None, country='China'):
     """
-    通过手机、电话、微信号查找线索是否已经存在，如果存在返回doc，不存在则创建
+    如果存在返回doc，并添加评论有新的原始线索关联过来了，不存在则创建
+
+    :param lead_name: 线索客户称呼
+    :param source: 线索来源
+    :param phone: 电话
+    :param mobile: 手机号
+    :param wx: 微信号
+    :param city: 市
+    :param state: 省
+    :param country: 国家
+    :param original_lead_name: 创建当前线索的原始线索name
+    :param bd_account: 百度平台账户
+    :param dy_account: 飞鱼平台账户
     """
     # 如果phone、mobile、wx都没有，则不需要创建CRM线索
     if not any([phone, mobile, wx]):
@@ -135,7 +148,10 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state,
     )
     if len(records) > 0:
         record = records[0]
+        # 已经存在相同联系方式的线索，给个评论提示一下
+        insert_crm_note(f"有新的原始线索: {original_lead_name}关联到当前CRM线索{record.name}", record.name)
     else:
+        territory = get_system_territory(city or state or country)
         # 构造新记录的数据
         crm_lead_data = {
             'doctype': 'Lead',
@@ -147,6 +163,7 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state,
             'city': city,
             'state': state,
             'country': country,
+            'territory': territory,
             'custom_employee_baidu_account': bd_account,
             'custom_employee_douyin_account': dy_account,
             'lead_owner': '', # 这个给个默认线索负责人为空
@@ -154,3 +171,45 @@ def get_or_insert_crm_lead(lead_name, source, phone, mobile, wx, city, state,
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
     return record
+
+
+def get_system_territory(territory: str):
+    if territory == 'China':
+        return '中国'
+    if territory:
+        like_pattern = f"%{territory}%"
+        territories = frappe.get_all(
+            'Territory',
+            filters=[
+                ['territory_name', 'like', like_pattern]
+            ]
+        )
+        if len(territories) > 0:
+            territory = territories[0].name
+            return territory
+    return None
+
+def insert_crm_note(note: str, parent: str):
+    try:
+        note_data = {
+            'doctype': 'CRM Note',
+            'note': f'<div class="ql-editor read-mode"><p>{note}</p></div>',
+            'added_by': frappe.session.user,
+            'added_on': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'parent': parent,
+            'parentfield': 'notes',
+            'parenttype': 'Lead'
+        }
+        frappe.get_doc(note_data).insert(ignore_permissions=True)
+    except:
+        pass
+
+def verify_has_permission(doctype: str, ptype: str, doc: Document, user=None) -> bool:
+    """验证user对指定doctype的doc是否有ptype的权限
+    
+    :param user: 默认是当前用户
+    """
+    try:
+        return frappe.has_permission(doctype=doctype, ptype=ptype, doc=doc, user=user)
+    except:
+        return False

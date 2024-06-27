@@ -731,7 +731,6 @@
    "bold": 1,
    "fieldname": "username",
    "fieldtype": "Data",
-   "in_standard_filter": 1,
    "is_virtual": 1,
    "label": "Username",
    "read_only": 1
@@ -739,7 +738,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-25 11:50:05.525635",
+ "modified": "2024-06-26 16:17:20.793844",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",
