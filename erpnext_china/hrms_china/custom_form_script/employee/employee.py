@@ -77,12 +77,13 @@ class CustomEmployee(Employee):
 
 
 @frappe.whitelist()
-def get_employee_tree(parent=None, 
-					pluck='email',
-					orient='list',
-					levle=None,
-					is_root=None,
-					use_cache=False):
+def get_employee_tree(parent = None, 
+					pluck = 'email',
+					orient = 'list',
+					levle = None,
+					is_root = None,
+					use_cache = False,
+					has_parent = False):
 	
 	'''
 	注意：io压力增加时添加从缓存中读取的代码
@@ -132,5 +133,10 @@ def get_employee_tree(parent=None,
 		filters = {'employee': ['in',subordinates],
 				'status': 'Active'}
 		subordinates = frappe.get_all('Employee',filters=filters,pluck='user_id')
-		
+
+	subordinates = [x for x in subordinates if x] # 去除空值
+
+	if has_parent == True and pluck == 'email':
+		subordinates.append(parent)
+
 	return subordinates
