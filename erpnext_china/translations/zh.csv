@@ -9122,10 +9122,13 @@ Original Leads,原始线索
 Created Datetime,创建日期
 BaiduID,百度账户
 DouyinID,飞鱼账户
-Employee Baidu Account,线索来源账户
-Employee Douyin Account,线索来源账户
+Employee Baidu Account,线索来源百度账户
+Employee Douyin Account,线索来源飞鱼账户
 Lead Domain for Baidu,线索百度账户
 Lead Domain for Douyin,线索飞鱼账户
 Product Category,产品类别
 Category Name,产品类别名称
 Auto Allocation,自动分配
+Auto Allocation Config,自动分配配置
+Distributed Count,本轮次已分配数量
+Leader,上级

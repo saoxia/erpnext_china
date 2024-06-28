@@ -18,7 +18,8 @@
   {
    "fieldname": "adv_name",
    "fieldtype": "Data",
-   "label": "DouyinID"
+   "label": "DouyinID",
+   "unique": 1
   },
   {
    "fieldname": "password",
@@ -62,7 +63,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-27 14:33:04.679316",
+ "modified": "2024-06-28 08:31:52.146161",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Douyin",

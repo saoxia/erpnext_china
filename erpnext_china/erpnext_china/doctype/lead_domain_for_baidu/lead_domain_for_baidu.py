@@ -157,11 +157,19 @@ def update_crm_lead_fields(record, kwargs):
     # 防止多条原始线索对应一条CRM线索，后来的覆盖最初的
     if crm_lead and lead_tools.verify_has_permission(doctype=doctype, ptype="write", doc=crm_lead):
         try:
-            if kwargs.get('area'):
-                crm_lead.city = kwargs.get('area')
-            if kwargs.get('area_province'):
-                crm_lead.state = kwargs.get('area_province')
+            city = kwargs.get('area')
+            state = kwargs.get('area_province')
+
+            if city:
+                crm_lead.city = city
+            if state:
+                crm_lead.state = state
+            if city or state:
+                territory = lead_tools.get_system_territory(city or state)
+                crm_lead.territory = territory
+            
             crm_lead.save()
+            
         except: 
             pass
 
