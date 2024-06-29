@@ -9,7 +9,6 @@ class AutoAllocationConfig(Document):
 	
 	@property
 	def employee_name(self):
-		frappe.get_last_doc('Original Leads', fitlers={'crm_lead': self.name}).name
 		if self.employee:
 			employee = get_doc_or_none('Employee', {
 				'name': self.employee
