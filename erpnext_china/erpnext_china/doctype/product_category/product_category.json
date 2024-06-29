@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:category_name",
  "creation": "2024-06-27 10:58:58.367978",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -12,15 +13,17 @@
    "fieldname": "category_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Category Name"
+   "label": "Category Name",
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-27 11:15:11.891906",
+ "modified": "2024-06-29 11:59:34.294381",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Product Category",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

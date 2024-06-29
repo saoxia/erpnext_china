@@ -172,6 +172,7 @@ def get_or_insert_crm_lead(
             'lead_owner': '', # 这个给个默认线索负责人为空
             'custom_auto_allocation': auto_allocation,
             'custom_product_category': product_category,
+            'custom_last_lead_owner': '',
         }
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)

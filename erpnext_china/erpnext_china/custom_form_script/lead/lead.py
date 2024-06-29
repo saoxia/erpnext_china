@@ -43,22 +43,6 @@ class CustomLead(Lead):
 		return contact
 
 	@property
-	def custom_original_lead_source(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.source
-
-	@property
-	def custom_url(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.site_url
-	
-	@property
 	def custom_keyword(self):
 		original_lead = get_doc_or_none('Original Leads', {
 			'crm_lead': self.name
@@ -75,41 +59,39 @@ class CustomLead(Lead):
 			return original_lead.search_word
 
 	@property
-	def custom_flow_channel_name(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.flow_channel_name
+	def custom_lead_owner_name(self):
+		if self.lead_owner:
+			lead_owner = get_doc_or_none('User', {
+				'name': self.lead_owner
+			})
+			if lead_owner:
+				return lead_owner.first_name
 
-	@property
-	def custom_solution_type_name(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.solution_type_name
+	def before_save(self):
+		doc = get_doc_or_none('Lead', self.name)
+		if doc:
+			self.custom_last_lead_owner = doc.lead_owner
+		else:
+			self.custom_last_lead_owner = ''
 
-	@property
-	def custom_clue_source(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.clue_source
+	# webhook 获取字段值函数
+	def get_original_lead(self):
+		try:
+			doc = frappe.get_last_doc('Original Leads', filters={'crm_lead': self.name})
+			return doc.name
+		except:
+			pass
 	
-	@property
-	def custom_clue_type(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.clue_type
-
-	@property
-	def custom_flow_type(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.flow_type
+	def get_site_url(self):
+		try:
+			doc = frappe.get_last_doc('Original Leads', filters={'crm_lead': self.name})
+			return doc.site_url
+		except:
+			pass
+	
+	def get_return_call_url(self):
+		try:
+			doc = frappe.get_last_doc('Original Leads', filters={'crm_lead': self.name})
+			return doc.return_call_url
+		except:
+			pass
