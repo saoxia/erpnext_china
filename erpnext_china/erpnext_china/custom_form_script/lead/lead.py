@@ -66,6 +66,30 @@ class CustomLead(Lead):
 			})
 			if lead_owner:
 				return lead_owner.first_name
+	
+	def get_original_lead(self):
+		original_leads = frappe.get_list('Original Leads', filters={'crm_lead': self.name}, order_by="creation")
+		if len(original_leads) > 0:
+			return frappe.get_doc('Original Leads', original_leads[0].name)
+		return None
+	
+	@property
+	def custom_original_lead_name(self):
+		doc = self.get_original_lead()
+		if doc:
+			return doc.name
+
+	@property
+	def custom_site_url(self):
+		doc = self.get_original_lead()
+		if doc:
+			return doc.site_url
+	
+	@property
+	def custom_call_url(self):
+		doc = self.get_original_lead()
+		if doc:
+			return doc.return_call_url
 
 	def before_save(self):
 		doc = get_doc_or_none('Lead', self.name)
@@ -73,25 +97,3 @@ class CustomLead(Lead):
 			self.custom_last_lead_owner = doc.lead_owner
 		else:
 			self.custom_last_lead_owner = ''
-
-	# webhook 获取字段值函数
-	def get_original_lead(self):
-		try:
-			doc = frappe.get_last_doc('Original Leads', filters={'crm_lead': self.name})
-			return doc.name
-		except:
-			pass
-	
-	def get_site_url(self):
-		try:
-			doc = frappe.get_last_doc('Original Leads', filters={'crm_lead': self.name})
-			return doc.site_url
-		except:
-			pass
-	
-	def get_return_call_url(self):
-		try:
-			doc = frappe.get_last_doc('Original Leads', filters={'crm_lead': self.name})
-			return doc.return_call_url
-		except:
-			pass
