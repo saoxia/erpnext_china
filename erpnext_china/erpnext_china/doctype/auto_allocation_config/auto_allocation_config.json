@@ -6,6 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "employee",
+  "employee_name",
   "distributed_count",
   "items"
  ],
@@ -27,12 +28,18 @@
    "fieldtype": "Table",
    "label": "Items",
    "options": "Auto Allocation Config Item"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "is_virtual": 1,
+   "label": "Employee Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-06-27 17:18:19.812215",
+ "modified": "2024-06-29 16:57:31.282534",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Auto Allocation Config",

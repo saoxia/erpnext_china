@@ -43,22 +43,6 @@ class CustomLead(Lead):
 		return contact
 
 	@property
-	def custom_original_lead_source(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.source
-
-	@property
-	def custom_url(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.site_url
-	
-	@property
 	def custom_keyword(self):
 		original_lead = get_doc_or_none('Original Leads', {
 			'crm_lead': self.name
@@ -75,41 +59,41 @@ class CustomLead(Lead):
 			return original_lead.search_word
 
 	@property
-	def custom_flow_channel_name(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.flow_channel_name
-
-	@property
-	def custom_solution_type_name(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.solution_type_name
-
-	@property
-	def custom_clue_source(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.clue_source
+	def custom_lead_owner_name(self):
+		if self.lead_owner:
+			lead_owner = get_doc_or_none('User', {
+				'name': self.lead_owner
+			})
+			if lead_owner:
+				return lead_owner.first_name
+	
+	def get_original_lead(self):
+		original_leads = frappe.get_list('Original Leads', filters={'crm_lead': self.name}, order_by="creation")
+		if len(original_leads) > 0:
+			return frappe.get_doc('Original Leads', original_leads[0].name)
+		return None
 	
 	@property
-	def custom_clue_type(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.clue_type
+	def custom_original_lead_name(self):
+		doc = self.get_original_lead()
+		if doc:
+			return doc.name
 
 	@property
-	def custom_flow_type(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.flow_type
+	def custom_site_url(self):
+		doc = self.get_original_lead()
+		if doc:
+			return doc.site_url
+	
+	@property
+	def custom_call_url(self):
+		doc = self.get_original_lead()
+		if doc:
+			return doc.return_call_url
+
+	def before_save(self):
+		doc = get_doc_or_none('Lead', self.name)
+		if doc:
+			self.custom_last_lead_owner = doc.lead_owner
+		else:
+			self.custom_last_lead_owner = ''
