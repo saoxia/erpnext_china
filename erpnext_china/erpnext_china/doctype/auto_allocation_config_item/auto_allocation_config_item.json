@@ -12,8 +12,10 @@
   "leader",
   "leader_name",
   "count",
+  "allocated_count",
   "product_category",
   "lead_source",
+  "zero_datetime",
   "note"
  ],
  "fields": [
@@ -79,12 +81,25 @@
    "is_virtual": 1,
    "label": "Leader Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "allocated_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Allocated Count",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "zero_datetime",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Zero Datetime"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-29 16:52:03.139356",
+ "modified": "2024-07-02 12:00:16.936451",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Auto Allocation Config Item",
