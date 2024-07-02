@@ -51,22 +51,19 @@ class CustomLead(Lead):
 		]:
 			if value:
 				or_filters[field] = value
+		or_filters['name'] = ['<>',self.name]
 		leads = frappe.get_all("Lead", or_filters=or_filters, fields=['name', 'lead_owner'])
 		if len(leads) > 0:
 			url = frappe.utils.get_url()
 			message = []
-			lead_name = []
 			for lead in leads:
-				if lead.name != self.name:
-					lead_name.append(lead.name)
-					lead_owner = ''
-					if lead.lead_owner:
-						user = frappe.get_doc("User", lead.lead_owner)
-						if user: lead_owner = user.first_name
-					message.append(f'{lead_owner}: <a href="{url}/app/lead/{lead.name}" target="_blank">{lead.name}</a>')
-				message = ', '.join(message)
-			if len(lead_name) > 0 :
-				frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
+				lead_owner = ''
+				if lead.lead_owner:
+					user = frappe.get_doc("User", lead.lead_owner)
+					if user: lead_owner = user.first_name
+				message.append(f'{lead_owner}: <a href="{url}/app/lead/{lead.name}" target="_blank">{lead.name}</a>')
+			message = ', '.join(message)
+			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
 
 	def validate(self):
 		self.set_full_name()
