@@ -42,6 +42,37 @@ class CustomLead(Lead):
 
 		return contact
 
+	def validate_single_phone(self):
+		or_filters = {}
+		for field, value in [
+			('phone', self.phone), 
+			('mobile_no', self.mobile_no), 
+			('custom_wechat', self.custom_wechat)
+		]:
+			if value:
+				or_filters[field] = value
+		leads = frappe.get_all("Lead", or_filters=or_filters, fields=['name', 'lead_owner'])
+		if len(leads) > 0:
+			url = frappe.utils.get_url()
+			message = []
+			for lead in leads:
+				lead_owner = ''
+				if lead.lead_owner:
+					user = frappe.get_doc("User", lead.lead_owner)
+					if user: lead_owner = user.first_name
+				message.append(f'{lead_owner}: <a href="{url}/app/lead/{lead.name}" target="_blank">{lead.name}</a>')
+			message = ', '.join(message)
+			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
+
+	def validate(self):
+		self.set_full_name()
+		self.set_lead_name()
+		self.set_title()
+		self.set_status()
+		self.check_email_id_is_unique()
+		self.validate_email_id()
+		self.validate_single_phone()
+
 	@property
 	def custom_keyword(self):
 		original_lead = get_doc_or_none('Original Leads', {

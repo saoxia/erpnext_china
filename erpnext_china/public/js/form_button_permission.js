@@ -6,7 +6,7 @@ const PermissionForm = class PermissionForm extends frappe.ui.form.Form {
 		// 从localStorage中获取存储的字符串
 		var storedJsonString = localStorage.getItem('button_perms_jsonString');
 		// 将存储的字符串转换回字典
-		var button_perms = JSON.parse(storedJsonString);
+		var button_perms = JSON.parse(storedJsonString) || {};
 
 
 		if (this.doctype in button_perms) {
