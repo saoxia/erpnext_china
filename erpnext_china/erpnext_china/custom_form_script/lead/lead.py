@@ -51,7 +51,7 @@ class CustomLead(Lead):
 		]:
 			if value:
 				or_filters[field] = value
-		or_filters['name'] = ['<>',self.name]
+		or_filters['name'] = ['!=',self.name]
 		leads = frappe.get_all("Lead", or_filters=or_filters, fields=['name', 'lead_owner'])
 		if len(leads) > 0:
 			url = frappe.utils.get_url()
