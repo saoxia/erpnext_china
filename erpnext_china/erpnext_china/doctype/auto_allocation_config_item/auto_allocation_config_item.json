@@ -90,6 +90,7 @@
    "non_negative": 1
   },
   {
+   "default": "now",
    "fieldname": "zero_datetime",
    "fieldtype": "Datetime",
    "in_list_view": 1,
@@ -99,7 +100,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-07-02 12:00:16.936451",
+ "modified": "2024-07-03 09:47:49.154400",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Auto Allocation Config Item",
