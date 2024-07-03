@@ -51,7 +51,7 @@ class CustomLead(Lead):
 		]:
 			if value:
 				or_filters[field] = value
-		filters['name'] = ['!=',self.name]
+		filters = {"name": ['!=',self.name]}
 		leads = frappe.get_all("Lead",filters=filters, or_filters=or_filters, fields=['name', 'lead_owner'])
 		if len(leads) > 0:
 			url = frappe.utils.get_url()
@@ -122,6 +122,15 @@ class CustomLead(Lead):
 		doc = self.get_original_lead()
 		if doc:
 			return doc.return_call_url
+
+	@property
+	def custom_lead_owner_leader_name(self):
+		if self.lead_owner:
+			employee = get_doc_or_none("Employee", {"user_id": self.lead_owner})
+			employee_leader_name = employee.reports_to
+			if employee_leader_name:
+				employee_leader = frappe.get_doc("Employee", employee_leader_name)
+				return employee_leader.user_id
 
 	def before_save(self):
 		doc = get_doc_or_none('Lead', self.name)

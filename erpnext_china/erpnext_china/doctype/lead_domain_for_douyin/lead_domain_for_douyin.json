@@ -58,12 +58,13 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Product Category",
+   "mandatory_depends_on": "eval:doc.auto_allocation == true",
    "options": "Product Category"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-06-28 08:31:52.146161",
+ "modified": "2024-07-03 11:33:02.011014",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Douyin",

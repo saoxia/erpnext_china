@@ -9138,3 +9138,8 @@ Employee Name,员工姓名
 Leader Name,上级姓名
 Allocated Count,已分配数量
 Zero Datetime,归零日期
+Lead Owner Leader Name,上级姓名
+Login Name Link WeCom Name,登录名对应企微账号
+WeCom Name,企微账号名
+login_name,EBC登录名
+Comments,跟进反馈
