@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:login_name",
  "creation": "2024-07-03 14:39:21.334271",
@@ -7,7 +8,6 @@
  "engine": "InnoDB",
  "field_order": [
   "login_name",
-  "column_break_wqkg",
   "wecom_name"
  ],
  "fields": [
@@ -20,10 +20,6 @@
    "unique": 1
   },
   {
-   "fieldname": "column_break_wqkg",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "wecom_name",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -32,7 +28,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-03 15:01:17.560489",
+ "modified": "2024-07-04 15:49:41.831435",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Login Name Link WeCom Name",
@@ -44,10 +40,12 @@
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
    "write": 1
   }
