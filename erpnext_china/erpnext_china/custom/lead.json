@@ -562,7 +562,7 @@
     "columns": 0,
     "creation": "2023-11-07 18:24:36.435860",
     "default": null,
-    "depends_on": null,
+    "depends_on": "eval:doc.lead_owner == ''",
     "description": null,
     "docstatus": 0,
     "dt": "Lead",
