@@ -1,0 +1,22 @@
+.comment-content {
+    width: auto;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.col-3, .col-xs-3 {
+    @media (max-width: 768px) {
+        max-width: none;
+    }
+}
+.col-8, .col-xs-8 {
+    @media (max-width: 768px) {
+        max-width: none;
+    }
+}
+.col-1, .col-xs-1 {
+    @media (max-width: 768px) {
+        max-width: none;
+    }
+}
