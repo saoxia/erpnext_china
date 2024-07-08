@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Webhook Request Log",
+ "links": [],
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2023-11-07 18:40:59.427024",
+   "default_value": null,
+   "doc_type": "Webhook Request Log",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "url",
+   "idx": 0,
+   "is_system_generated": 0,
+   "modified": "2023-11-07 18:40:59.427024",
+   "modified_by": "Administrator",
+   "module": null,
+   "name": "QuotatWebhook Request Log-url-fieldtype",
+   "owner": "Administrator",
+   "property": "fieldtype",
+   "property_type": "Select",
+   "row_name": null,
+   "value": "Text"
+  }
+ ],
+ "sync_on_migrate": 1
+}
