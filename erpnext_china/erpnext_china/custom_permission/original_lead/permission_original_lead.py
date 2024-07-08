@@ -11,7 +11,7 @@ def has_query_permission(user):
 		users = get_employee_tree(parent=user)
 		users.append(user)
 		users_str = str(tuple(users)).replace(',)',')')
-		conditions = f"(owner in {users_str})" 
+		conditions = f"(`tabOriginal Leads`.`owner` in {users_str})" 
 	return conditions
 
 def has_permission(doc, user, permission_type=None):
