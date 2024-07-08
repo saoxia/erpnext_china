@@ -44,7 +44,7 @@
     "name": "Lead-custom_sea",
     "no_copy": 0,
     "non_negative": 0,
-    "options": "Private Sea\nPublic Sea",
+    "options": "私海\n公海",
     "owner": "Administrator",
     "permlevel": 0,
     "precision": "",
