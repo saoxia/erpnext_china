@@ -116,7 +116,7 @@ def crm_lead_linked_customer(crm_lead):
 
 
 def get_or_insert_crm_lead(
-        lead_name, source, phone, mobile, wx, 
+        lead_name, source, phone:str, mobile:str, wx:str, 
         city, state, original_lead_name, product_category='',
         auto_allocation=False, bd_account=None, dy_account=None, country='China'):
     """
@@ -135,15 +135,23 @@ def get_or_insert_crm_lead(
     :param dy_account: 飞鱼平台账户
     :param auto_allocation: 是否自动分配
     """
+    phone = str(phone).replace(' ', '')
+    mobile = str(mobile).replace(' ', '')
+    wx = str(wx).replace(' ', '')
     # 如果phone、mobile、wx都没有，则不需要创建CRM线索
     if not any([phone, mobile, wx]):
         return None
 
-    or_filters = {}
-    for field, value in [('phone', phone), ('mobile_no', mobile), ('custom_wechat', wx)]:
-        if value:
-            or_filters[field] = value
-    
+    # or_filters = {}
+    # for field, value in [('phone', phone), ('mobile_no', mobile), ('custom_wechat', wx)]:
+    #     if value:
+    #         or_filters[field] = value
+    links = list(set([i for i in [phone, mobile, wx] if i]))
+    or_filters = [
+        {'phone': ['in', links]},
+        {'mobile_no': ['in', links]},
+        {'custom_wechat': ['in', links]}
+    ]
     # 检查是否存在匹配的线索
     records = frappe.get_all(
         "Lead",
