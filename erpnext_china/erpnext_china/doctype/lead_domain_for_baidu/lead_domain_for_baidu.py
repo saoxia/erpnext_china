@@ -70,9 +70,9 @@ def lead_via_baidu(**kwargs):
             crm_lead_doc = lead_tools.get_or_insert_crm_lead(
                 lead_name, 
                 flow_channel_name, 
-                kwargs.get('clue_phone_number'),
-                kwargs.get('clue_phone_number'), 
-                kwargs.get('wechat_account'),
+                kwargs.get('clue_phone_number', ''),
+                kwargs.get('clue_phone_number', ''), 
+                kwargs.get('wechat_account', ''),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
                 original_lead_name=original_lead_doc.name,

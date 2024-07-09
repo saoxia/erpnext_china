@@ -43,14 +43,12 @@ class CustomLead(Lead):
 		return contact
 
 	def validate_single_phone(self):
-		or_filters = {}
-		for field, value in [
-			('phone', self.phone), 
-			('mobile_no', self.mobile_no), 
-			('custom_wechat', self.custom_wechat)
-		]:
-			if value:
-				or_filters[field] = value
+		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] if i]))
+		or_filters = [
+			{'phone': ['in', links]},
+			{'mobile_no': ['in', links]},
+			{'custom_wechat': ['in', links]}
+		]
 		filters = {"name": ['!=',self.name]}
 		leads = frappe.get_all("Lead",filters=filters, or_filters=or_filters, fields=['name', 'lead_owner'])
 		if len(leads) > 0:
@@ -72,7 +70,20 @@ class CustomLead(Lead):
 		self.set_status()
 		self.check_email_id_is_unique()
 		self.validate_email_id()
+		self.set_contact_info()
 		self.validate_single_phone()
+		
+
+	def set_contact_info(self):
+		if not any([self.phone, self.mobile_no, self.custom_wechat]):
+			frappe.throw(f"联系方式必填")
+		
+		if self.phone:
+			self.phone = str(self.phone).replace(' ','')
+		if self.mobile_no:
+			self.mobile_no = str(self.mobile_no).replace(' ','')
+		if self.custom_wechat:
+			self.custom_wechat = str(self.custom_wechat).replace(' ','')
 
 	@property
 	def custom_keyword(self):
