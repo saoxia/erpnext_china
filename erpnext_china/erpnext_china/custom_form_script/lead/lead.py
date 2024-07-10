@@ -144,6 +144,12 @@ class CustomLead(Lead):
 				return employee_leader.user_id
 
 	def before_save(self):
+		if len(self.notes) > 0:
+			notes = sorted(self.notes, key=lambda x: x.added_on, reverse=True)
+			latest_note = notes[0]
+			if latest_note.added_by == self.lead_owner:
+				self.custom_latest_note_created_time = latest_note.added_on
+				self.custom_latest_note = latest_note.note
 		doc = get_doc_or_none('Lead', self.name)
 		if doc:
 			self.custom_last_lead_owner = doc.lead_owner
