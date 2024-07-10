@@ -6,12 +6,12 @@
     "fieldname": "custom_wecom_uid",
     "fieldtype": "Data",
     "idx": 0,
-    "insert_after": "salutime_zonetation",
+    "insert_after": "time_zonetation",
     "label": "WeCom ID",
     "mandatory_depends_on": null,
     "modified": "2024-05-02 23:36:59.017367",
     "modified_by": "Administrator",
-    "name": "User-wecom_uid",
+    "name": "User-custom_wecom_uid",
     "owner": "Administrator",
     "permlevel": 1
    }
