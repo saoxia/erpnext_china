@@ -76,6 +76,7 @@ def lead_via_baidu(**kwargs):
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
                 original_lead_name=original_lead_doc.name,
+                commit_time=original_lead_doc.commit_time or original_lead_doc.created_datetime,
                 auto_allocation=baidu_account.auto_allocation if baidu_account else False,
                 bd_account=baidu_account.name if baidu_account else None,
                 product_category=baidu_account.product_category if baidu_account else None,
