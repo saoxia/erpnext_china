@@ -117,7 +117,7 @@ def crm_lead_linked_customer(crm_lead):
 
 def get_or_insert_crm_lead(
         lead_name, source, phone:str, mobile:str, wx:str, 
-        city, state, original_lead_name, product_category='',
+        city, state, original_lead_name, commit_time, product_category='',
         auto_allocation=False, bd_account=None, dy_account=None, country='China'):
     """
     如果存在返回doc，并添加评论有新的原始线索关联过来了，不存在则创建
@@ -160,7 +160,7 @@ def get_or_insert_crm_lead(
     if len(records) > 0:
         record = records[0]
         # 已经存在相同联系方式的线索，给个评论提示一下
-        insert_crm_note(f"有新的原始线索: {original_lead_name}关联到当前CRM线索{record.name}", record.name)
+        insert_crm_note(f"有新的原始线索:【{original_lead_name}】关联到当前线索", record.name)
     else:
         territory = get_system_territory(city or state or country)
         # 构造新记录的数据
@@ -181,6 +181,7 @@ def get_or_insert_crm_lead(
             'custom_auto_allocation': auto_allocation,
             'custom_product_category': product_category,
             'custom_last_lead_owner': '',
+            'custom_commit_time': commit_time,  # 线索提交到平台的时间
         }
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
@@ -207,7 +208,7 @@ def insert_crm_note(note: str, parent: str):
     try:
         note_data = {
             'doctype': 'CRM Note',
-            'note': f'<div class="ql-editor read-mode"><p>{note}</p></div>',
+            'note': note,
             'added_by': frappe.session.user,
             'added_on': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'parent': parent,

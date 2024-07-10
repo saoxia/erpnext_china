@@ -9011,7 +9011,7 @@ Payment Entry,收付款凭证,
 UC ID,搭建基木鱼账户ID,
 Clue ID,线索ID,
 UC Name,建站点账户名,
-Commit Time,线索时间,
+Commit Time,线索提交时间,
 Solution Type,组件类型编码,
 Solution Type Name,组件类型,
 Clue Phone Number,网民联系电话,
@@ -9146,6 +9146,6 @@ Comments,跟进反馈
 Lead Sea,线索池
 Other,其它
 Other Source,其它来源渠道
-Created By,创建人
-Get The Lead,认领线索
-Give Up The Lead,放弃线索
+Latest Note,最近反馈内容
+Latest Note Created Time,最近反馈日期
+Lead Quantity Config,线索分配总数配置
