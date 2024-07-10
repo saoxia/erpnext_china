@@ -10,13 +10,20 @@ frappe.ui.form.on('Lead', {
         if (!frm.is_new()) {
             if(frappe.session.user == frm.doc.lead_owner) {
                 frm.add_custom_button(__("放弃线索"), ()=>{
-                    frappe.db.set_value('Lead', frm.doc.name, {lead_owner: ''});
-                    window.location.reload();
+                    // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: null});
+                    frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.give_up_lead", {lead: frm.doc.name}).then((r)=>{
+                        console.log(r);
+                        window.location.reload();
+                    })
                 }, __("Action"));
-            }else {
+            } else {
                 frm.add_custom_button(__("认领线索"), ()=>{
-                    frappe.db.set_value('Lead', frm.doc.name, {lead_owner: frappe.session.user});
-                    window.location.reload();
+                    // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: frappe.session.user});
+                    frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.get_lead", {lead: frm.doc.name}).then((r)=>{
+                        console.log(r);
+                        window.location.reload();
+                    })
+                    
                 }, __("Action"));
             }
         }

@@ -149,3 +149,18 @@ class CustomLead(Lead):
 			self.custom_last_lead_owner = doc.lead_owner
 		else:
 			self.custom_last_lead_owner = ''
+
+
+@frappe.whitelist()
+def get_lead(**kwargs):
+	lead_name = kwargs.get('lead')
+	lead = frappe.get_doc('Lead', lead_name)
+	lead.lead_owner = frappe.session.user
+	lead.save(ignore_permissions=True)
+
+@frappe.whitelist()
+def give_up_lead(**kwargs):
+	lead_name = kwargs.get('lead')
+	lead = frappe.get_doc('Lead', lead_name)
+	lead.lead_owner = ''
+	lead.save(ignore_permissions=True)
