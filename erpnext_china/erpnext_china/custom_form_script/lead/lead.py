@@ -86,22 +86,6 @@ class CustomLead(Lead):
 			self.custom_wechat = str(self.custom_wechat).replace(' ','')
 
 	@property
-	def custom_keyword(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.keyword
-
-	@property
-	def custom_search_word(self):
-		original_lead = get_doc_or_none('Original Leads', {
-			'crm_lead': self.name
-		})
-		if original_lead:
-			return original_lead.search_word
-
-	@property
 	def custom_lead_owner_name(self):
 		if self.lead_owner:
 			lead_owner = get_doc_or_none('User', {
@@ -138,10 +122,11 @@ class CustomLead(Lead):
 	def custom_lead_owner_leader_name(self):
 		if self.lead_owner:
 			employee = get_doc_or_none("Employee", {"user_id": self.lead_owner})
-			employee_leader_name = employee.reports_to
-			if employee_leader_name:
-				employee_leader = frappe.get_doc("Employee", employee_leader_name)
-				return employee_leader.user_id
+			if employee:
+				employee_leader_name = employee.reports_to
+				if employee_leader_name:
+					employee_leader = frappe.get_doc("Employee", employee_leader_name)
+					return employee_leader.user_id
 
 	def before_save(self):
 		if len(self.notes) > 0:
