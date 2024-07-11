@@ -117,7 +117,7 @@ def crm_lead_linked_customer(crm_lead):
 
 def get_or_insert_crm_lead(
         lead_name, source, phone:str, mobile:str, wx:str, 
-        city, state, original_lead_name, commit_time, product_category='',
+        city, state, original_lead_name, commit_time, keyword='', search_word='', product_category='',
         auto_allocation=False, bd_account=None, dy_account=None, country='China'):
     """
     如果存在返回doc，并添加评论有新的原始线索关联过来了，不存在则创建
@@ -182,6 +182,8 @@ def get_or_insert_crm_lead(
             'custom_product_category': product_category,
             'custom_last_lead_owner': '',
             'custom_commit_time': commit_time,  # 线索提交到平台的时间
+            'custom_keyword': keyword,
+            'custom_search_word': search_word,
         }
         # 插入新记录
         record = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)

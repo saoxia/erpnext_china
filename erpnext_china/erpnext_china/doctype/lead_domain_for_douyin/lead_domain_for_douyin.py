@@ -139,6 +139,8 @@ def lead_via_douyin(**kwargs):
                 kwargs.get('province_name')  or location[0],
                 original_lead_name=original_lead_doc.name,
                 commit_time=original_lead_doc.commit_time or original_lead_doc.created_datetime,
+                keyword=original_lead_doc.keyword,
+                search_word=original_lead_doc.search_word,
                 auto_allocation=douyin_account.auto_allocation if douyin_account else False,
                 dy_account=douyin_account.name if douyin_account else None,
                 product_category=douyin_account.product_category if douyin_account else None,

@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:adv_name",
  "creation": "2024-06-16 09:28:02.391813",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -64,10 +65,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-03 11:33:02.011014",
+ "modified": "2024-07-11 10:24:54.308185",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Douyin",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

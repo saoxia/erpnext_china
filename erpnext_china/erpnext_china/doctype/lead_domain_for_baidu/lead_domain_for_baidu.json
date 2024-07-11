@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:baiduid",
  "creation": "2024-05-31 09:01:55.591591",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -57,10 +58,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-03 11:32:42.803027",
+ "modified": "2024-07-11 10:24:02.600249",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Lead Domain for Baidu",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
