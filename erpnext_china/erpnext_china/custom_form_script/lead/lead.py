@@ -1,8 +1,9 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-from erpnext_china.utils.lead_tools import get_doc_or_none
 import frappe
+
+from erpnext_china.utils.lead_tools import get_doc_or_none
 from erpnext.crm.doctype.lead.lead import Lead
 
 class CustomLead(Lead):
@@ -64,15 +65,9 @@ class CustomLead(Lead):
 			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
 
 	def validate(self):
-		self.set_full_name()
-		self.set_lead_name()
-		self.set_title()
-		self.set_status()
-		self.check_email_id_is_unique()
-		self.validate_email_id()
+		super().validate()
 		self.set_contact_info()
 		self.validate_single_phone()
-		
 
 	def set_contact_info(self):
 		if not any([self.phone, self.mobile_no, self.custom_wechat]):
@@ -145,13 +140,17 @@ class CustomLead(Lead):
 @frappe.whitelist()
 def get_lead(**kwargs):
 	lead_name = kwargs.get('lead')
-	lead = frappe.get_doc('Lead', lead_name)
-	lead.lead_owner = frappe.session.user
-	lead.save(ignore_permissions=True)
+	if lead_name:
+		lead = frappe.get_doc('Lead', lead_name)
+		if lead:
+			lead.lead_owner = frappe.session.user
+			lead.save(ignore_permissions=True)
 
 @frappe.whitelist()
 def give_up_lead(**kwargs):
 	lead_name = kwargs.get('lead')
-	lead = frappe.get_doc('Lead', lead_name)
-	lead.lead_owner = ''
-	lead.save(ignore_permissions=True)
+	if lead_name:
+		lead = frappe.get_doc('Lead', lead_name)
+		if lead:
+			lead.lead_owner = ''
+			lead.save(ignore_permissions=True)
