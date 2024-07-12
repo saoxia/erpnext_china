@@ -1,6 +1,7 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
+import re
 import frappe
 
 from erpnext_china.utils.lead_tools import get_doc_or_none
@@ -44,7 +45,7 @@ class CustomLead(Lead):
 		return contact
 
 	def validate_single_phone(self):
-		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] if i]))
+		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] + re.findall(r'\d+', self.custom_wechat or '')  if i]))
 		or_filters = [
 			{'phone': ['in', links]},
 			{'mobile_no': ['in', links]},
@@ -64,11 +65,6 @@ class CustomLead(Lead):
 			message = ', '.join(message)
 			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
 
-	def validate(self):
-		super().validate()
-		self.set_contact_info()
-		self.validate_single_phone()
-
 	def set_contact_info(self):
 		if not any([self.phone, self.mobile_no, self.custom_wechat]):
 			frappe.throw(f"联系方式必填")
@@ -79,6 +75,11 @@ class CustomLead(Lead):
 			self.mobile_no = str(self.mobile_no).replace(' ','')
 		if self.custom_wechat:
 			self.custom_wechat = str(self.custom_wechat).replace(' ','')
+
+	def validate(self):
+		super().validate()
+		self.set_contact_info()
+		self.validate_single_phone()
 
 	@property
 	def custom_lead_owner_name(self):
@@ -122,6 +123,10 @@ class CustomLead(Lead):
 				if employee_leader_name:
 					employee_leader = frappe.get_doc("Employee", employee_leader_name)
 					return employee_leader.user_id
+	
+	@property
+	def custom_created_by(self):
+		return frappe.get_doc('User', self.owner).username
 
 	def before_save(self):
 		if len(self.notes) > 0:

@@ -17,14 +17,16 @@ frappe.ui.form.on('Lead', {
                     })
                 }, __("Action"));
             } else {
-                frm.add_custom_button(__("认领线索"), ()=>{
-                    // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: frappe.session.user});
-                    frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.get_lead", {lead: frm.doc.name}).then((r)=>{
-                        console.log(r);
-                        window.location.reload();
-                    })
-                    
-                }, __("Action"));
+                if(frm.doc.lead_owner == "" || frm.doc.custom_sea == "公海") {
+                    frm.add_custom_button(__("认领线索"), ()=>{
+                        // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: frappe.session.user});
+                        frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.get_lead", {lead: frm.doc.name}).then((r)=>{
+                            console.log(r);
+                            window.location.reload();
+                        })
+                        
+                    }, __("Action"));
+                }
             }
         }
     }

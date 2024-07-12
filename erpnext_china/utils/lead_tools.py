@@ -1,6 +1,7 @@
 
 import datetime
 import json
+import re
 import frappe
 from frappe.model.document import Document
 
@@ -146,7 +147,7 @@ def get_or_insert_crm_lead(
     # for field, value in [('phone', phone), ('mobile_no', mobile), ('custom_wechat', wx)]:
     #     if value:
     #         or_filters[field] = value
-    links = list(set([i for i in [phone, mobile, wx] if i]))
+    links = list(set([i for i in [phone, mobile, wx] + re.findall(r'\d+', wx or '')  if i]))
     or_filters = [
         {'phone': ['in', links]},
         {'mobile_no': ['in', links]},
@@ -178,6 +179,7 @@ def get_or_insert_crm_lead(
             'custom_employee_baidu_account': bd_account,
             'custom_employee_douyin_account': dy_account,
             'lead_owner': '', # 这个给个默认线索负责人为空
+            'custom_lead_owner_employee': '',
             'custom_auto_allocation': auto_allocation,
             'custom_product_category': product_category,
             'custom_last_lead_owner': '',
