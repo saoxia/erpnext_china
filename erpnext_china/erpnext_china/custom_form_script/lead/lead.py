@@ -1,8 +1,10 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
-from erpnext_china.utils.lead_tools import get_doc_or_none
+import re
 import frappe
+
+from erpnext_china.utils.lead_tools import get_doc_or_none
 from erpnext.crm.doctype.lead.lead import Lead
 
 class CustomLead(Lead):
@@ -43,7 +45,7 @@ class CustomLead(Lead):
 		return contact
 
 	def validate_single_phone(self):
-		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] if i]))
+		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] + re.findall(r'\d+', self.custom_wechat or '')  if i]))
 		or_filters = [
 			{'phone': ['in', links]},
 			{'mobile_no': ['in', links]},
@@ -63,17 +65,6 @@ class CustomLead(Lead):
 			message = ', '.join(message)
 			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
 
-	def validate(self):
-		self.set_full_name()
-		self.set_lead_name()
-		self.set_title()
-		self.set_status()
-		self.check_email_id_is_unique()
-		self.validate_email_id()
-		self.set_contact_info()
-		self.validate_single_phone()
-		
-
 	def set_contact_info(self):
 		if not any([self.phone, self.mobile_no, self.custom_wechat]):
 			frappe.throw(f"联系方式必填")
@@ -84,6 +75,11 @@ class CustomLead(Lead):
 			self.mobile_no = str(self.mobile_no).replace(' ','')
 		if self.custom_wechat:
 			self.custom_wechat = str(self.custom_wechat).replace(' ','')
+
+	def validate(self):
+		super().validate()
+		self.set_contact_info()
+		self.validate_single_phone()
 
 	@property
 	def custom_lead_owner_name(self):
@@ -127,6 +123,11 @@ class CustomLead(Lead):
 				if employee_leader_name:
 					employee_leader = frappe.get_doc("Employee", employee_leader_name)
 					return employee_leader.user_id
+	
+	@property
+	def custom_created_by(self):
+		doc = frappe.get_doc('User', self.owner)
+		return doc.first_name
 
 	def before_save(self):
 		if len(self.notes) > 0:
@@ -145,13 +146,17 @@ class CustomLead(Lead):
 @frappe.whitelist()
 def get_lead(**kwargs):
 	lead_name = kwargs.get('lead')
-	lead = frappe.get_doc('Lead', lead_name)
-	lead.lead_owner = frappe.session.user
-	lead.save(ignore_permissions=True)
+	if lead_name:
+		lead = frappe.get_doc('Lead', lead_name)
+		if lead:
+			lead.lead_owner = frappe.session.user
+			lead.save(ignore_permissions=True)
 
 @frappe.whitelist()
 def give_up_lead(**kwargs):
 	lead_name = kwargs.get('lead')
-	lead = frappe.get_doc('Lead', lead_name)
-	lead.lead_owner = ''
-	lead.save(ignore_permissions=True)
+	if lead_name:
+		lead = frappe.get_doc('Lead', lead_name)
+		if lead:
+			lead.lead_owner = ''
+			lead.save(ignore_permissions=True)
