@@ -126,7 +126,8 @@ class CustomLead(Lead):
 	
 	@property
 	def custom_created_by(self):
-		return frappe.get_doc('User', self.owner).username
+		doc = frappe.get_doc('User', self.owner)
+		return doc.first_name
 
 	def before_save(self):
 		if len(self.notes) > 0:
