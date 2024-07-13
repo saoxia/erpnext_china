@@ -6,6 +6,7 @@ import frappe
 
 from erpnext_china.utils.lead_tools import get_doc_or_none
 from erpnext.crm.doctype.lead.lead import Lead
+import frappe.utils
 
 class CustomLead(Lead):
 	def create_contact(self):
@@ -131,7 +132,7 @@ class CustomLead(Lead):
 
 	def before_save(self):
 		if len(self.notes) > 0:
-			notes = sorted(self.notes, key=lambda x: x.added_on, reverse=True)
+			notes = sorted(self.notes, key=lambda x: frappe.utils.get_datetime(x.added_on), reverse=True)
 			latest_note = notes[0]
 			if latest_note.added_by == self.lead_owner:
 				self.custom_latest_note_created_time = latest_note.added_on
@@ -148,9 +149,12 @@ def get_lead(**kwargs):
 	lead_name = kwargs.get('lead')
 	if lead_name:
 		lead = frappe.get_doc('Lead', lead_name)
-		if lead:
+		employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, fieldname="name")
+		if lead and employee:
+			lead.custom_lead_owner_employee = employee
 			lead.lead_owner = frappe.session.user
 			lead.save(ignore_permissions=True)
+
 
 @frappe.whitelist()
 def give_up_lead(**kwargs):
@@ -158,5 +162,6 @@ def give_up_lead(**kwargs):
 	if lead_name:
 		lead = frappe.get_doc('Lead', lead_name)
 		if lead:
+			lead.custom_lead_owner_employee = ''
 			lead.lead_owner = ''
 			lead.save(ignore_permissions=True)
