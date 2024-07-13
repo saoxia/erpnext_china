@@ -6,6 +6,7 @@ import frappe
 
 from erpnext_china.utils.lead_tools import get_doc_or_none
 from erpnext.crm.doctype.lead.lead import Lead
+import frappe.utils
 
 class CustomLead(Lead):
 	def create_contact(self):
@@ -131,7 +132,7 @@ class CustomLead(Lead):
 
 	def before_save(self):
 		if len(self.notes) > 0:
-			notes = sorted(self.notes, key=lambda x: x.added_on, reverse=True)
+			notes = sorted(self.notes, key=lambda x: frappe.utils.get_datetime(x.added_on), reverse=True)
 			latest_note = notes[0]
 			if latest_note.added_by == self.lead_owner:
 				self.custom_latest_note_created_time = latest_note.added_on
