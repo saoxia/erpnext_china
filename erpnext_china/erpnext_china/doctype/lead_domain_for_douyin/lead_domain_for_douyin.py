@@ -133,7 +133,7 @@ def lead_via_douyin(**kwargs):
                 username, 
                 clue_source_name, 
                 kwargs.get('telphone', ''),
-                kwargs.get('telphone', ''), 
+                '',
                 kwargs.get('weixin', ''), 
                 kwargs.get('city_name') or location[1], 
                 kwargs.get('province_name')  or location[0],

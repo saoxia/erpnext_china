@@ -71,7 +71,7 @@ def lead_via_baidu(**kwargs):
                 lead_name, 
                 flow_channel_name, 
                 kwargs.get('clue_phone_number', ''),
-                kwargs.get('clue_phone_number', ''), 
+                '', 
                 kwargs.get('wechat_account', ''),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
