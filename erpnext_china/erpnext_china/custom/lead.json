@@ -96,7 +96,7 @@
     "insert_after": "status",
     "is_system_generated": 0,
     "is_virtual": 1,
-    "label": "Created By",
+    "label": "Lead Created By",
     "length": 0,
     "mandatory_depends_on": null,
     "modified": "2023-11-07 18:24:36.435860",
