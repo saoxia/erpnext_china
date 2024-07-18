@@ -2238,12 +2238,12 @@
     "modified": "2023-11-07 18:24:35.030797",
     "modified_by": "Administrator",
     "module": null,
-    "name": "Lead-phone-unique",
+    "name": "Lead-phone-report_hide",
     "owner": "Administrator",
-    "property": "unique",
-    "property_type": "Check",
+    "property": "report_hide",
+    "property_type": "Int",
     "row_name": null,
-    "value": "0"
+    "value": "1"
    },
    {
     "_assign": null,
@@ -2261,12 +2261,12 @@
     "modified": "2023-11-07 18:24:35.030797",
     "modified_by": "Administrator",
     "module": null,
-    "name": "Lead-mobile_no-unique",
+    "name": "Lead-mobile_no-report_hide",
     "owner": "Administrator",
-    "property": "unique",
-    "property_type": "Check",
+    "property": "report_hide",
+    "property_type": "Int",
     "row_name": null,
-    "value": "0"
+    "value": "1"
    },
    {
     "_assign": null,
@@ -2284,12 +2284,12 @@
     "modified": "2023-11-07 18:24:35.030797",
     "modified_by": "Administrator",
     "module": null,
-    "name": "Lead-custom_wechat-unique",
+    "name": "Lead-custom_wechat-report_hide",
     "owner": "Administrator",
-    "property": "unique",
-    "property_type": "Check",
+    "property": "report_hide",
+    "property_type": "Int",
     "row_name": null,
-    "value": "0"
+    "value": "1"
    },
    {
     "_assign": null,
