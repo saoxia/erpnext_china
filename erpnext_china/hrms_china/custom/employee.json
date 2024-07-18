@@ -2063,7 +2063,7 @@
     "module": null,
     "name": "Employee-marital_status-permlevel",
     "owner": "Administrator",
-    "property": "marital_status",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2086,7 +2086,7 @@
     "module": null,
     "name": "Employee-date_of_joining-permlevel",
     "owner": "Administrator",
-    "property": "date_of_joining",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2109,7 +2109,7 @@
     "module": null,
     "name": "Employee-custom_chinese_id_number-permlevel",
     "owner": "Administrator",
-    "property": "custom_chinese_id_number",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2132,7 +2132,7 @@
     "module": null,
     "name": "Employee-custom_ethnicity-permlevel",
     "owner": "Administrator",
-    "property": "custom_ethnicity",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2155,7 +2155,7 @@
     "module": null,
     "name": "Employee-date_of_birth-permlevel",
     "owner": "Administrator",
-    "property": "date_of_birth",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2178,7 +2178,7 @@
     "module": null,
     "name": "Employee-custom_age-permlevel",
     "owner": "Administrator",
-    "property": "custom_age",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2201,7 +2201,7 @@
     "module": null,
     "name": "Employee-custom_age-permlevel",
     "owner": "Administrator",
-    "property": "custom_age",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2224,7 +2224,7 @@
     "module": null,
     "name": "Employee-custom_lead_total-permlevel",
     "owner": "Administrator",
-    "property": "custom_lead_total",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2247,7 +2247,7 @@
     "module": null,
     "name": "Employee-current_address-permlevel",
     "owner": "Administrator",
-    "property": "current_address",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2270,7 +2270,7 @@
     "module": null,
     "name": "Employee-permanent_address-permlevel",
     "owner": "Administrator",
-    "property": "permanent_address",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2293,7 +2293,7 @@
     "module": null,
     "name": "Employee-person_to_be_contacted-permlevel",
     "owner": "Administrator",
-    "property": "person_to_be_contacted",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2316,7 +2316,7 @@
     "module": null,
     "name": "Employee-emergency_phone_number-permlevel",
     "owner": "Administrator",
-    "property": "emergency_phone_number",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2339,7 +2339,7 @@
     "module": null,
     "name": "Employee-relation-permlevel",
     "owner": "Administrator",
-    "property": "relation",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2362,7 +2362,7 @@
     "module": null,
     "name": "Employee-ctc-permlevel",
     "owner": "Administrator",
-    "property": "ctc",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2385,7 +2385,7 @@
     "module": null,
     "name": "Employee-custom_three_social_insurance-permlevel",
     "owner": "Administrator",
-    "property": "custom_three_social_insurance",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
@@ -2408,7 +2408,7 @@
     "module": null,
     "name": "Employee-custom_housing_provident_fund-permlevel",
     "owner": "Administrator",
-    "property": "custom_housing_provident_fund",
+    "property": "permlevel",
     "property_type": "Int",
     "row_name": null,
     "value": "2"
