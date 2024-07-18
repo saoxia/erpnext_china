@@ -71,7 +71,7 @@ def lead_via_baidu(**kwargs):
                 lead_name, 
                 flow_channel_name, 
                 kwargs.get('clue_phone_number', ''),
-                kwargs.get('clue_phone_number', ''), 
+                '', 
                 kwargs.get('wechat_account', ''),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
@@ -162,11 +162,14 @@ def update_crm_lead_fields(record, kwargs):
         try:
             city = kwargs.get('area')
             state = kwargs.get('area_province')
-
-            if city:
-                crm_lead.city = city
-            if state:
-                crm_lead.state = state
+            keyword = kwargs.get('keyword')
+            search_word = kwargs.get('search_word')
+            
+            if keyword: crm_lead.custom_keyword = keyword
+            if search_word: crm_lead.custom_search_word = search_word
+            
+            if city: crm_lead.city = city
+            if state: crm_lead.state = state
             if city or state:
                 territory = lead_tools.get_system_territory(city or state)
                 crm_lead.territory = territory

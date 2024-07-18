@@ -149,11 +149,12 @@ def get_lead(**kwargs):
 	lead_name = kwargs.get('lead')
 	if lead_name:
 		lead = frappe.get_doc('Lead', lead_name)
-		employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, fieldname="name")
-		if lead and employee:
-			lead.custom_lead_owner_employee = employee
-			lead.lead_owner = frappe.session.user
-			lead.save(ignore_permissions=True)
+		if not lead.custom_lead_owner_employee or not lead.lead_owner:
+			employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, fieldname="name")
+			if employee:
+				lead.custom_lead_owner_employee = employee
+				lead.lead_owner = frappe.session.user
+				lead.save(ignore_permissions=True)
 
 
 @frappe.whitelist()
@@ -161,7 +162,7 @@ def give_up_lead(**kwargs):
 	lead_name = kwargs.get('lead')
 	if lead_name:
 		lead = frappe.get_doc('Lead', lead_name)
-		if lead:
+		if lead.custom_lead_owner_employee or lead.lead_owner:
 			lead.custom_lead_owner_employee = ''
 			lead.lead_owner = ''
 			lead.save(ignore_permissions=True)
