@@ -4,13 +4,14 @@
 # import frappe
 import copy
 import json
+import re
 from erpnext_china.utils import lead_tools
 from frappe.model.document import Document
 import frappe
 from frappe.utils import datetime
 
 class LeadDomainforBaidu(Document):
-	pass
+    pass
 
 
 @frappe.whitelist(allow_guest=True)
@@ -67,11 +68,14 @@ def lead_via_baidu(**kwargs):
             original_lead_doc = frappe.get_doc(kwargs).insert(ignore_permissions=True)
             flow_channel_name = lead_tools.get_or_insert_flow_channel_name(kwargs.get('flow_channel_name', '其它'), '百度')
             # 同时生成一条CRM数据
+            # 有的百度线索的 clue_phone_number 是这种形式的 1781111111,13511111111
+            phone_numbers = re.findall(r'\d+', str(kwargs.get('clue_phone_number', '')))[:2]
+            phone1, phone2 = phone_numbers + [''] * (2 - len(phone_numbers))
             crm_lead_doc = lead_tools.get_or_insert_crm_lead(
                 lead_name, 
                 flow_channel_name, 
-                kwargs.get('clue_phone_number', ''),
-                '', 
+                phone1,
+                phone2, 
                 kwargs.get('wechat_account', ''),
                 kwargs.get('area'), 
                 kwargs.get('area_province'),
