@@ -49,3 +49,9 @@ has_permission = {
     "Original Leads": "erpnext_china.erpnext_china.custom_permission.original_lead.permission_original_lead.has_permission",
     # "Contact": "erpnext_china.erpnext_china.custom_permission.contact.permission_contact.has_permission",
 }
+
+# doc_events = {
+#     "Lead": {
+#         "before_save": "erpnext_china.erpnext_china.doctype.auto_allocation_rule.auto_allocation_rule.lead_before_save_handle"
+#     }
+# }

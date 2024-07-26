@@ -31,7 +31,8 @@ frappe.ui.form.on('Lead', {
 
             if (!show) {
                 // 提示认领
-                frm.set_intro(__("请在【行动】中【认领线索】以查看联系方式。"));
+                frm.set_intro();
+                frm.set_intro(__("请在右上角【行动】或【...】中点击【认领线索】查看联系方式。"));
             }
 
             if(frappe.session.user == frm.doc.lead_owner) {
@@ -39,7 +40,10 @@ frappe.ui.form.on('Lead', {
                     // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: null});
                     frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.give_up_lead", {lead: frm.doc.name}).then((r)=>{
                         console.log(r);
-                        window.location.reload();
+                        if(r && r.message==200) {
+                            window.location.reload();
+                        }
+                        
                     })
                 }, __("Action"));
             } else {
@@ -47,8 +51,9 @@ frappe.ui.form.on('Lead', {
                     frm.add_custom_button(__("认领线索"), ()=>{
                         // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: frappe.session.user});
                         frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.get_lead", {lead: frm.doc.name}).then((r)=>{
-                            console.log(r);
-                            window.location.reload();
+                            if(r && r.message==200) {
+                                window.location.reload();
+                            }
                         })
                         
                     }, __("Action"));
