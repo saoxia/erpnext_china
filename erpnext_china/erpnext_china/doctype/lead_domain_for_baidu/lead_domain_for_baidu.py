@@ -169,11 +169,11 @@ def update_crm_lead_fields(record, kwargs):
             keyword = kwargs.get('keyword')
             search_word = kwargs.get('search_word')
             
-            if keyword: crm_lead.custom_keyword = keyword
-            if search_word: crm_lead.custom_search_word = search_word
+            if keyword and not crm_lead.custom_keyword: crm_lead.custom_keyword = keyword
+            if search_word and not crm_lead.custom_search_word: crm_lead.custom_search_word = search_word
             
-            if city: crm_lead.city = city
-            if state: crm_lead.state = state
+            if city and not crm_lead.city: crm_lead.city = city
+            if state and not crm_lead.state: crm_lead.state = state
             if city or state:
                 territory = lead_tools.get_system_territory(city or state)
                 crm_lead.territory = territory
