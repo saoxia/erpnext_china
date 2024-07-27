@@ -88,16 +88,15 @@ class CustomLead(Lead):
 				return lead_owner.first_name
 	
 	def get_original_lead(self):
-		original_leads = frappe.get_list('Original Leads', filters={'crm_lead': self.name}, order_by="creation")
-		if len(original_leads) > 0:
-			return frappe.get_doc('Original Leads', original_leads[0].name)
+		if self.custom_original_lead_name:
+			return get_doc_or_none("Original Leads", {"name": self.custom_original_lead_name})
 		return None
 	
-	@property
-	def custom_original_lead_name(self):
-		doc = self.get_original_lead()
-		if doc:
-			return doc.name
+    # @property
+	# def custom_original_lead_name(self):
+	# 	doc = self.get_original_lead()
+	# 	if doc:
+	# 		return doc.name
 
 	@property
 	def custom_site_url(self):

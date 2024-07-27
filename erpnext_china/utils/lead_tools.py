@@ -178,6 +178,7 @@ def get_or_insert_crm_lead(
             'territory': territory,
             'custom_employee_baidu_account': bd_account,
             'custom_employee_douyin_account': dy_account,
+            'custom_original_lead_name': original_lead_name,
             'lead_owner': '', # 这个给个默认线索负责人为空
             'custom_lead_owner_employee': '',
             'custom_auto_allocation': auto_allocation,
