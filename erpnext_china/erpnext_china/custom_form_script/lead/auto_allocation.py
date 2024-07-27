@@ -24,9 +24,6 @@ def lead_before_save_handle(doc):
 				else:
 					lead_to_owner_or_public(doc)
 
-		set_last_lead_owner(doc)
-		set_latest_note(doc)
-
 def auto_allocate(doc):
 	"""自动分配
 	找到已启用的规则下的员工 A = []

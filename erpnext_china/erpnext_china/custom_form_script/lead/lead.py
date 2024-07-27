@@ -7,7 +7,7 @@ import frappe
 from erpnext_china.utils.lead_tools import get_doc_or_none
 from erpnext.crm.doctype.lead.lead import Lead
 import frappe.utils
-from erpnext_china.erpnext_china.custom_form_script.lead.auto_allocation import lead_before_save_handle, check_lead_total_limit, to_public
+from erpnext_china.erpnext_china.custom_form_script.lead.auto_allocation import lead_before_save_handle, check_lead_total_limit, set_last_lead_owner, set_latest_note, to_public
 
 class CustomLead(Lead):
 	def create_contact(self):
@@ -129,6 +129,11 @@ class CustomLead(Lead):
 	def before_save_script(self):
 		doc = self
 		lead_before_save_handle(doc)
+	
+	def before_save(self):
+		doc = self
+		set_last_lead_owner(doc)
+		set_latest_note(doc)
 
 @frappe.whitelist()
 def get_lead(**kwargs):
