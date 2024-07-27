@@ -49,19 +49,19 @@ def auto_allocate(doc):
 	"""
 	items = get_items_from_rules()
 	if len(items) == 0:
-		frappe.msgprint("当前分配规则下没有可分配员工！将自动分配给创建人")
+		frappe.msgprint("当前分配规则下没有可分配员工！将自动分配给创建员工")
 		lead_to_owner_or_public(doc)
 	else:
 		items = sorted(items, key=lambda x: frappe.utils.get_datetime(x.zero_datetime))
 		items = get_items_from_filters(doc.custom_product_category, doc.source, items)
 		if len(items) == 0:
-			frappe.msgprint(f"产品类别：{doc.custom_product_category}，源：{doc.source} 没有可分配员工！将自动分配给创建人")
+			frappe.msgprint(f"产品类别：{doc.custom_product_category}，源：{doc.source} 没有可分配员工！将自动分配给创建员工")
 			lead_to_owner_or_public(doc)
 		else:
 			# 先判断客保数量
 			can_allocate_items = get_items_from_total_limit(items)
 			if len(can_allocate_items) == 0:
-				frappe.msgprint(f"客保数量已达到限制，将自动分配给创建人")
+				frappe.msgprint(f"客保数量已达到限制，将自动分配给创建员工")
 				lead_to_owner_or_public(doc)
 			else:
 				# 如果有可以分配的，判断本轮次是否可以分配
@@ -158,24 +158,18 @@ def reset_allocated_count(employees):
 		employee.save(ignore_permissions=True)
 	return employees
 
-def get_session_user_employee_info():
-	"""获取当前session用户的信息
-	:return object as dict: {"name":"","custom_lead_total": 0, "user_id": ""}
-	""" 
-	user = frappe.session.user
-	emoloyee = frappe.db.get_value("Employee", {"user_id": user} , ["name","custom_lead_total","user_id"], as_dict=True)
-	if emoloyee is None:
-		raise frappe.DoesNotExistError(f"用户：{user}，没有关联的员工！")
-	return emoloyee
 
 def allocate_lead_to_owner(doc)->bool:
 	"""
-	将线索分配给线索创建人
+	将线索分配给线索创建员工
 	"""
-	info = get_session_user_employee_info()
-	user = info.user_id
-	if check_lead_total_limit(info.name):
-		doc.custom_lead_owner_employee = info.name
+	user = doc.owner
+	employee = frappe.db.get_value("Employee", filters={"user_id": user}, fieldname="name")
+	if not employee:
+		frappe.msgprint("当前线索创建人没有员工信息！")
+		return False
+	if check_lead_total_limit(employee):
+		doc.custom_lead_owner_employee = employee
 		doc.lead_owner = user
 		to_private(doc)
 		return True
@@ -183,10 +177,10 @@ def allocate_lead_to_owner(doc)->bool:
 
 def lead_to_owner_or_public(doc):
 	"""
-	分配给创建人，创建人客保数量满，进公海
+	分配给创建员工，创建员工客保数量满，进公海
 	"""
 	if not allocate_lead_to_owner(doc):
-		frappe.msgprint("当前线索创建人客保数量已到限制，自动进入公海！")
+		frappe.msgprint("当前线索创建员工客保数量已到限制，自动进入公海！")
 		to_public(doc)
 
 def to_public(doc):
