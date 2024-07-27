@@ -12,7 +12,7 @@ def lead_before_save_handle(doc):
 		if lead_owner_employee:
 			if doc.has_value_changed("custom_lead_owner_employee"):
 				if not check_lead_total_limit(lead_owner_employee):
-					frappe.msgprint("当前线索负责人客保数量已满，请选择其他负责人！")
+					frappe.throw("当前线索负责人客保数量已满，请选择其他负责人！")
 				else:
 					to_private(doc)
 		else:
@@ -23,9 +23,6 @@ def lead_before_save_handle(doc):
 					to_public(doc)
 				else:
 					lead_to_owner_or_public(doc)
-
-		set_last_lead_owner(doc)
-		set_latest_note(doc)
 
 def auto_allocate(doc):
 	"""自动分配
@@ -197,7 +194,7 @@ def to_private(doc):
 	线索进私海
 	"""
 	if not doc.custom_lead_owner_employee:
-		raise frappe.ValidationError(f"未指定线索负责员工，禁止进入私海")
+		frappe.throw("未指定线索负责员工，禁止进入私海!")
 	old_doc = doc.get_doc_before_save()
 	if not old_doc:
 		doc.status = "Open"
