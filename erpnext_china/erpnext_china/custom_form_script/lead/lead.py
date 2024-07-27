@@ -7,6 +7,7 @@ import frappe
 from erpnext_china.utils.lead_tools import get_doc_or_none
 from erpnext.crm.doctype.lead.lead import Lead
 import frappe.utils
+from erpnext_china.erpnext_china.custom_form_script.lead.auto_allocation import lead_before_save_handle, check_lead_total_limit, to_public
 
 class CustomLead(Lead):
 	def create_contact(self):
@@ -55,14 +56,9 @@ class CustomLead(Lead):
 		filters = {"name": ['!=',self.name]}
 		leads = frappe.get_all("Lead",filters=filters, or_filters=or_filters, fields=['name', 'lead_owner'])
 		if len(leads) > 0:
-			url = frappe.utils.get_url()
 			message = []
 			for lead in leads:
-				lead_owner = ''
-				if lead.lead_owner:
-					user = frappe.get_doc("User", lead.lead_owner)
-					if user: lead_owner = user.first_name
-				message.append(f'{lead_owner}: <a href="{url}/app/lead/{lead.name}" target="_blank">{lead.name}</a>')
+				message.append(f'{lead.name}')
 			message = ', '.join(message)
 			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
 
@@ -92,16 +88,15 @@ class CustomLead(Lead):
 				return lead_owner.first_name
 	
 	def get_original_lead(self):
-		original_leads = frappe.get_list('Original Leads', filters={'crm_lead': self.name}, order_by="creation")
-		if len(original_leads) > 0:
-			return frappe.get_doc('Original Leads', original_leads[0].name)
+		if self.custom_original_lead_name:
+			return get_doc_or_none("Original Leads", {"name": self.custom_original_lead_name})
 		return None
 	
-	@property
-	def custom_original_lead_name(self):
-		doc = self.get_original_lead()
-		if doc:
-			return doc.name
+    # @property
+	# def custom_original_lead_name(self):
+	# 	doc = self.get_original_lead()
+	# 	if doc:
+	# 		return doc.name
 
 	@property
 	def custom_site_url(self):
@@ -130,19 +125,10 @@ class CustomLead(Lead):
 		doc = frappe.get_doc('User', self.owner)
 		return doc.first_name
 
-	def before_save(self):
-		if len(self.notes) > 0:
-			notes = sorted(self.notes, key=lambda x: frappe.utils.get_datetime(x.added_on), reverse=True)
-			latest_note = notes[0]
-			if latest_note.added_by == self.lead_owner:
-				self.custom_latest_note_created_time = latest_note.added_on
-				self.custom_latest_note = latest_note.note
-		doc = get_doc_or_none('Lead', self.name)
-		if doc:
-			self.custom_last_lead_owner = doc.lead_owner
-		else:
-			self.custom_last_lead_owner = ''
-
+	# 提供给UI Python脚本调用
+	def before_save_script(self):
+		doc = self
+		lead_before_save_handle(doc)
 
 @frappe.whitelist()
 def get_lead(**kwargs):
@@ -151,10 +137,15 @@ def get_lead(**kwargs):
 		lead = frappe.get_doc('Lead', lead_name)
 		if not lead.custom_lead_owner_employee or not lead.lead_owner:
 			employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, fieldname="name")
-			if employee:
+			if check_lead_total_limit(employee):
 				lead.custom_lead_owner_employee = employee
 				lead.lead_owner = frappe.session.user
 				lead.save(ignore_permissions=True)
+				return 200
+			else:
+				frappe.msgprint("客保数量已到限制，请放弃一些线索后再来认领吧！")
+		else:
+			frappe.msgprint("当前线索已经存在负责人，不可再次认领！")
 
 
 @frappe.whitelist()
@@ -162,7 +153,26 @@ def give_up_lead(**kwargs):
 	lead_name = kwargs.get('lead')
 	if lead_name:
 		lead = frappe.get_doc('Lead', lead_name)
-		if lead.custom_lead_owner_employee or lead.lead_owner:
-			lead.custom_lead_owner_employee = ''
-			lead.lead_owner = ''
-			lead.save(ignore_permissions=True)
+		to_public(lead)
+		lead.save(ignore_permissions=True)
+		return 200
+
+
+@frappe.whitelist()
+def get_employee_lead_total(**kwargs):
+	obj = frappe.db.get_value("Employee", {"user_id": frappe.session.user}, ["name", "custom_lead_total"], as_dict=True)
+	if not obj:
+		value = 0
+	else:
+		count = frappe.db.count("Lead", {
+			"custom_lead_owner_employee": obj.name,
+			"status": ["!=", "Converted"]
+		})
+		value = (obj.custom_lead_total or 0) - count
+	
+	return {
+		"value": value,
+		"fieldtype": "Int",
+		"route_options": {},
+		"route": []
+	}

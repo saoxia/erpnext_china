@@ -160,28 +160,28 @@ def update_crm_lead_fields(record, kwargs):
     crm_lead_name = record.crm_lead
     crm_lead = lead_tools.get_doc_or_none(doctype, {'name': crm_lead_name})
     # 更新字段
-    # 这里必须有修改的权限的用户才能进行修改
-    # 防止多条原始线索对应一条CRM线索，后来的覆盖最初的
-    if crm_lead and lead_tools.verify_has_permission(doctype=doctype, ptype="write", doc=crm_lead):
-        try:
-            city = kwargs.get('area')
-            state = kwargs.get('area_province')
-            keyword = kwargs.get('keyword')
-            search_word = kwargs.get('search_word')
-            
-            if keyword: crm_lead.custom_keyword = keyword
-            if search_word: crm_lead.custom_search_word = search_word
-            
-            if city: crm_lead.city = city
-            if state: crm_lead.state = state
-            if city or state:
-                territory = lead_tools.get_system_territory(city or state)
-                crm_lead.territory = territory
-            
-            crm_lead.save()
-            
-        except: 
-            pass
+    if crm_lead:
+        original_lead_name = crm_lead.custom_original_lead_name
+        if original_lead_name == record.name:
+            try:
+                city = kwargs.get('area')
+                state = kwargs.get('area_province')
+                keyword = kwargs.get('keyword')
+                search_word = kwargs.get('search_word')
+                
+                if keyword: crm_lead.custom_keyword = keyword
+                if search_word: crm_lead.custom_search_word = search_word
+                
+                if city: crm_lead.city = city
+                if state: crm_lead.state = state
+                if city or state:
+                    territory = lead_tools.get_system_territory(city or state)
+                    crm_lead.territory = territory
+                
+                crm_lead.save()
+                
+            except: 
+                pass
 
 
 def verify_token(requst_token: str, token: str):

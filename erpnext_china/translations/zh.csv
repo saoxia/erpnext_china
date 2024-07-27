@@ -9153,3 +9153,9 @@ Created Note,网推备注
 Lead Owner Employee,线索负责员工
 Lead Total,客保数量上限
 Lead Created By,线索创建人
+Rule Name,规则名称
+Auto Allocation Rule,自动分配规则
+Private Not Converted Lead Total,私海未转化数量
+Allocated Lead Total,剩余客保数量
+Private Open Lead Total,私海待跟进数量
+Public Lead Total,公海数量
