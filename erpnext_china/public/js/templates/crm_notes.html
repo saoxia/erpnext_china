@@ -19,7 +19,11 @@
 							</div>
 							<div class="col-xs-10">
 								<div class="mr-2 title font-weight-bold ellipsis" title="{{ strip_html(notes[i].added_by) }}">
-									{{ strip_html(notes[i].added_by) }}
+									{% if (notes[i].added_by == "jintingyan@zhushigroup.cn" || notes[i].added_by == "wangjiali@zhushigroup.cn")%}
+                                        回访客服
+                                    {% } else { %}
+                                        {{ strip_html(notes[i].added_by) }}
+                                    {% } %}
 								</div>
 								<div class="time small text-muted">
 									{{ frappe.datetime.get_datetime_as_string(notes[i].added_on) }}
