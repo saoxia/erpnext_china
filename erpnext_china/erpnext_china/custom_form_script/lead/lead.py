@@ -133,18 +133,26 @@ class CustomLead(Lead):
 	
 	def before_save(self):
 		doc = self
-		set_last_lead_owner(doc)
-		set_latest_note(doc)
+		if self.has_value_changed("lead_owner"):
+			set_last_lead_owner(doc)
+		if self.has_value_changed("notes"):
+			set_latest_note(doc)
 
 	def check_in_old_system(self):
-		user = frappe.session.user
-		if frappe.db.get_value('Has Role',{'parent': user,'role':['in',['System Manager','网络推广管理']]}) or (user in white_list):
+		if self.is_new():
+			user = frappe.session.user
+			if frappe.db.get_value('Has Role',{'parent': user,'role':['in',['System Manager','网络推广管理']]}) or (user in white_list):
+				return True
+			else:
+				if (self.phone in old_system_contacts) or (self.mobile_no in old_system_contacts) or (self.custom_wechat in old_system_contacts):
+					frappe.throw("当前系统中已经存在此联系方式！")
 			return True
-		else:
-			if (self.phone in old_system_contacts) or (self.mobile_no in old_system_contacts) or (self.custom_wechat in old_system_contacts):
-				frappe.throw("当前系统中已经存在此联系方式！")
-		return True
 
+	# 重写 has_customer 方法，阻止检查到线索已经关联了客户后修改线索状态为 已转化（Converted）
+	def has_customer(self):
+		# return frappe.db.get_value("Customer", {"lead_name": self.name})
+		return None
+	
 @frappe.whitelist()
 def get_lead(**kwargs):
 	lead_name = kwargs.get('lead')
