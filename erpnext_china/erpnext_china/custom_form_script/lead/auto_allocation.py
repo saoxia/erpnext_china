@@ -1,6 +1,9 @@
 
 import frappe
 
+frappe.utils.logger.set_log_level("DEBUG")
+logger = frappe.logger('allocation', file_count=50)
+
 def lead_before_save_handle(doc):
 
 	if not created_lead_by_sale(doc):
@@ -235,6 +238,7 @@ def lead_to_employee(doc, item):
 	item.zero_datetime = frappe.utils.now_datetime()
 	item.save(ignore_permissions=True)
 	to_private(doc)
+	logger.info(f"|{item.zero_datetime}|{doc.owner}|{doc.name}|{employee.user_id}")
 
 def created_lead_by_sale(doc):
 	"""
