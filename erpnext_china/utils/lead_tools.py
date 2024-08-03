@@ -70,51 +70,6 @@ def get_username_in_form_detail(kwargs: dict, source: str):
 
     return kwargs.get('name', '匿名') or "匿名"
 
-###### 未完成，需要调整 ######
-def crm_lead_linked_customer(crm_lead):
-    """通过联系方式找到客户
-    """
-
-    # 通过线索创建的联系人在dynamic link中表现为 link_doctype=Lead parent=称呼
-    # 手动创建的联系人不会有dynamic link的记录
-    # 1.在线索中创建客户，则会在dynamic link 中创建一条 link_doctype=Customer parent=称呼的记录
-    # 同时，客户关联上了线索 lead_name=Lead.name
-    # 2.手动在客户中创建客户，并关联线索同1.类似
-    or_filters = {}
-    for field, value in [
-        ('phone', crm_lead.phone), 
-        ('mobile_no', crm_lead.mobile), 
-        ('custom_wechat', crm_lead.custom_wechat)
-    ]:
-        if value:
-            or_filters[field] = value
-    
-    # 检查是否存在匹配的记录
-    # 联系人的联系方式可以重复
-    contacts = frappe.get_all(
-        "Contact",
-        or_filters=or_filters
-    )
-    if len(contacts) > 0:
-        for contact in contacts:
-            # 找到这个联系人是否已经和客户关联了
-            dynamic_links = frappe.get_all('Dynamic Link',
-                filters=[
-                    ["link_doctype", "=", "Customer"],
-                    ["parent", "=", contact.name],
-                ],
-                fields=['link_name'],
-            )
-            # 找到联系人已经关联的客户
-            customers = frappe.get_all('Customer', filtres=['name', 'in', [dl.link_name for dl in dynamic_links]])
-            # 客户关联线索
-            # 如果已经关联过线索，则修改为关联现在的新线索
-            # 如果是没有关联过线索，则关联线索
-            for customer in customers:
-                customer.lead_name = crm_lead.name
-                customer.save()
-
-
 
 def get_or_insert_crm_lead(
         lead_name, source, phone:str, mobile:str, wx:str, 
@@ -143,21 +98,24 @@ def get_or_insert_crm_lead(
     if not any([phone, mobile, wx]):
         return None
 
-    # or_filters = {}
-    # for field, value in [('phone', phone), ('mobile_no', mobile), ('custom_wechat', wx)]:
-    #     if value:
-    #         or_filters[field] = value
     links = list(set([i for i in [phone, mobile, wx] + re.findall(r'\d+', wx or '')  if i]))
+    # 如果联系方式和客户中已经存在的联系方式重复了，则不创建CRM线索
+    records = frappe.get_all("Customer Contact Item", or_filters=[
+        {'phone': ['in', links]},
+        {'mobile': ['in', links]},
+        {'wechat': ['in', links]}
+    ])
+    if len(records) > 0:
+        frappe.msgprint("当前联系方式已经存在客户中！")
+        return None
+    
     or_filters = [
         {'phone': ['in', links]},
         {'mobile_no': ['in', links]},
         {'custom_wechat': ['in', links]}
     ]
     # 检查是否存在匹配的线索
-    records = frappe.get_all(
-        "Lead",
-        or_filters=or_filters
-    )
+    records = frappe.get_all("Lead", or_filters=or_filters)
     if len(records) > 0:
         record = records[0]
         # 已经存在相同联系方式的线索，给个评论提示一下
