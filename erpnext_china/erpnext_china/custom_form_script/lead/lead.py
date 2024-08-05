@@ -137,16 +137,23 @@ class CustomLead(Lead):
 		if self.has_value_changed("lead_owner"):
 			set_last_lead_owner(doc)
 			if self.get_doc_before_save():
-				self.add_comment("Comment", text=f"分配给: {self.lead_owner}")
+				self.lead_add_comment(f"分配给: {self.lead_owner}")
 		if self.has_value_changed("notes"):
 			set_latest_note(doc)
 
 	def after_insert(self):
 		if self.custom_original_lead_name:
-			self.add_comment("Comment", text=f"初始自动分配给: {self.lead_owner}")
+			text=f"初始自动分配给: {self.lead_owner}"
 		else:
-			self.add_comment("Comment", text=f"初始手动分配给: {self.lead_owner}")
+			text=f"初始手动分配给: {self.lead_owner}"
+		self.lead_add_comment(text)
 		return super().after_insert()
+
+	def lead_add_comment(self, text: str):
+		try:
+			self.add_comment("Comment", text=text)
+		except:
+			pass
 
 	def check_in_old_system(self):
 		if self.is_new():
