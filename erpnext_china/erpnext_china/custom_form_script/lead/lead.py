@@ -54,13 +54,12 @@ class CustomLead(Lead):
 			{'custom_wechat': ['in', links]}
 		]
 		filters = {"name": ['!=',self.name]}
-		leads = frappe.get_all("Lead",filters=filters, or_filters=or_filters, fields=['name', 'lead_owner'])
+		leads = frappe.get_all("Lead",filters=filters, or_filters=or_filters, fields=['name', 'owner'])
 		if len(leads) > 0:
-			message = []
-			for lead in leads:
-				message.append(f'{lead.name}')
-			message = ', '.join(message)
-			frappe.throw(f"当前已经存在相同联系方式的线索: {frappe.bold(message)}", title='线索重复')
+			lead = leads[0]
+			first_name = frappe.db.get_value("User", lead.owner, fieldname='first_name')
+			message = f'{first_name}: {lead.name}'
+			frappe.throw(frappe.bold(message), title='线索重复')
 
 	def set_contact_info(self):
 		if not any([self.phone, self.mobile_no, self.custom_wechat]):
