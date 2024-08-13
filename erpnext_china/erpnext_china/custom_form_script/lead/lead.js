@@ -23,7 +23,13 @@ frappe.ui.form.on('Lead', {
                         frappe.user.has_role('网络推广管理') || 
                         frappe.user.has_role('System Manager') || 
                         frm.doc.custom_sea == "私海";
-    
+            
+            // 如果当前线索已经创建了客户，则线索负责员工不能再编辑
+            if(frm.doc.__onload.is_customer && !frappe.user.has_role('System Manager') && !frappe.user.has_role('网络推广管理')){
+                frm.fields_dict["custom_lead_owner_employee"].df.read_only = 1;
+                frm.refresh_field("custom_lead_owner_employee");
+            }
+
             contactFields.forEach(field => {
                 frm.fields_dict[field].df.hidden = !show; // 隐藏联系方式
                 frm.refresh_field(field);
