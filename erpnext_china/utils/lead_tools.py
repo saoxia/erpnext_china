@@ -100,10 +100,8 @@ def get_or_insert_crm_lead(
 
     links = list(set([i for i in [phone, mobile, wx] + re.findall(r'\d+', wx or '')  if i]))
     # 如果联系方式和客户中已经存在的联系方式重复了，则不创建CRM线索
-    records = frappe.get_all("Customer Contact Item", or_filters=[
-        {'phone': ['in', links]},
-        {'mobile': ['in', links]},
-        {'wechat': ['in', links]}
+    records = frappe.get_all("Customer Contact Item", filters=[
+        {'contact_info': ['in', links]}
     ])
     if len(records) > 0:
         frappe.msgprint("当前联系方式已经存在客户中！")

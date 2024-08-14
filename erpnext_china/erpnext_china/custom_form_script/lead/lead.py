@@ -166,16 +166,20 @@ class CustomLead(Lead):
 		# 除了网推管理和管理员外其他人没有编辑联系方式的权限
 
 	def check_customer_contacts(self):
-		# 修改联系方式时，判断是否与客户的联系方式重复了
+		# 修改联系方式时，判断是否与非当前客户的联系方式重复了
 		if self.has_value_changed("phone") or self.has_value_changed("mobile_no") or self.has_value_changed("custom_wechat"):
-			links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] + re.findall(r'\d+', self.custom_wechat or '')  if i]))
-			records = frappe.get_all("Customer Contact Item", or_filters=[
-				{'phone': ['in', links]},
-				{'mobile': ['in', links]},
-				{'wechat': ['in', links]}
-			])
-			if len(records) > 0:
+			if self.has_customer_contact():
 				frappe.throw("当前联系方式已经存在客户中！")
+
+	def has_customer_contact(self):
+		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] + re.findall(r'\d+', self.custom_wechat or '')  if i]))
+		records = frappe.get_all("Customer Contact Item", filters=[
+			{'contact_info': ['in', links]},
+			{'lead': ['!=', self.name]}
+		])
+		if len(records) > 0:
+			return True
+		return False
 
 	# 重写 has_customer 方法，阻止检查到线索已经关联了客户后修改线索状态为 已转化（Converted）
 	def has_customer(self):
