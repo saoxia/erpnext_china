@@ -40,8 +40,9 @@ frappe.ui.form.on('Lead', {
                 frm.set_intro();
                 frm.set_intro(__("请在右上角【行动】或【...】中点击【认领线索】查看联系方式。"));
             }
-
-            if(frappe.session.user == frm.doc.lead_owner) {
+            
+            // 如果当前用户是线索负责人并且当前线索没有创建客户可以放弃线索
+            if(frappe.session.user == frm.doc.lead_owner && !frm.doc.__onload.is_customer) {
                 frm.add_custom_button(__("放弃线索"), ()=>{
                     // frappe.db.set_value('Lead', frm.doc.name, {lead_owner: null});
                     frappe.call("erpnext_china.erpnext_china.custom_form_script.lead.lead.give_up_lead", {lead: frm.doc.name}).then((r)=>{
