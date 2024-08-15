@@ -189,3 +189,10 @@ def verify_has_permission(doctype: str, ptype: str, doc: Document, user=None) ->
         return frappe.has_permission(doctype=doctype, ptype=ptype, doc=doc, user=user)
     except:
         return False
+
+
+def remove_whitespace(s):
+    if not s:
+        return ''
+    # 使用正则表达式替换所有空白字符
+    return re.sub(r'\s+', '', s)

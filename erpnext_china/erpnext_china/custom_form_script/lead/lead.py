@@ -4,7 +4,7 @@
 import re
 import frappe
 
-from erpnext_china.utils.lead_tools import get_doc_or_none
+from erpnext_china.utils.lead_tools import get_doc_or_none, remove_whitespace
 from erpnext.crm.doctype.lead.lead import Lead
 import frappe.utils
 from erpnext_china.erpnext_china.custom_form_script.lead.auto_allocation import lead_before_save_handle, check_lead_total_limit, set_last_lead_owner, set_latest_note, to_public
@@ -61,20 +61,17 @@ class CustomLead(Lead):
 			message = f'{first_name}: {lead.name}'
 			frappe.throw(frappe.bold(message), title='线索重复')
 
-	def set_contact_info(self):
+	def clean_contact_info(self):
 		if not any([self.phone, self.mobile_no, self.custom_wechat]):
 			frappe.throw(f"联系方式必填")
-		
-		if self.phone:
-			self.phone = str(self.phone).replace(' ','')
-		if self.mobile_no:
-			self.mobile_no = str(self.mobile_no).replace(' ','')
-		if self.custom_wechat:
-			self.custom_wechat = str(self.custom_wechat).replace(' ','')
+
+		self.phone = remove_whitespace(self.phone)
+		self.mobile_no = remove_whitespace(self.mobile_no)
+		self.custom_wechat = remove_whitespace(self.custom_wechat)
 
 	def validate(self):
 		super().validate()
-		self.set_contact_info()
+		self.clean_contact_info()
 		self.validate_single_phone()
 		self.check_in_old_system()
 		self.check_customer_contacts()
