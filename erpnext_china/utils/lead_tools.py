@@ -195,4 +195,4 @@ def remove_whitespace(s):
     if not s:
         return ''
     # 使用正则表达式替换所有空白字符
-    return re.sub(r'\s+', '', s)
+    return re.sub(r'\s+', '', str(s))
