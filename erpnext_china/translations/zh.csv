@@ -9159,3 +9159,8 @@ Private Not Converted Lead Total,私海未转化数量
 Allocated Lead Total,剩余客保数量
 Private Open Lead Total,私海待跟进数量
 Public Lead Total,公海数量
+Target Type,重复对象类型
+Target Name,重复对象名称
+Try Add Data,原始数据
+Readd Contact Log,重复添加联系方式日志
+Current Lead,当前线索

@@ -4,7 +4,7 @@
 import re
 import frappe
 
-from erpnext_china.utils.lead_tools import get_doc_or_none, remove_whitespace
+from erpnext_china.utils.lead_tools import get_doc_or_none, remove_whitespace, add_log,get_single_contact_info
 from erpnext.crm.doctype.lead.lead import Lead
 import frappe.utils
 from erpnext_china.erpnext_china.custom_form_script.lead.auto_allocation import lead_before_save_handle, check_lead_total_limit, set_last_lead_owner, set_latest_note, to_public
@@ -47,7 +47,7 @@ class CustomLead(Lead):
 		return contact
 
 	def validate_single_phone(self):
-		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] + re.findall(r'\d+', self.custom_wechat or '')  if i]))
+		links = get_single_contact_info(self.phone, self.mobile_no, self.custom_wechat)
 		or_filters = [
 			{'phone': ['in', links]},
 			{'mobile_no': ['in', links]},
@@ -59,6 +59,10 @@ class CustomLead(Lead):
 			lead = leads[0]
 			first_name = frappe.db.get_value("User", lead.owner, fieldname='first_name')
 			message = f'{first_name}: {lead.name}'
+			lead_name = ''
+			if not self.is_new():
+				lead_name = self.name
+			add_log(frappe.session.user, ','.join(links), 'Lead', lead.name, lead_name, self.custom_original_lead_name)
 			frappe.throw(frappe.bold(message), title='线索重复')
 
 	def clean_contact_info(self):
@@ -158,6 +162,10 @@ class CustomLead(Lead):
 				return True
 			else:
 				if (self.phone in old_system_contacts) or (self.mobile_no in old_system_contacts) or (self.custom_wechat in old_system_contacts):
+					
+					contact_info = ','.join(get_single_contact_info(self.phone, self.mobile_no, self.custom_wechat))
+					add_log(user, contact_info, 'Old System', 'Old System', original_lead=self.custom_original_lead_name)
+					
 					frappe.throw("当前系统中已经存在此联系方式！")
 			return True
 		# 除了网推管理和管理员外其他人没有编辑联系方式的权限
@@ -169,12 +177,19 @@ class CustomLead(Lead):
 				frappe.throw("当前联系方式已经存在客户中！")
 
 	def has_customer_contact(self):
-		links = list(set([i for i in [self.phone, self.mobile_no, self.custom_wechat] + re.findall(r'\d+', self.custom_wechat or '')  if i]))
+		links = get_single_contact_info(self.phone, self.mobile_no, self.custom_wechat)
 		records = frappe.get_all("Customer Contact Item", filters=[
 			{'contact_info': ['in', links]},
 			{'lead': ['!=', self.name]}
 		])
 		if len(records) > 0:
+			record = records[0]
+			
+			lead_name = ''
+			if not self.is_new():
+				lead_name = self.name
+			add_log(frappe.session.user, ','.join(links), 'Customer Contact Item', record.name, lead_name, self.custom_original_lead_name)
+			
 			return True
 		return False
 
