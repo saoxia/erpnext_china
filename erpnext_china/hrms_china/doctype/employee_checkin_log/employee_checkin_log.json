@@ -9,6 +9,7 @@
   "employee_name",
   "log_type",
   "code",
+  "exception_type",
   "column_break_fmyu",
   "checkin_time",
   "location_or_device_id",
@@ -90,18 +91,23 @@
    "reqd": 1
   },
   {
-   "description": "\u7531\u5f53\u524d\u5458\u5de5\u5173\u8054\u7528\u6237\u7684custom_wecom_uid+checkin_time",
+   "description": "custom_wecom_uid.checkin_time",
    "fieldname": "code",
    "fieldtype": "Data",
    "label": "Unique Code",
-   "no_copy": 1,
    "read_only": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "exception_type",
+   "fieldtype": "Data",
+   "label": "Exception Type",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-23 16:22:36.588773",
+ "modified": "2024-08-24 09:31:09.447025",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Employee Checkin Log",

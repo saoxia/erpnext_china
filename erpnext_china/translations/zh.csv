@@ -9164,3 +9164,7 @@ Target Name,重复对象名称
 Try Add Data,原始数据
 Readd Contact Log,重复添加联系方式日志
 Current Lead,当前线索
+WeCom MsgApi Setting,企微事件消息配置
+State/Province,省
+County,市
+City,区
