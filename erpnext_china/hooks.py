@@ -18,7 +18,7 @@ scheduler_events = {
 		"0/3 * * * *": [
 			"erpnext_china.hrms_china.doctype.wecom_setting.wecom_setting.update_access_token",
 		],
-        "0 0/2 * * *": [
+        "*/5 * * * *": [
 			"erpnext_china.utils.timed_tasks.task_get_check_in_data",
 		],
 	},
