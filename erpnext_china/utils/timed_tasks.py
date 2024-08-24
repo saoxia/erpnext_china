@@ -22,23 +22,21 @@ def get_check_in_data(access_token: str, users: list[str], starttime: int, endti
 	return result.get('checkindata', [])
 
 
-def add_employee_checkin_log(check_in_data):
+def add_employee_checkin_log(check_in_data, code, employee):
 	"""
 	写入考勤记录
 	"""
-	
-	user = check_in_data.get('local_user')
-	employee = user.get('employee')
-	
 	checkin_time = datetime.fromtimestamp(check_in_data.get('checkin_time'))
+	exception_type = check_in_data.get('exception_type')
 	doc_data = {
 		"doctype": "Employee Checkin Log",
 		"employee": employee,
 		"checkin_time": checkin_time,
-		"code": check_in_data.get('code')
+		"code": code,
+		"exception_type": exception_type
 	}
+
 	checkin_type = check_in_data.get('checkin_type')
-	
 	address = ','.join([check_in_data.get('location_title', ''), check_in_data.get('location_detail', '')])
 	if checkin_type in ['上班打卡', '下班打卡']:
 		doc_data.update({
@@ -158,20 +156,21 @@ def task_get_check_in_data():
 		results = get_check_in_data(access_token, [user.get("wecom") for user in users], start_time, end_time)
 		local_exists_count = get_exists_count(users, start_time, end_time)
 		
-		# 本次已存在的记录个数和新拉取的数据个数一致说明无变化
-		# 过了四个打卡期后，一般没有变化
+		# 当日已存在的记录个数和新拉取的数据个数一致说明无变化
+		# 避免没有新数据增量出现也会执行has_exists去重操作
+		# 过了四个打卡高峰期后，一般不会有新增量出现
 		if local_exists_count >= len(results):
 			continue
 		
 		trans_users = trans_user_dict(users)
 		for result in results:
-			userid = result.get('userid') # 这里的userid其实是我们User的custom_wecom_uid
+			# 这里的userid其实是我们User的custom_wecom_uid
+			userid = result.get('userid')
 			code = '.'.join([userid, str(result.get('checkin_time'))])
-			exception_type = result.get('exception_type', '')
-			
-			if exception_type == '未打卡' or has_exists(code):
+
+			# 每条数据根据 code 判重，code为索引字段
+			if has_exists(code):
 				continue
 
-			result['code'] = code
-			result['local_user'] = trans_users.get(userid)
-			add_employee_checkin_log(result)
+			employee = trans_users.get(userid).get('employee')
+			add_employee_checkin_log(result, code, employee)
