@@ -180,16 +180,6 @@ def insert_crm_note(note: str, parent: str):
 	except:
 		pass
 
-def verify_has_permission(doctype: str, ptype: str, doc: Document, user=None) -> bool:
-	"""验证user对指定doctype的doc是否有ptype的权限
-	
-	:param user: 默认是当前用户
-	"""
-	try:
-		return frappe.has_permission(doctype=doctype, ptype=ptype, doc=doc, user=user)
-	except:
-		return False
-
 
 def remove_whitespace(s):
 	if not s:
