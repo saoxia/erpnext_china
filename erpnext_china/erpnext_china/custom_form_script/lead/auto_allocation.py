@@ -1,5 +1,6 @@
 
 import frappe
+import frappe.utils
 
 # frappe.utils.logger.set_log_level("DEBUG")
 # logger = frappe.logger('allocation', file_count=50)
@@ -216,6 +217,9 @@ def set_latest_note(doc):
 			doc.custom_latest_note = latest_note.note
 			if doc.status == 'Open':
 				doc.status = "Lead"
+	else:
+		doc.custom_latest_note_created_time = frappe.utils.datetime.datetime.now()
+		doc.custom_latest_note = ''
 
 def set_last_lead_owner(doc):
 	"""
