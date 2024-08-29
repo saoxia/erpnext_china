@@ -148,6 +148,10 @@ def task_get_check_in_data():
 	all_users = get_temp_users()
 	setting = frappe.get_doc("WeCom Setting")
 	access_token = setting.access_token
+	
+	if not access_token:
+		return
+	
 	start_time, end_time = get_today_timestamp()
 	
 	# [[0-100],[100-200],[200-267]]
