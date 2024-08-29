@@ -25,7 +25,7 @@ def lead_via_baidu(**kwargs):
         return
     
     clue_id = str(original_clue_id)
-    push_delay = kwargs.get('push_delay')
+    push_delay = kwargs.get('push_delay', '')
     try:
         # 获取线索来源的账户（Lead Domain for Baidu）
         baidu_account = get_employee_account(kwargs.get('uc_name'))
