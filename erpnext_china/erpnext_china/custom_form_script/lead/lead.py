@@ -4,10 +4,8 @@
 import re
 import frappe
 
-from werkzeug.wrappers import Response
 from erpnext_china.utils.lead_tools import get_doc_or_none, remove_whitespace, add_log,get_single_contact_info
 from erpnext_china.utils.old_system_data import white_list, old_system_contacts
-from erpnext_china.utils.wechat import WXBizMsgCrypt3
 from erpnext.crm.doctype.lead.lead import Lead
 import frappe.utils
 from erpnext_china.erpnext_china.custom_form_script.lead.auto_allocation import lead_before_save_handle, check_lead_total_limit, set_last_lead_owner, set_latest_note, to_public
@@ -139,9 +137,10 @@ class CustomLead(Lead):
 		doc = self
 		if self.has_value_changed("lead_owner"):
 			set_last_lead_owner(doc)
-			if self.get_doc_before_save():
+			if not self.is_new():
 				self.lead_add_comment(f"分配给: {self.lead_owner}")
-		if self.has_value_changed("notes"):
+
+		if not self.is_new() and self.has_value_changed("notes"):
 			set_latest_note(doc)
 
 	def after_insert(self):
@@ -247,34 +246,3 @@ def get_employee_lead_total(**kwargs):
 		"route_options": {},
 		"route": []
 	}
-
-
-def get_url_params(kwargs: dict):
-	raw_signature = kwargs.get('msg_signature')
-	raw_timestamp = kwargs.get('timestamp')
-	raw_nonce = kwargs.get('nonce')
-	raw_echostr = kwargs.get('echostr', None)
-	return raw_signature, raw_timestamp, raw_nonce, raw_echostr
-
-
-@frappe.whitelist(allow_guest=True)
-def wechat_msg_callback(**kwargs):
-	event = "customer_acquisition"  # 固定事件类型
-	msg_type = "event"  # 固定消息类型
-	change_types = [
-		"friend_request",  # 客户发起好友请求
-		"customer_start_chat",  # 成员首次收到客户消息时
-	]
-	# 验证URL合法性
-	api_setting = frappe.get_doc("WeCom MsgApi Setting")
-	wecom_setting = frappe.get_doc("WeCom Setting")
-	client = WXBizMsgCrypt3.WXBizMsgCrypt(api_setting.token, api_setting.key, wecom_setting.client_id)
-	raw_signature, raw_timestamp, raw_nonce, raw_echostr = get_url_params(kwargs)
-	# 如果存在 echostr 说明是首次配置发送的验证性请求
-	if raw_echostr:
-		code, text = client.VerifyURL(raw_signature, raw_timestamp, raw_nonce, raw_echostr)
-		return Response(text)
-	# 其它的回调事件
-	raw_xml_data = frappe.local.request.data
-	code, xml_content = client.DecryptMsg(raw_xml_data, raw_signature, raw_timestamp, raw_nonce)
-	print(xml_content)
