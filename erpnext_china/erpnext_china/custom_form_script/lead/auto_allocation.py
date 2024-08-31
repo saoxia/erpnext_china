@@ -1,5 +1,6 @@
 
 import frappe
+import frappe.utils
 
 # frappe.utils.logger.set_log_level("DEBUG")
 # logger = frappe.logger('allocation', file_count=50)
@@ -43,7 +44,7 @@ def auto_allocate(doc):
 	
 	根据C找到本轮次未分配满的员工 D = []
 
-		如果D全部分配满，则重置B中所有已分配数量为0，此时C中所有可以分配
+		如果D全部分配满，则重置C中所有已分配数量为0，此时C中所有可以分配
 	
 	取C中最早分配的那个员工进行分配
 	"""
@@ -216,6 +217,9 @@ def set_latest_note(doc):
 			doc.custom_latest_note = latest_note.note
 			if doc.status == 'Open':
 				doc.status = "Lead"
+	else:
+		doc.custom_latest_note_created_time = frappe.utils.datetime.datetime.now()
+		doc.custom_latest_note = ''
 
 def set_last_lead_owner(doc):
 	"""

@@ -9,6 +9,8 @@ readme = "README.md"
 dynamic = ["version"]
 dependencies = [
     "pandas~=2.2.0",
+    "pycryptodome~=3.20.0",
+    "xmltodict~=0.13.0
 ]
 
 [build-system]

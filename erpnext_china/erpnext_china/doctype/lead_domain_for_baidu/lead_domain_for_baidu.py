@@ -9,6 +9,7 @@ from erpnext_china.utils import lead_tools
 from frappe.model.document import Document
 import frappe
 from frappe.utils import datetime
+from erpnext_china.utils.wechat.api import create_qv_crm_lead_by_original_lead
 
 class LeadDomainforBaidu(Document):
     pass
@@ -25,7 +26,7 @@ def lead_via_baidu(**kwargs):
         return
     
     clue_id = str(original_clue_id)
-    push_delay = kwargs.get('push_delay')
+    push_delay = kwargs.get('push_delay', '')
     try:
         # 获取线索来源的账户（Lead Domain for Baidu）
         baidu_account = get_employee_account(kwargs.get('uc_name'))
@@ -91,7 +92,7 @@ def lead_via_baidu(**kwargs):
             # 添加crm 线索和原始线索之间的关系
             if crm_lead_doc:
                 original_lead_doc.crm_lead = crm_lead_doc.name
-                original_lead_doc.save()
+                original_lead_doc.save(ignore_permissions=True)
 
         # 如果原始线索已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
@@ -149,7 +150,9 @@ def update_delay_fields(record, kwargs):
                 setattr(record, field, kwargs.get(field))
 
         # 保存记录
-        record.save()
+        record.save(ignore_permissions=True)
+        if not record.crm_lead:
+            create_qv_crm_lead_by_original_lead(record)
     except:
         pass
 
@@ -178,7 +181,7 @@ def update_crm_lead_fields(record, kwargs):
                     territory = lead_tools.get_system_territory(city or state)
                     crm_lead.territory = territory
                 
-                crm_lead.save()
+                crm_lead.save(ignore_permissions=True)
                 
             except: 
                 pass

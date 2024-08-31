@@ -149,7 +149,7 @@ def lead_via_douyin(**kwargs):
             # 添加crm 线索和原始线索之间的关系
             if crm_lead_doc:
                 original_lead_doc.crm_lead = crm_lead_doc.name
-                original_lead_doc.save()
+                original_lead_doc.save(ignore_permissions=True)
         else: # 这里也有补充字段
             pass
 
