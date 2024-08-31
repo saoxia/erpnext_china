@@ -144,8 +144,8 @@ def get_exists_count(users, start_time, end_time):
 @frappe.whitelist(allow_guest=True)
 def task_get_check_in_data():
 	# [{user, employee, wecom}]
-	# all_users = get_all_active_users()
-	all_users = get_temp_users()
+	all_users = get_all_active_users()
+	# all_users = get_temp_users()
 	setting = frappe.get_doc("WeCom Setting")
 	access_token = setting.access_token
 	

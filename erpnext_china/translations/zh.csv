@@ -9168,3 +9168,13 @@ WeCom MsgApi Setting,企微事件消息配置
 State/Province,省
 County,区/县
 City,市
+Change Type,消息事件动作
+Raw Request,原始请求
+Original Lead,原始线索
+Link State,渠道标识
+External User ID,客户微信ID
+WeCom User ID,销售企微ID
+Create Time,消息创建日期
+WeCom Message,企微事件消息
+WeChat Nickname,企微客户昵称
+External Userid,企微客户ID

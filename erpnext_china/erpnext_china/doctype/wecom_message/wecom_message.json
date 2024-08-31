@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:state",
+ "creation": "2024-08-30 14:06:29.320021",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "change_type",
+  "create_time",
+  "user",
+  "wecom_user_id",
+  "external_user_id",
+  "state",
+  "original_lead",
+  "message",
+  "raw_request",
+  "error"
+ ],
+ "fields": [
+  {
+   "fieldname": "change_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Change Type"
+  },
+  {
+   "fieldname": "create_time",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Create Time"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "wecom_user_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "WeCom User ID"
+  },
+  {
+   "fieldname": "external_user_id",
+   "fieldtype": "Data",
+   "label": "External User ID"
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "Link State",
+   "unique": 1
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "JSON",
+   "label": "Message"
+  },
+  {
+   "fieldname": "original_lead",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Original Lead",
+   "options": "Original Leads"
+  },
+  {
+   "fieldname": "raw_request",
+   "fieldtype": "Small Text",
+   "label": "Raw Request"
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Small Text",
+   "label": "Error"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-31 10:47:13.952179",
+ "modified_by": "Administrator",
+ "module": "ERPNext China",
+ "name": "WeCom Message",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -9,6 +9,7 @@ from erpnext_china.utils import lead_tools
 from frappe.model.document import Document
 import frappe
 from frappe.utils import datetime
+from erpnext_china.utils.wechat.api import create_qv_crm_lead_by_original_lead
 
 class LeadDomainforBaidu(Document):
     pass
@@ -150,6 +151,8 @@ def update_delay_fields(record, kwargs):
 
         # 保存记录
         record.save(ignore_permissions=True)
+        if not record.crm_lead:
+            create_qv_crm_lead_by_original_lead(record)
     except:
         pass
 
