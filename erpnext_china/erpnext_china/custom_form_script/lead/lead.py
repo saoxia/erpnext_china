@@ -135,6 +135,11 @@ class CustomLead(Lead):
 	
 	def before_save(self):
 		doc = self
+		
+		if not self.custom_original_lead_name:
+			self.custom_employee_baidu_account = ''
+			self.custom_employee_douyin_account = ''
+
 		if self.has_value_changed("lead_owner"):
 			set_last_lead_owner(doc)
 			if not self.is_new():
