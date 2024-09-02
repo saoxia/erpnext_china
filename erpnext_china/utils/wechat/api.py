@@ -159,7 +159,7 @@ def wechat_msg_callback(**kwargs):
 	change_type = dict_data.get('ChangeType')
 	state = dict_data.get('State')
 	# 如果是添加外部联系人并且有渠道参数并且参数开头是BD
-	if change_type == 'add_external_contact' and state and str(state).startswith('BD'):
+	if change_type == 'add_external_contact' and state:
 		# 记录此message
 		message = save_message(dict_data, url, state)
 		# 尝试找到原始线索并创建crm lead
