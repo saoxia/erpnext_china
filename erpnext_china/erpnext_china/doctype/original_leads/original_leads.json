@@ -8,8 +8,8 @@
  "field_order": [
   "basic_tab",
   "basic_section",
-  "username",
   "user",
+  "username",
   "employee_baidu_account",
   "employee_douyin_account",
   "product_category",
@@ -30,6 +30,7 @@
   "original_json_data_section",
   "parsed",
   "original_json_data",
+  "auth_code",
   "from_baidu_tab",
   "column_break_kyzi",
   "ad_uc_name",
@@ -66,6 +67,7 @@
   "show_type_name",
   "page_id",
   "page_name",
+  "fid",
   "column_break_efni",
   "url",
   "section_break_uekz",
@@ -415,7 +417,8 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Source",
-   "options": "Baidu\nDouyin"
+   "options": "Baidu\nDouyin",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_xrrs",
@@ -626,6 +629,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "CRM Lead",
+   "link_filters": "[[\"Lead\",\"status\",\"=\",\"Open\"]]",
    "options": "Lead",
    "search_index": 1
   },
@@ -745,12 +749,25 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Product Category",
+   "link_filters": "[[\"Product Category\",\"name\",\"=\",\"\u9ad8\u5206\u5b50\"]]",
    "options": "Product Category"
+  },
+  {
+   "fieldname": "auth_code",
+   "fieldtype": "Data",
+   "label": "Auth Code",
+   "permlevel": 9
+  },
+  {
+   "fieldname": "fid",
+   "fieldtype": "Data",
+   "label": "Fid",
+   "length": 255
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-04 16:20:22.324537",
+ "modified": "2024-09-02 11:22:32.281948",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",

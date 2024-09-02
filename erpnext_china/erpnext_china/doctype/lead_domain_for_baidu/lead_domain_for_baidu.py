@@ -9,7 +9,7 @@ from erpnext_china.utils import lead_tools
 from frappe.model.document import Document
 import frappe
 from frappe.utils import datetime
-from erpnext_china.utils.wechat.api import create_qv_crm_lead_by_original_lead
+from erpnext_china.utils.wechat.api import qv_original_lead_link_crm_lead
 
 class LeadDomainforBaidu(Document):
     pass
@@ -63,6 +63,7 @@ def lead_via_baidu(**kwargs):
                     'employee_baidu_account': baidu_account.name if baidu_account else None,
                     'user': user,
                     'product_category': baidu_account.product_category if baidu_account else None,
+                    'fid': lead_tools.get_fid(kwargs.get('url', ''))
                 }
             )
             
@@ -94,6 +95,7 @@ def lead_via_baidu(**kwargs):
                 original_lead_doc.crm_lead = crm_lead_doc.name
                 original_lead_doc.save(ignore_permissions=True)
 
+            qv_original_lead_link_crm_lead(original_lead_doc)
         # 如果原始线索已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
             
@@ -151,8 +153,6 @@ def update_delay_fields(record, kwargs):
 
         # 保存记录
         record.save(ignore_permissions=True)
-        if not record.crm_lead:
-            create_qv_crm_lead_by_original_lead(record)
     except:
         pass
 
