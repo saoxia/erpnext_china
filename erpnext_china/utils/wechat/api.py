@@ -44,7 +44,6 @@ def save_message(data:dict, raw_request: str, state:str):
 				'error': f'User {wecom_user_id} cannot be found in the system!'
 			})
 		doc = frappe.get_doc(message_data).insert(ignore_permissions=True)
-		frappe.db.commit()
 		return doc
 		
 	return None
@@ -56,15 +55,18 @@ def create_crm_lead_by_message(message):
 		state = message.state
 		# xxxxxx
 		fid = str(state)[2:]
-		original_leads = frappe.get_all("Original Leads", fields=['*'], filters={"fid": fid, 'crm_lead': ''})
+		original_leads = frappe.get_all("Original Leads", fields=['*'], filters={'crm_lead': '', 'solution_type': 'wechat'}, or_filters=[
+			["fid", "=", fid],
+			["bd_vid", "=", fid]
+		])
 		if len(original_leads) == 0:
 			raise Exception("No original lead!")
 		original_lead = original_leads[0]
 		
 		# 设置线索创建人
 		frappe.set_user(original_lead.owner)
-
-		wx_nickname = get_wx_nickname(message.external_user_id)
+		euid = str(message.external_user_id)
+		wx_nickname = get_wx_nickname(euid)
 
 		# 创建CRM线索
 		data = {
@@ -72,7 +74,7 @@ def create_crm_lead_by_message(message):
 			'source': '百度-' + original_lead.flow_channel_name,
 			'phone': '',
 			'mobile': '',
-			'wx': '企微客户ID:' + message.external_user_id,
+			'wx': euid[:5] + '*'*5 + euid[-10:],
 			'city': original_lead.area,
 			'state': original_lead.area_province,
 			'original_lead_name': original_lead.name,
@@ -113,16 +115,19 @@ def create_crm_lead_by_message(message):
 
 
 def qv_original_lead_link_crm_lead(record):
-	# 必须有fid
-	if not record.fid:
+
+	if not record.fid and not record.bd_vid:
 		return
 	# 必须【网民微信交互类型】为【微信加粉成功】
 	if not record.solution_ref_type_name == '微信加粉成功':
 		return
 	
-	state = 'BD' + record.fid
 	try:
+		state = 'BD' + record.fid
 		message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
+		if not message:
+			state = 'BD' + record.bd_vid
+			message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
 		# 如果相同fid的回调消息已经创建了CRM lead，则关联上
 		if message and message.lead:
 			record.crm_lead = message.lead
@@ -145,7 +150,6 @@ def get_wx_nickname(external_user_id):
 		return external_contact.get('name')
 	except:
 		return None
-
 
 
 @frappe.whitelist(allow_guest=True)
@@ -196,3 +200,5 @@ def wechat_msg_callback(**kwargs):
 		# 2、ABC创建，M创建，crm_lead创建，M设置lead，ABC设置crm_lead
 		if message:
 			create_crm_lead_by_message(message)
+			# 保证事务提交
+			frappe.db.commit()

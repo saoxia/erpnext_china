@@ -80,7 +80,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Lead",
-   "options": "Original Leads"
+   "options": "Lead"
   },
   {
    "fieldname": "created_by",
@@ -91,7 +91,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-02 10:50:10.017290",
+ "modified": "2024-09-02 16:35:34.076282",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "WeCom Message",

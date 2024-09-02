@@ -117,6 +117,7 @@ def get_or_insert_crm_lead(
 	records = frappe.get_all("Lead", or_filters=or_filters)
 	if len(records) > 0:
 		record = records[0]
+		record = frappe.get_doc("Lead", record.name)
 		# 已经存在相同联系方式的线索，给个评论提示一下
 		insert_crm_note(f"有新的原始线索:【{original_lead_name}】关联到当前线索", record.name)
 	else:

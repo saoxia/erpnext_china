@@ -761,13 +761,14 @@
   {
    "fieldname": "fid",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Fid",
    "length": 255
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-02 11:22:32.281948",
+ "modified": "2024-09-02 16:36:40.259997",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Original Leads",

@@ -8,10 +8,7 @@ frappe.ui.form.on('Lead', {
         // add a custom button to go to the reference form
         if (!frm.is_new()) {
 
-            const contactFields = ['phone', 'mobile_no']
-            if (!frm.doc.custom_external_userid) {
-                contactFields.push('custom_wechat')
-            }
+            const contactFields = ['phone', 'mobile_no', 'custom_wechat']
             // 如果不是网络推广管理和管理员，其它人都不能编辑联系方式
             const readOnly = !frappe.user.has_role('网络推广管理') && !frappe.user.has_role('System Manager')
             if(readOnly) {
