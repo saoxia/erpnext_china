@@ -4,6 +4,8 @@ import json
 import requests
 import frappe.utils
 import xmltodict
+import base64
+from urllib.parse import urlparse, parse_qs
 from werkzeug.wrappers import Response
 
 from . import WXBizMsgCrypt3
@@ -17,8 +19,8 @@ def get_url_params(kwargs: dict):
 	return raw_signature, raw_timestamp, raw_nonce, raw_echostr
 
 def save_message(data:dict, raw_request: str, state:str):
-	wecom_user_id = data.get('UserID')
 	if not frappe.db.exists('WeCom Message', {"state": state}):
+		wecom_user_id = data.get('UserID')
 		users = frappe.db.get_all('User', or_filters=[
 			['custom_wecom_uid', '=', wecom_user_id],
 			['name', '=', wecom_user_id]
@@ -42,34 +44,29 @@ def save_message(data:dict, raw_request: str, state:str):
 				'error': f'User {wecom_user_id} cannot be found in the system!'
 			})
 		doc = frappe.get_doc(message_data).insert(ignore_permissions=True)
-		frappe.db.commit()
 		return doc
 		
 	return None
 
 
-def get_original_lead_by_bd_vid(bd_vid: str):
-	original_lead_name = frappe.db.get_value('Original Leads', filters={
-		'bd_vid': bd_vid,
-		'crm_lead': '',
-		})
-	if not original_lead_name:
-		return None
-	original_lead = frappe.get_doc('Original Leads', original_lead_name)
-	return original_lead
-
-
-def create_crm_lead_by_message(message, original_lead):
+def create_crm_lead_by_message(message):
 	try:
-		if not original_lead:
+		# BDxxxxxxx
+		state = message.state
+		# xxxxxx
+		fid = str(state)[2:]
+		original_leads = frappe.get_all("Original Leads", fields=['*'], filters={'crm_lead': '', 'solution_type': 'wechat'}, or_filters=[
+			["fid", "=", fid],
+			["bd_vid", "=", fid]
+		])
+		if len(original_leads) == 0:
 			raise Exception("No original lead!")
+		original_lead = original_leads[0]
 		
 		# 设置线索创建人
 		frappe.set_user(original_lead.owner)
-		message.original_lead = original_lead.name
-		message.save(ignore_permissions=True)
-
-		wx_nickname = get_wx_nickname(message.external_user_id)
+		euid = str(message.external_user_id)
+		wx_nickname = get_wx_nickname(euid)
 
 		# 创建CRM线索
 		data = {
@@ -77,7 +74,7 @@ def create_crm_lead_by_message(message, original_lead):
 			'source': '百度-' + original_lead.flow_channel_name,
 			'phone': '',
 			'mobile': '',
-			'wx': message.external_user_id,
+			'wx': euid[:5] + '*'*5 + euid[-10:],
 			'city': original_lead.area,
 			'state': original_lead.area_province,
 			'original_lead_name': original_lead.name,
@@ -102,20 +99,41 @@ def create_crm_lead_by_message(message, original_lead):
 		lead.custom_wechat_nickname = wx_nickname
 		lead.custom_external_userid = message.external_user_id
 		lead.save(ignore_permissions=True)
-		original_lead.crm_lead = lead.name
-		original_lead.save(ignore_permissions=True)
+		
+		message.created_by = original_lead.owner
+		message.lead = lead.name
+		message.save(ignore_permissions=True)
+
+		# 给所有的原始线索添加关联
+		for olead in original_leads:
+			original_lead_doc = frappe.get_doc("Original Leads", olead.name)
+			original_lead_doc.crm_lead = lead.name
+			original_lead_doc.save(ignore_permissions=True)
 	except Exception as e:
 		message.error = str(e)
 		message.save(ignore_permissions=True)
 
 
-def create_qv_crm_lead_by_original_lead(record):
-	if not record.bd_vid:
+def qv_original_lead_link_crm_lead(record):
+
+	if not record.fid and not record.bd_vid:
 		return
-	state = 'BD' + record.bd_vid
-	message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
-	if message and not message.original_lead:
-		create_crm_lead_by_message(message, record)
+	# 必须【网民微信交互类型】为【微信加粉成功】
+	if not record.solution_ref_type_name == '微信加粉成功':
+		return
+	
+	try:
+		state = 'BD' + record.fid
+		message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
+		if not message:
+			state = 'BD' + record.bd_vid
+			message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
+		# 如果相同fid的回调消息已经创建了CRM lead，则关联上
+		if message and message.lead:
+			record.crm_lead = message.lead
+			record.save(ignore_permissions=True)
+	except:
+		pass
 
 
 def get_wx_nickname(external_user_id):
@@ -132,7 +150,6 @@ def get_wx_nickname(external_user_id):
 		return external_contact.get('name')
 	except:
 		return None
-
 
 
 @frappe.whitelist(allow_guest=True)
@@ -159,8 +176,29 @@ def wechat_msg_callback(**kwargs):
 	change_type = dict_data.get('ChangeType')
 	state = dict_data.get('State')
 	# 如果是添加外部联系人并且有渠道参数并且参数开头是BD
-	if change_type == 'add_external_contact' and state and str(state).startswith('BD'):
+	if change_type == 'add_external_contact' and state:
 		# 记录此message
-		message = save_message(dict_data, url, state)
+		if isinstance(raw_xml_data, str):
+			body = raw_xml_data
+		if isinstance(raw_xml_data, bytes):
+			body = base64.b64encode(raw_xml_data).decode()
+		raw_request = {
+			"url": url,
+			"body": body
+		}
+		message = save_message(dict_data, json.dumps(raw_request), state)
 		# 尝试找到原始线索并创建crm lead
-		# create_crm_lead_by_message(message)
+		# 客户每次在落地页添加推广企微时，会发出三个原始线索分别对应【网民微信交互类型】
+		# A【微信复制按钮点击】  B【微信调起】  C【微信加粉成功】
+		# 以上三个原始线索的【fid】是相同的，但是有创建先后顺序ABC
+		# 企微我们只能接收到C的回调消息M
+		# 因此我们可以在创建M后就通过参数【State】找到对应的【fid】对应的原始线索，
+		# 理论上必有AB可能有C，此时我们就可以创建CRM线索并关联原始线索
+		# 然后在原始线索C创建时，尝试去找M并关联M的lead
+
+		# 1、AB创建，M创建，crm_lead创建，M设置lead，AB设置crm_lead，C创建，C设置M的lead
+		# 2、ABC创建，M创建，crm_lead创建，M设置lead，ABC设置crm_lead
+		if message:
+			create_crm_lead_by_message(message)
+			# 保证事务提交
+	frappe.db.commit()

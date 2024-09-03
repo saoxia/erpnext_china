@@ -7,12 +7,13 @@
  "engine": "InnoDB",
  "field_order": [
   "change_type",
+  "created_by",
   "create_time",
   "user",
   "wecom_user_id",
   "external_user_id",
   "state",
-  "original_lead",
+  "lead",
   "message",
   "raw_request",
   "error"
@@ -63,14 +64,7 @@
    "label": "Message"
   },
   {
-   "fieldname": "original_lead",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Original Lead",
-   "options": "Original Leads"
-  },
-  {
+   "description": "body\u7684\u503c\u662fbase64\u7f16\u7801\u540e\u7684\u503c",
    "fieldname": "raw_request",
    "fieldtype": "Small Text",
    "label": "Raw Request"
@@ -79,11 +73,25 @@
    "fieldname": "error",
    "fieldtype": "Small Text",
    "label": "Error"
+  },
+  {
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Lead",
+   "options": "Lead"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-31 10:47:13.952179",
+ "modified": "2024-09-02 16:35:34.076282",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "WeCom Message",

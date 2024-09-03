@@ -3,6 +3,7 @@ import datetime
 import json
 import re
 import frappe
+from urllib.parse import urlparse, parse_qs
 from frappe.model.document import Document
 
 
@@ -116,6 +117,7 @@ def get_or_insert_crm_lead(
 	records = frappe.get_all("Lead", or_filters=or_filters)
 	if len(records) > 0:
 		record = records[0]
+		record = frappe.get_doc("Lead", record.name)
 		# 已经存在相同联系方式的线索，给个评论提示一下
 		insert_crm_note(f"有新的原始线索:【{original_lead_name}】关联到当前线索", record.name)
 	else:
@@ -211,3 +213,16 @@ def add_log(user:str, phone:str, target_type:str, target_name:str, lead: str='',
 			return doc
 	except:
 		pass
+
+def url_params_to_dict(url: str):
+	parsed_url = urlparse(url)
+	query_params = parse_qs(parsed_url.query)
+	params_dict = {k: v[0] for k, v in query_params.items()}  # 假设每个参数只有一个值
+	return params_dict
+
+
+def get_fid(url: str):
+	if not url:
+		return None
+	params_dict = url_params_to_dict(url)
+	return params_dict.get('fid', None)
