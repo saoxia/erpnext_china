@@ -168,6 +168,8 @@ def wechat_msg_callback(**kwargs):
 	# 其它的回调事件
 	raw_xml_data = frappe.local.request.data
 	code, xml_content = client.DecryptMsg(raw_xml_data, raw_signature, raw_timestamp, raw_nonce)
+	if not xml_content:
+		return
 	dict_content = xmltodict.parse(xml_content)
 	dict_data = dict_content.get('xml')
 
