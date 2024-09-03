@@ -54,11 +54,14 @@ def create_crm_lead_by_message(message):
 		# BDxxxxxxx
 		state = message.state
 		# xxxxxx
-		fid = str(state)[2:]
-		original_leads = frappe.get_all("Original Leads", fields=['*'], filters={'crm_lead': '', 'solution_type': 'wechat'}, or_filters=[
-			["fid", "=", fid],
-			["bd_vid", "=", fid]
-		])
+		bd_vid = str(state)[2:]
+		original_leads = frappe.get_all("Original Leads", 
+								  fields=['*'], 
+								  filters={'crm_lead': '', 'solution_type': 'wechat'}, 
+								  or_filters=[
+									["bd_vid", "=", bd_vid],
+									["bd_vid", "like", bd_vid[:-1]+'%']
+								])
 		if len(original_leads) == 0:
 			raise Exception("No original lead!")
 		original_lead = original_leads[0]
@@ -116,21 +119,20 @@ def create_crm_lead_by_message(message):
 
 def qv_original_lead_link_crm_lead(record):
 
-	if not record.fid and not record.bd_vid:
+	if not record.bd_vid:
 		return
 	# 必须【网民微信交互类型】为【微信加粉成功】
 	if not record.solution_ref_type_name == '微信加粉成功':
 		return
 	
 	try:
-		state = 'BD' + record.fid
-		message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
-		if not message:
-			state = 'BD' + record.bd_vid
-			message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
-		# 如果相同fid的回调消息已经创建了CRM lead，则关联上
-		if message and message.lead:
-			record.crm_lead = message.lead
+		crm_lead_name = frappe.db.get_value("Original Leads", filters={
+			"bd_vid": record.bd_vid,
+			'solution_type': 'wechat'
+		}, fieldname="crm_lead")
+
+		if crm_lead_name:
+			record.crm_lead = crm_lead_name
 			record.save(ignore_permissions=True)
 	except:
 		pass
@@ -192,11 +194,8 @@ def wechat_msg_callback(**kwargs):
 		# 尝试找到原始线索并创建crm lead
 		# 客户每次在落地页添加推广企微时，会发出三个原始线索分别对应【网民微信交互类型】
 		# A【微信复制按钮点击】  B【微信调起】  C【微信加粉成功】
-		# 以上三个原始线索的【fid】是相同的，但是有创建先后顺序ABC
+		# 以上三个原始线索的【bd_vid】是相同的，但是有创建先后顺序ABC
 		# 企微我们只能接收到C的回调消息M
-		# 因此我们可以在创建M后就通过参数【State】找到对应的【fid】对应的原始线索，
-		# 理论上必有AB可能有C，此时我们就可以创建CRM线索并关联原始线索
-		# 然后在原始线索C创建时，尝试去找M并关联M的lead
 
 		# 1、AB创建，M创建，crm_lead创建，M设置lead，AB设置crm_lead，C创建，C设置M的lead
 		# 2、ABC创建，M创建，crm_lead创建，M设置lead，ABC设置crm_lead
