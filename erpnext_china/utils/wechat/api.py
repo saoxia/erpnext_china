@@ -201,4 +201,4 @@ def wechat_msg_callback(**kwargs):
 		if message:
 			create_crm_lead_by_message(message)
 			# 保证事务提交
-			frappe.db.commit()
+	frappe.db.commit()
