@@ -101,7 +101,9 @@ def create_crm_lead_by_message(message, original_lead):
 
 
 def search_original_lead(dt):
-	str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
+	str_dt = dt
+	if isinstance(dt, datetime.datetime):
+		str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
 	original_lead_name = frappe.db.get_value("Original Leads", filters=[
 		["commit_time", '=', str_dt],
 		['solution_type', '=', 'wechat'],
@@ -115,7 +117,9 @@ def search_original_lead(dt):
 
 
 def search_wecom_message(dt):
-	str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
+	str_dt = dt
+	if isinstance(dt, datetime.datetime):
+		str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
 	message_name = frappe.db.get_value("WeCom Message", filters=[
 		['create_time', '=', str_dt]
 	])
@@ -137,8 +141,8 @@ def qv_create_crm_lead(message=None, original_lead=None):
 			message_doc = search_wecom_message(commit_time)
 			if message_doc:
 				create_crm_lead_by_message(message_doc, original_lead)
-	except:
-		pass
+	except Exception as e:
+		print(e)
 	
 
 def get_wx_nickname(external_user_id):
