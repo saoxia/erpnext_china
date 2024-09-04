@@ -49,20 +49,9 @@ def save_message(data:dict, raw_request: str, state:str):
 	return None
 
 
-def create_crm_lead_by_message(message):
+def create_crm_lead_by_message(message, original_lead):
 	try:
-		# BDxxxxxxx
-		state = message.state
-		# xxxxxx
-		fid = str(state)[2:]
-		original_leads = frappe.get_all("Original Leads", fields=['*'], filters={'crm_lead': '', 'solution_type': 'wechat'}, or_filters=[
-			["fid", "=", fid],
-			["bd_vid", "=", fid]
-		])
-		if len(original_leads) == 0:
-			raise Exception("No original lead!")
-		original_lead = original_leads[0]
-		
+
 		# 设置线索创建人
 		frappe.set_user(original_lead.owner)
 		euid = str(message.external_user_id)
@@ -104,37 +93,57 @@ def create_crm_lead_by_message(message):
 		message.lead = lead.name
 		message.save(ignore_permissions=True)
 
-		# 给所有的原始线索添加关联
-		for olead in original_leads:
-			original_lead_doc = frappe.get_doc("Original Leads", olead.name)
-			original_lead_doc.crm_lead = lead.name
-			original_lead_doc.save(ignore_permissions=True)
+		original_lead.crm_lead = lead.name
+		original_lead.save(ignore_permissions=True)
 	except Exception as e:
 		message.error = str(e)
 		message.save(ignore_permissions=True)
 
 
-def qv_original_lead_link_crm_lead(record):
+def search_original_lead(dt):
+	str_dt = dt
+	if isinstance(dt, datetime.datetime):
+		str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
+	original_lead_name = frappe.db.get_value("Original Leads", filters=[
+		["commit_time", '=', str_dt],
+		['solution_type', '=', 'wechat'],
+		['crm_lead', '=' ,None],
+		['solution_ref_type_name', '=', '微信加粉成功']
+	])
+	original_lead = None
+	if original_lead_name:
+		original_lead = frappe.get_doc("Original Leads", original_lead_name)
+	return original_lead
 
-	if not record.fid and not record.bd_vid:
-		return
-	# 必须【网民微信交互类型】为【微信加粉成功】
-	if not record.solution_ref_type_name == '微信加粉成功':
-		return
-	
+
+def search_wecom_message(dt):
+	str_dt = dt
+	if isinstance(dt, datetime.datetime):
+		str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
+	message_name = frappe.db.get_value("WeCom Message", filters=[
+		['create_time', '=', str_dt]
+	])
+	message = None
+	if message_name:
+		message = frappe.get_doc("WeCom Message", message_name)
+	return message
+
+def qv_create_crm_lead(message=None, original_lead=None):
 	try:
-		state = 'BD' + record.fid
-		message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
-		if not message:
-			state = 'BD' + record.bd_vid
-			message = lead_tools.get_doc_or_none("WeCom Message", {"state": state})
-		# 如果相同fid的回调消息已经创建了CRM lead，则关联上
-		if message and message.lead:
-			record.crm_lead = message.lead
-			record.save(ignore_permissions=True)
-	except:
-		pass
-
+		if message:
+			msg_create_time = message.create_time
+			original_lead_doc = search_original_lead(msg_create_time)
+			if original_lead_doc:
+				create_crm_lead_by_message(message, original_lead_doc)
+		
+		if original_lead:
+			commit_time = original_lead.commit_time
+			message_doc = search_wecom_message(commit_time)
+			if message_doc:
+				create_crm_lead_by_message(message_doc, original_lead)
+	except Exception as e:
+		print(e)
+	
 
 def get_wx_nickname(external_user_id):
 	url = 'https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get'
@@ -168,6 +177,8 @@ def wechat_msg_callback(**kwargs):
 	# 其它的回调事件
 	raw_xml_data = frappe.local.request.data
 	code, xml_content = client.DecryptMsg(raw_xml_data, raw_signature, raw_timestamp, raw_nonce)
+	if not xml_content:
+		return
 	dict_content = xmltodict.parse(xml_content)
 	dict_data = dict_content.get('xml')
 
@@ -187,18 +198,7 @@ def wechat_msg_callback(**kwargs):
 			"body": body
 		}
 		message = save_message(dict_data, json.dumps(raw_request), state)
-		# 尝试找到原始线索并创建crm lead
-		# 客户每次在落地页添加推广企微时，会发出三个原始线索分别对应【网民微信交互类型】
-		# A【微信复制按钮点击】  B【微信调起】  C【微信加粉成功】
-		# 以上三个原始线索的【fid】是相同的，但是有创建先后顺序ABC
-		# 企微我们只能接收到C的回调消息M
-		# 因此我们可以在创建M后就通过参数【State】找到对应的【fid】对应的原始线索，
-		# 理论上必有AB可能有C，此时我们就可以创建CRM线索并关联原始线索
-		# 然后在原始线索C创建时，尝试去找M并关联M的lead
-
-		# 1、AB创建，M创建，crm_lead创建，M设置lead，AB设置crm_lead，C创建，C设置M的lead
-		# 2、ABC创建，M创建，crm_lead创建，M设置lead，ABC设置crm_lead
 		if message:
-			create_crm_lead_by_message(message)
+			qv_create_crm_lead(message)
 			# 保证事务提交
 	frappe.db.commit()
