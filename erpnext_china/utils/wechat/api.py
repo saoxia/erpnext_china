@@ -101,8 +101,7 @@ def search_original_lead(state):
 		["bd_vid", 'like', '%'+state+'%'],
 		['solution_type', '=', 'wechat'],
 		['crm_lead', '=' ,None],
-		['solution_ref_type_name', '=', '微信加粉成功']
-	])
+	], order_by="commit_time desc")
 	original_lead = None
 	if original_lead_name:
 		original_lead = frappe.get_doc("Original Leads", original_lead_name)
