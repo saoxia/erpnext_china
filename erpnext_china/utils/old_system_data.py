@@ -9,7 +9,8 @@ white_list = [
 	"houjun@zhushigroup.cn",
 	"dongjuanjuan@zhushigroup.cn",
 	"liziyuan@zhushigroup.cn",
-	"yangzhen@zhushigroup.cn"
+	"yangzhen@zhushigroup.cn",
+    "chengrui@zhushigroup.cn"
 ]
 
 # 联系方式
