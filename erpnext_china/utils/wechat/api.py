@@ -196,12 +196,13 @@ def wechat_msg_callback(**kwargs):
 		change_type = dict_data.get('ChangeType')
 		state = dict_data.get('State')
 
-		if change_type == 'add_external_contact' and state and not frappe.db.exists('WeCom Message', {"external_user_id": external_user_id}):
+		msg = frappe.db.exists('WeCom Message', {"external_user_id": external_user_id})
+		if change_type == 'add_external_contact' and state and msg is None:
 			raw_request = get_raw_request(url, raw_xml_data)
 			message = save_message(dict_data, json.dumps(raw_request))
 			if message:
 				qv_create_crm_lead(message)
 			dict_data.update({"record_id": message.name if message else ''})
-			logger.info(dict_data)
+		logger.info(dict_data)
 	except Exception as e:
 		logger.error(e)
