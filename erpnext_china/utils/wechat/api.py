@@ -12,7 +12,7 @@ from . import WXBizMsgCrypt3
 from erpnext_china.utils import lead_tools
 
 logger.set_log_level("DEBUG")
-logger = frappe.logger("api", allow_site=True, file_count=10)
+logger = frappe.logger("wx-message", allow_site=True, file_count=10)
 
 def get_url_params(kwargs: dict):
 	raw_signature = kwargs.get('msg_signature')
