@@ -206,3 +206,18 @@ def wechat_msg_callback(**kwargs):
 		logger.info(dict_data)
 	except Exception as e:
 		logger.error(e)
+
+
+@frappe.whitelist()
+def msg_create_lead_handler(**kwargs):
+	original_lead_name = kwargs.get('original_lead')
+	message_name = kwargs.get('message')
+	if not original_lead_name or not message_name:
+		raise frappe.ValidationError("original lead and message are required!")
+	try:
+		original_lead_doc = frappe.get_doc("Original Leads", original_lead_name)
+		message_doc = frappe.get_doc("WeCom Message", message_name)
+		create_crm_lead_by_message(message_doc, original_lead_doc)
+	except Exception as e:
+		logger.error(e)
+		raise frappe.ValidationError("crm lead creation failed!")
