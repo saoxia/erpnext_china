@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "field:external_user_id",
+ "autoname": "autoincrement",
  "creation": "2024-08-30 14:06:29.320021",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -13,9 +13,7 @@
   "external_user_id",
   "state",
   "lead",
-  "message",
-  "raw_request",
-  "error"
+  "raw_request"
  ],
  "fields": [
   {
@@ -55,24 +53,13 @@
   {
    "fieldname": "state",
    "fieldtype": "Data",
-   "label": "Link State",
-   "unique": 1
-  },
-  {
-   "fieldname": "message",
-   "fieldtype": "JSON",
-   "label": "Message"
+   "label": "Link State"
   },
   {
    "description": "body\u7684\u503c\u662fbase64\u7f16\u7801\u540e\u7684\u503c",
    "fieldname": "raw_request",
    "fieldtype": "Small Text",
    "label": "Raw Request"
-  },
-  {
-   "fieldname": "error",
-   "fieldtype": "Small Text",
-   "label": "Error"
   },
   {
    "fieldname": "lead",
@@ -91,11 +78,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-04 11:33:19.037455",
+ "modified": "2024-09-05 08:22:07.502524",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "WeCom Message",
- "naming_rule": "By fieldname",
+ "naming_rule": "Autoincrement",
  "owner": "Administrator",
  "permissions": [
   {

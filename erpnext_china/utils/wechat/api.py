@@ -2,14 +2,17 @@ import frappe
 import datetime
 import json
 import requests
-import frappe.utils
 import xmltodict
 import base64
-from urllib.parse import urlparse, parse_qs
 from werkzeug.wrappers import Response
+
+from frappe.utils import logger, get_url
 
 from . import WXBizMsgCrypt3
 from erpnext_china.utils import lead_tools
+
+logger.set_log_level("DEBUG")
+logger = frappe.logger("wx-message", allow_site=True, file_count=10)
 
 def get_url_params(kwargs: dict):
 	raw_signature = kwargs.get('msg_signature')
@@ -18,35 +21,29 @@ def get_url_params(kwargs: dict):
 	raw_echostr = kwargs.get('echostr', None)
 	return raw_signature, raw_timestamp, raw_nonce, raw_echostr
 
-def save_message(data:dict, raw_request: str, state:str):
-	if not frappe.db.exists('WeCom Message', {"state": state}):
-		wecom_user_id = data.get('UserID')
-		users = frappe.db.get_all('User', or_filters=[
-			['custom_wecom_uid', '=', wecom_user_id],
-			['name', '=', wecom_user_id]
-		])
-		user_name = None
-		if len(users) > 0:
-			user_name = users[0].name
-		message_data = {
-			'doctype': 'WeCom Message',
-			'change_type': data.get('ChangeType'),
-			'create_time': datetime.datetime.fromtimestamp(int(data.get('CreateTime'))),
-			'user': user_name,
-			'wecom_user_id': wecom_user_id,
-			'external_user_id': data.get('ExternalUserID'),
-			'state': state,
-			'message': json.dumps(data),
-			'raw_request': raw_request
-		}
-		if not user_name:
-			message_data.update({
-				'error': f'User {wecom_user_id} cannot be found in the system!'
-			})
-		doc = frappe.get_doc(message_data).insert(ignore_permissions=True)
-		return doc
-		
-	return None
+def save_message(data:dict, raw_request: str):
+
+	wecom_user_id = data.get('UserID')
+	users = frappe.db.get_all('User', or_filters=[
+		['custom_wecom_uid', '=', wecom_user_id],
+		['name', '=', wecom_user_id]
+	])
+	user_name = None
+	if len(users) > 0:
+		user_name = users[0].name
+	message_data = {
+		'doctype': 'WeCom Message',
+		'change_type': data.get('ChangeType'),
+		'create_time': datetime.datetime.fromtimestamp(int(data.get('CreateTime'))),
+		'user': user_name,
+		'wecom_user_id': wecom_user_id,
+		'external_user_id': data.get('ExternalUserID'),
+		'state': data.get('State'),
+		'raw_request': raw_request
+	}
+	doc = frappe.get_doc(message_data).insert(ignore_permissions=True)
+	return doc
+
 
 
 def create_crm_lead_by_message(message, original_lead):
@@ -76,7 +73,7 @@ def create_crm_lead_by_message(message, original_lead):
 		}
 		lead = lead_tools.get_or_insert_crm_lead(**data)
 		if not lead:
-			raise Exception("No lead created!")
+			raise Exception("CRM lead creation failed")
 		# 设置CRM线索的负责员工
 		if message.user:
 			employee_user = message.user
@@ -96,32 +93,26 @@ def create_crm_lead_by_message(message, original_lead):
 		original_lead.crm_lead = lead.name
 		original_lead.save(ignore_permissions=True)
 	except Exception as e:
-		message.error = str(e)
-		message.save(ignore_permissions=True)
+		logger.error(e)
 
 
-def search_original_lead(dt):
-	str_dt = dt
-	if isinstance(dt, datetime.datetime):
-		str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
+def search_original_lead(state):
 	original_lead_name = frappe.db.get_value("Original Leads", filters=[
-		["commit_time", '=', str_dt],
+		["bd_vid", 'like', '%'+state+'%'],
 		['solution_type', '=', 'wechat'],
 		['crm_lead', '=' ,None],
-		['solution_ref_type_name', '=', '微信加粉成功']
-	])
+	], order_by="commit_time desc")
 	original_lead = None
 	if original_lead_name:
 		original_lead = frappe.get_doc("Original Leads", original_lead_name)
 	return original_lead
 
 
-def search_wecom_message(dt):
-	str_dt = dt
-	if isinstance(dt, datetime.datetime):
-		str_dt = datetime.datetime.strftime(dt, r"%Y-%m-%d %H:%M:%S")
+def search_wecom_message(bd_vid):
+	state = 'BD' + bd_vid[:30]
 	message_name = frappe.db.get_value("WeCom Message", filters=[
-		['create_time', '=', str_dt]
+		['state', 'like', '%'+state+'%'],
+		['lead', '=', None]
 	])
 	message = None
 	if message_name:
@@ -131,18 +122,20 @@ def search_wecom_message(dt):
 def qv_create_crm_lead(message=None, original_lead=None):
 	try:
 		if message:
-			msg_create_time = message.create_time
-			original_lead_doc = search_original_lead(msg_create_time)
-			if original_lead_doc:
-				create_crm_lead_by_message(message, original_lead_doc)
+			state = str(message.state)[2:-1]
+			if state:
+				original_lead_doc = search_original_lead(state)
+				if original_lead_doc:
+					create_crm_lead_by_message(message, original_lead_doc)
 		
 		if original_lead:
-			commit_time = original_lead.commit_time
-			message_doc = search_wecom_message(commit_time)
-			if message_doc:
-				create_crm_lead_by_message(message_doc, original_lead)
+			bd_vid = original_lead.bd_vid
+			if bd_vid:
+				message_doc = search_wecom_message(bd_vid)
+				if message_doc:
+					create_crm_lead_by_message(message_doc, original_lead)
 	except Exception as e:
-		print(e)
+		logger.error(e)
 	
 
 def get_wx_nickname(external_user_id):
@@ -157,13 +150,28 @@ def get_wx_nickname(external_user_id):
 		result = resp.json()
 		external_contact = result.get('external_contact')
 		return external_contact.get('name')
-	except:
+	except Exception as e:
+		logger.warning(e)
 		return None
+
+
+def get_raw_request(url, raw_xml_data):
+	if isinstance(raw_xml_data, str):
+		body = raw_xml_data
+	elif isinstance(raw_xml_data, bytes):
+		body = base64.b64encode(raw_xml_data).decode()
+	else:
+		body = ''
+	raw_request = {
+		"url": url,
+		"body": body
+	}
+	return raw_request
 
 
 @frappe.whitelist(allow_guest=True)
 def wechat_msg_callback(**kwargs):
-	url = frappe.utils.get_url() + frappe.request.full_path
+	url = get_url() + frappe.request.full_path
 	# 验证URL合法性
 	api_setting = frappe.get_doc("WeCom MsgApi Setting")
 	wecom_setting = frappe.get_doc("WeCom Setting")
@@ -176,29 +184,40 @@ def wechat_msg_callback(**kwargs):
 	
 	# 其它的回调事件
 	raw_xml_data = frappe.local.request.data
-	code, xml_content = client.DecryptMsg(raw_xml_data, raw_signature, raw_timestamp, raw_nonce)
-	if not xml_content:
-		return
-	dict_content = xmltodict.parse(xml_content)
-	dict_data = dict_content.get('xml')
+	try:
+		code, xml_content = client.DecryptMsg(raw_xml_data, raw_signature, raw_timestamp, raw_nonce)
+		if not xml_content:
+			logger.warning("xml_content is None")
+			return
+		
+		dict_content = xmltodict.parse(xml_content)
+		dict_data = dict_content.get('xml')
+		external_user_id = dict_data.get('ExternalUserID')
+		change_type = dict_data.get('ChangeType')
+		state = dict_data.get('State')
 
-	print(dict_data)
+		msg = frappe.db.exists('WeCom Message', {"external_user_id": external_user_id})
+		if change_type == 'add_external_contact' and state and msg is None:
+			raw_request = get_raw_request(url, raw_xml_data)
+			message = save_message(dict_data, json.dumps(raw_request))
+			if message:
+				qv_create_crm_lead(message)
+			dict_data.update({"record_id": message.name if message else ''})
+		logger.info(dict_data)
+	except Exception as e:
+		logger.error(e)
 
-	change_type = dict_data.get('ChangeType')
-	state = dict_data.get('State')
-	# 如果是添加外部联系人并且有渠道参数并且参数开头是BD
-	if change_type == 'add_external_contact' and state:
-		# 记录此message
-		if isinstance(raw_xml_data, str):
-			body = raw_xml_data
-		if isinstance(raw_xml_data, bytes):
-			body = base64.b64encode(raw_xml_data).decode()
-		raw_request = {
-			"url": url,
-			"body": body
-		}
-		message = save_message(dict_data, json.dumps(raw_request), state)
-		if message:
-			qv_create_crm_lead(message)
-			# 保证事务提交
-	frappe.db.commit()
+
+@frappe.whitelist()
+def msg_create_lead_handler(**kwargs):
+	original_lead_name = kwargs.get('original_lead')
+	message_name = kwargs.get('message')
+	if not original_lead_name or not message_name:
+		raise frappe.ValidationError("original lead and message are required!")
+	try:
+		original_lead_doc = frappe.get_doc("Original Leads", original_lead_name)
+		message_doc = frappe.get_doc("WeCom Message", message_name)
+		create_crm_lead_by_message(message_doc, original_lead_doc)
+	except Exception as e:
+		logger.error(e)
+		raise frappe.ValidationError("crm lead creation failed!")
