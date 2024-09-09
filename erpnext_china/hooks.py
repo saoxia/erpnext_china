@@ -11,7 +11,7 @@ add_to_apps_screen = [
 		"name": "erpnext_china",
 		"logo": "/assets/erpnext/images/erpnext-logo-blue.png",
 		"title": "ERPNext China",
-		"route": "/app/crm",
+		"route": "/app",
 		# "has_permission": "erpnext.api.permission.has_app_permission"
 	}
 ]
