@@ -6,7 +6,15 @@ app_email = "lingyu_li@foxmail.com"
 app_license = "mit"
 app_logo_url = "/assets/erpnext/images/erpnext-logo.svg"
 # required_apps = []
-
+add_to_apps_screen = [
+	{
+		"name": "erpnext_china",
+		"logo": "/assets/erpnext/images/erpnext-logo-blue.png",
+		"title": "ERPNext China",
+		"route": "/app/crm",
+		# "has_permission": "erpnext.api.permission.has_app_permission"
+	}
+]
 
 after_install = "erpnext_china.setup.after_install.operations.install_fixtures.install"
 
