@@ -1,0 +1,190 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2024-09-13 09:14:46.800694",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "time_rule_type",
+  "section_break_muos",
+  "monday",
+  "column_break_vnbj",
+  "tuesday",
+  "column_break_arjc",
+  "wednesday",
+  "column_break_tioq",
+  "thursday",
+  "column_break_bvuy",
+  "friday",
+  "column_break_nnos",
+  "saturday",
+  "column_break_jhue",
+  "sunday",
+  "section_break_hywe",
+  "start_day",
+  "end_day",
+  "\u6307\u5b9a\u65f6\u95f4\u6bb5_section",
+  "items",
+  "section_break_xsqw",
+  "week_string"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Auto Allocation Time"
+  },
+  {
+   "depends_on": "eval:!doc.week",
+   "fieldname": "start_day",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Day"
+  },
+  {
+   "depends_on": "eval:!doc.week",
+   "fieldname": "end_day",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "End Day",
+   "mandatory_depends_on": "eval:doc.start_day"
+  },
+  {
+   "depends_on": "eval:doc.time_rule_type==\"Week\"",
+   "fieldname": "section_break_muos",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "monday",
+   "fieldtype": "Check",
+   "label": "Monday"
+  },
+  {
+   "depends_on": "eval:doc.time_rule_type==\"Date\"",
+   "fieldname": "section_break_hywe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_vnbj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "tuesday",
+   "fieldtype": "Check",
+   "label": "Tuesday"
+  },
+  {
+   "fieldname": "column_break_arjc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_tioq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_bvuy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_nnos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_jhue",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wednesday",
+   "fieldtype": "Check",
+   "label": "Wednesday"
+  },
+  {
+   "default": "0",
+   "fieldname": "thursday",
+   "fieldtype": "Check",
+   "label": "Thursday"
+  },
+  {
+   "default": "0",
+   "fieldname": "friday",
+   "fieldtype": "Check",
+   "label": "Friday"
+  },
+  {
+   "default": "0",
+   "fieldname": "saturday",
+   "fieldtype": "Check",
+   "label": "Saturday"
+  },
+  {
+   "default": "0",
+   "fieldname": "sunday",
+   "fieldtype": "Check",
+   "label": "Sunday"
+  },
+  {
+   "fieldname": "\u6307\u5b9a\u65f6\u95f4\u6bb5_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "time_rule_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Time Rule Type",
+   "options": "Week\nDate"
+  },
+  {
+   "fieldname": "section_break_xsqw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "week_string",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Week String"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-09-15 15:55:30.258478",
+ "modified_by": "Administrator",
+ "module": "ERPNext China",
+ "name": "Auto Allocation Time Rule",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "start_day,end_day",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}

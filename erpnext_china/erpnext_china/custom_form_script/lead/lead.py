@@ -76,10 +76,11 @@ class CustomLead(Lead):
 
 	def validate(self):
 		super().validate()
-		self.clean_contact_info()
-		self.validate_single_phone()
-		self.check_in_old_system()
-		self.check_customer_contacts()
+		if not self.custom_external_userid:
+			self.clean_contact_info()
+			self.validate_single_phone()
+			self.check_in_old_system()
+			self.check_customer_contacts()
 
 	@property
 	def custom_lead_owner_name(self):
