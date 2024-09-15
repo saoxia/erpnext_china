@@ -7,7 +7,6 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "activate",
   "time_rule_type",
   "section_break_muos",
   "monday",
@@ -46,13 +45,6 @@
    "fieldtype": "Table",
    "label": "Items",
    "options": "Auto Allocation Time"
-  },
-  {
-   "default": "0",
-   "fieldname": "activate",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Activate"
   },
   {
    "depends_on": "eval:!doc.week",
@@ -169,7 +161,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-14 17:27:35.233508",
+ "modified": "2024-09-15 15:55:30.258478",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Auto Allocation Time Rule",

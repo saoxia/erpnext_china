@@ -6,9 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "time_rule",
-  "column_break_sbys",
-  "activate"
+  "time_rule"
  ],
  "fields": [
   {
@@ -19,23 +17,12 @@
    "label": "Time Rule",
    "options": "Auto Allocation Time Rule",
    "reqd": 1
-  },
-  {
-   "fieldname": "column_break_sbys",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "activate",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Activate"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-09-13 10:29:52.579568",
+ "modified": "2024-09-15 15:55:00.875331",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Auto Allocation Time Rule Link",

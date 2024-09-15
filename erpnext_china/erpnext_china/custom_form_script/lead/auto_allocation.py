@@ -302,14 +302,8 @@ def is_time_in_multi_range(time_rule_items, current_time: datetime.time):
 def is_in_range(time_rule_link, current_datetime: datetime):
 	"""判断当前日期是否在指定的日期范围内。"""
 
-	if not (time_rule_link and time_rule_link.activate):
-		return False
-	
 	name = time_rule_link.time_rule
 	doc = frappe.get_doc("Auto Allocation Time Rule", name)
-	
-	if not (doc and doc.activate):
-		return False
 	
 	# 判断今天是否在指定日期范围内
 	if doc.time_rule_type == 'Date':
