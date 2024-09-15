@@ -54,38 +54,41 @@ def create_crm_lead_by_message(message, original_lead):
 		euid = str(message.external_user_id)
 		wx_nickname = get_wx_nickname(euid)
 
-		# 创建CRM线索
-		data = {
-			'lead_name': '匿名',
-			'source': '百度-' + original_lead.flow_channel_name,
-			'phone': '',
-			'mobile': '',
-			'wx': euid[:5] + '*'*5 + euid[-10:],
-			'city': original_lead.area,
-			'state': original_lead.area_province,
-			'original_lead_name': original_lead.name,
-			'commit_time': original_lead.commit_time or original_lead.created_datetime,
-			'keyword': original_lead.keyword,
-			'search_word': original_lead.search_word,
-			'auto_allocation': False,
-			'bd_account': original_lead.employee_baidu_account,
-			'product_category': original_lead.product_category
-		}
-		lead = lead_tools.get_or_insert_crm_lead(**data)
-		if not lead:
-			raise Exception("CRM lead creation failed")
 		# 设置CRM线索的负责员工
 		if message.user:
 			employee_user = message.user
 		else:
 			employee_user = original_lead.owner
 		employee = frappe.db.get_value('Employee', {"user_id": employee_user})
-		lead.custom_lead_owner_employee = employee
-		lead.lead_owner = employee_user
-		lead.custom_wechat_nickname = wx_nickname
-		lead.custom_external_userid = message.external_user_id
-		lead.save(ignore_permissions=True)
+		territory = lead_tools.get_system_territory(original_lead.area or original_lead.area_province or 'China')
 		
+		# 创建CRM线索
+		crm_lead_data = {
+			'doctype': 'Lead',
+			'lead_name': '企微用户',
+			'source': '百度-' + original_lead.flow_channel_name,
+			'phone': '',
+			'mobile_no': '',
+			'custom_wechat': '',
+			'city': original_lead.area,
+			'state': original_lead.area_province,
+			'country': 'China',
+			'territory': territory,
+			'custom_employee_baidu_account': original_lead.employee_baidu_account,
+			'custom_employee_douyin_account': None,
+			'custom_original_lead_name': original_lead.name,
+			'lead_owner': employee_user,
+			'custom_lead_owner_employee': employee,
+			'custom_auto_allocation': False,
+			'custom_product_category': original_lead.product_category,
+			'custom_last_lead_owner': '',
+			'custom_commit_time': original_lead.commit_time or original_lead.created_datetime,  # 线索提交到平台的时间
+			'custom_keyword': original_lead.keyword,
+			'custom_search_word': original_lead.search_word,
+			'custom_wechat_nickname': wx_nickname,
+			'custom_external_userid': message.external_user_id
+		}
+		lead = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
 		message.created_by = original_lead.owner
 		message.lead = lead.name
 		message.save(ignore_permissions=True)
@@ -204,6 +207,7 @@ def wechat_msg_callback(**kwargs):
 				qv_create_crm_lead(message)
 			dict_data.update({"record_id": message.name if message else ''})
 		logger.info(dict_data)
+		frappe.db.commit()
 	except Exception as e:
 		logger.error(e)
 

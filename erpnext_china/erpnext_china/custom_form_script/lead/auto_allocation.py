@@ -1,9 +1,8 @@
-
+from datetime import datetime, timedelta
+import json
 import frappe
 import frappe.utils
 
-# frappe.utils.logger.set_log_level("DEBUG")
-# logger = frappe.logger('allocation', file_count=50)
 
 def lead_before_save_handle(doc):
 
@@ -80,7 +79,10 @@ def get_items_from_rules():
 	items = []
 	for name in rules:
 		rule = frappe.get_doc("Auto Allocation Rule", name)
-		items.extend(rule.employee)
+		# 判断当前时间是否在此规则允许的时间表范围内
+		time_rules = rule.time_rules
+		if verify_time_rules(time_rules=time_rules):
+			items.extend([e for e in rule.employee if e.activate])
 	return items
 
 def get_items_from_filters(product_category, source, items):
@@ -256,5 +258,76 @@ def created_lead_by_sale(doc):
 			if not allocate_lead_to_owner(doc):
 				frappe.msgprint("已经达到客保数量限制，当前线索自动进入公海！")
 				to_public(doc)
+			return True
+	return False
+
+
+def is_time_in_range(start, end, current_time: datetime.time) -> bool:
+	"""判断当前时间是否在指定的时间范围内。"""
+	current_timedelta = timedelta(hours=current_time.hour, minutes=current_time.minute, seconds=current_time.second)
+	if start <= end:
+		return start <= current_timedelta <= end
+	else:  # 跨零点的情况
+		return start <= current_timedelta or current_timedelta <= end
+
+
+def is_date_in_range(start, end, current_date: datetime.date):
+	if isinstance(start, str):
+		start = datetime.strptime(start, '%Y-%m-%d').date()
+	if isinstance(end, str):
+		start = datetime.strptime(end, '%Y-%m-%d').date()
+	return start <= current_date <= start
+
+
+def is_today_in_weekdays(week_string: str, current_weekday: int):
+	"""判断今天是否在指定的工作日列表中。
+	
+	week_string: json  [0,1,2,3,4,5,6]
+	"""
+	weeks = json.loads(week_string)
+	return current_weekday in weeks
+
+
+def is_time_in_multi_range(time_rule_items, current_time: datetime.time):
+	"""判断当前时间是否在多个时间范围内。"""
+	# 如果没有指定时间段，则一天内都可分配
+	if len(time_rule_items) == 0:
+		return True
+	for item in time_rule_items:
+		if is_time_in_range(item.start_time, item.end_time, current_time):
+			return True
+	return False
+
+
+def is_in_range(time_rule_link, current_datetime: datetime):
+	"""判断当前日期是否在指定的日期范围内。"""
+
+	if not (time_rule_link and time_rule_link.activate):
+		return False
+	
+	name = time_rule_link.time_rule
+	doc = frappe.get_doc("Auto Allocation Time Rule", name)
+	
+	if not (doc and doc.activate):
+		return False
+	
+	# 判断今天是否在指定日期范围内
+	if doc.time_rule_type == 'Date':
+		if not is_date_in_range(doc.start_day, doc.end_day, current_datetime.date()):
+			return False
+	elif not is_today_in_weekdays(doc.week_string, current_datetime.weekday()):
+		return False
+	# 如果符合日期或者星期，判断当前时间是否在指定的时间表内
+	return is_time_in_multi_range(doc.items, current_datetime.time())
+
+
+def verify_time_rules(time_rules):
+	current_datetime = datetime.now()
+	# 如果任何时间规则都没有设置，则直接返回True
+	if len(time_rules) == 0:
+		return True
+	
+	for time_rule in time_rules:
+		if is_in_range(time_rule, current_datetime):
 			return True
 	return False

@@ -1,13 +1,20 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:rule_name",
  "creation": "2024-07-24 10:18:28.618194",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "section_break_qoti",
   "rule_name",
   "active",
+  "column_break_iecp",
+  "time_rule_preview",
+  "time_rule_html",
+  "section_break_povl",
+  "time_rules",
   "section_break_yixk",
   "employee"
  ],
@@ -35,11 +42,40 @@
    "fieldtype": "Table",
    "label": "Employee",
    "options": "Auto Allocation Config Item"
+  },
+  {
+   "fieldname": "section_break_qoti",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_povl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "time_rules",
+   "fieldtype": "Table",
+   "label": "Time Rules",
+   "options": "Auto Allocation Time Rule Link"
+  },
+  {
+   "fieldname": "time_rule_preview",
+   "fieldtype": "HTML",
+   "label": "Time Rule Preview"
+  },
+  {
+   "fieldname": "time_rule_html",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Time Rule HTML"
+  },
+  {
+   "fieldname": "column_break_iecp",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-24 11:25:13.351498",
+ "modified": "2024-09-14 17:26:12.551430",
  "modified_by": "Administrator",
  "module": "ERPNext China",
  "name": "Auto Allocation Rule",

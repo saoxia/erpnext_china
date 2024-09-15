@@ -9137,7 +9137,7 @@ Lead Owner Name,线索负责人姓名
 Employee Name,员工姓名
 Leader Name,上级姓名
 Allocated Count,已分配数量
-Zero Datetime,归零日期
+Zero Datetime,最近分配日期
 Lead Owner Leader Name,上级姓名
 Login Name Link WeCom Name,登录名与企微账号配置
 WeCom Name,企微账号名
@@ -9179,3 +9179,9 @@ WeCom Message,企微事件消息
 WeChat Nickname,企微客户昵称
 External Userid,企微客户ID
 Sale User,销售
+Allow Times,运行时间段
+Start Day,开始日期
+Auto Allocation Time Rule,自动分配时间表
+Time Rules,时间表
+Time Rule,时间规则
+Time Rule Type,类型
