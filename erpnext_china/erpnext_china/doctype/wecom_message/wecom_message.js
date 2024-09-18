@@ -4,6 +4,10 @@
 frappe.ui.form.on("WeCom Message", {
 	refresh(frm) {
         if (!frm.doc.lead) {
+            const state = frm.doc.state;
+            let newState = state.replace(/^BD/, '');
+            newState = newState.slice(0, -1);
+            link_filters = "[[\"Original Leads\",\"bd_vid\",\"like\",\"%"+newState+"%\"],[\"Original Leads\",\"crm_lead\",\"=\",\"\"],[\"Original Leads\",\"solution_type\",\"=\",\"wechat\"]]"
             frm.add_custom_button(__('创建线索'), () => {
                 let d = new frappe.ui.Dialog({
                     title: '选择原始线索创建CRM线索',
@@ -14,7 +18,7 @@ frappe.ui.form.on("WeCom Message", {
                             "label": "Original Lead",
                             "options": "Original Leads",
                             "reqd": 1,
-                            "link_filters": "[[\"Original Leads\",\"crm_lead\",\"=\",\"\"],[\"Original Leads\",\"solution_type\",\"=\",\"wechat\"]]",
+                            "link_filters": link_filters,
                         },
                     ],
                     size: 'small', // small, large, extra-large 
@@ -39,7 +43,6 @@ frappe.ui.form.on("WeCom Message", {
                                         title: __('创建成功'),
                                         indicator: 'green',
                                     });
-                                    window.location.reload();
                                 },
                                 error: (e) => {
                                     frappe.msgprint({
