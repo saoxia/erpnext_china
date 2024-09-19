@@ -11,7 +11,11 @@ def has_query_permission(user):
 		users = get_employee_tree(parent=user)
 		users.append(user)
 		users_str = str(tuple(users)).replace(',)',')')
-		conditions = f"(`tabOriginal Leads`.`owner` in {users_str})" 
+		# conditions = f"(`tabOriginal Leads`.`owner` in {users_str})"
+        # crm lead负责人也可以看到crm lead关联的原始线索 
+		crm_lead_names = frappe.db.get_all("Lead", filters={"lead_owner": user}, pluck="name")
+		crm_lead_names = tuple(crm_lead_names)
+		conditions = f"(`tabOriginal Leads`.`owner` in {users_str}) or (`tabOriginal Leads`.`crm_lead` in {crm_lead_names})"
 	return conditions
 
 def has_permission(doc, user, permission_type=None):

@@ -67,17 +67,20 @@ class CustomLead(Lead):
 			frappe.throw(frappe.bold(message), title='线索重复')
 
 	def clean_contact_info(self):
-		if not any([self.phone, self.mobile_no, self.custom_wechat]):
-			frappe.throw(f"联系方式必填")
-
 		self.phone = remove_whitespace(self.phone)
 		self.mobile_no = remove_whitespace(self.mobile_no)
 		self.custom_wechat = remove_whitespace(self.custom_wechat)
-
+	
+	def validate_contact_format(self):
+		if not any([self.phone, self.mobile_no, self.custom_wechat]):
+			frappe.throw(f"联系方式必填")
+		
 	def validate(self):
 		super().validate()
-		if not self.custom_external_userid:
-			self.clean_contact_info()
+		self.clean_contact_info()
+		# 如果不是企微客户 或者 有联系方式，则判断是否重复
+		if not self.custom_external_userid or any([self.phone, self.mobile_no, self.custom_wechat]):
+			self.validate_contact_format()
 			self.validate_single_phone()
 			self.check_in_old_system()
 			self.check_customer_contacts()
