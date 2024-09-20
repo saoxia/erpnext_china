@@ -4,8 +4,7 @@
 frappe.ui.form.on("Salary Slip", {
     refresh(frm) {
         const totalAmount = frm.doc.total_amount;
-        const fmtTotalAmount = totalAmount.toFixed(2);
-
+        let fmtTotalAmount = totalAmount ? totalAmount.toFixed(2) : 0;
         const totalRow = document.querySelector('.total-row');
         if (totalRow) {
             const totalNum = totalRow.querySelector('.total-num');
