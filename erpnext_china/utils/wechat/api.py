@@ -65,7 +65,7 @@ def create_crm_lead_by_message(message, original_lead):
 		# 创建CRM线索
 		crm_lead_data = {
 			'doctype': 'Lead',
-			'lead_name': '企微用户',
+			'lead_name': '企微客户',
 			'source': '百度-' + original_lead.flow_channel_name,
 			'phone': '',
 			'mobile_no': '',
