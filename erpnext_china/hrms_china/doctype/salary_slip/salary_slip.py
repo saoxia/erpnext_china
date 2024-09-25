@@ -6,6 +6,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils.xlsxutils import build_xlsx_response
+from frappe.utils.csvutils import build_csv_response
 from frappe.core.doctype.data_import.exporter import Exporter
 
 class SalarySlip(Document):
@@ -38,7 +39,6 @@ def export(doctype, export_fields=None, export_records=None,
 		}
 	export_records = 'by_filter'
 	export_filters = [['Salary Slip', 'name', 'in', records]]
-	file_type = 'Excel'
 	export_data = True
 
 	e = Exporter(
@@ -76,5 +76,8 @@ def export(doctype, export_fields=None, export_records=None,
 		idx = header.index(row[-2])
 		current_data[idx] = row[-1]  # 如果数据没有对齐，则需要报错
 	final_data.append(current_data)
-
-	build_xlsx_response(final_data, _(doctype))
+	
+	if file_type == 'Excel':
+		build_xlsx_response(final_data, _(doctype))
+	elif file_type == 'CSV':
+		build_csv_response(final_data, _(doctype))

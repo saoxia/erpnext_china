@@ -178,3 +178,54 @@ def task_get_check_in_data():
 
 			employee = trans_users.get(userid).get('employee')
 			add_employee_checkin_log(result, code, employee)
+
+
+def check_wecom_user(user_id, access_token):
+	url = 'https://qyapi.weixin.qq.com/cgi-bin/user/get'
+
+	params = {
+		'access_token': access_token,
+    	'userid': user_id,
+	}
+	try:
+		resp = requests.get(url, params=params)
+		result = resp.json()
+		# {'errcode': 60111, 'errmsg': 'invalid string value `FuLiJun1`. userid not found', ...}
+		# 60111 表示企微没有此用户
+		if result.get("errcode") == 60111:
+			return False
+		return True
+	except Exception as e:
+		# 如果因为网络问题等因素导致错误，则返回True
+		return True
+
+
+def disable_user(name):
+	# 使用管理员账号进行修改
+	frappe.set_user('Administrator')
+	doc = frappe.get_doc("User", name)
+	try:
+		doc.enabled = False
+		doc.save()
+		frappe.db.commit()
+	except:  # 有的可能因为信息不全报错
+		pass
+
+
+@frappe.whitelist(allow_guest=True)
+def task_check_user_in_wecom():
+	users = frappe.get_all("User", filters={"enabled": True}, fields=["name", "custom_wecom_uid"])
+	setting = frappe.get_doc("WeCom Setting")
+	access_token = setting.access_token
+	
+	# 预定义白名单
+	whitelist = [
+		"Administrator",
+		"api@api.com",
+		"Guest",
+		"admin2@zhushigroup.cn"
+	]
+	for user in users:
+		user_id = user.custom_wecom_uid or user.name
+		if user_id not in whitelist and not check_wecom_user(user_id, access_token):
+			disable_user(user.name)
