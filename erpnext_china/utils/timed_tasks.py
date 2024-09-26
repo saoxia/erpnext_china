@@ -222,6 +222,7 @@ def task_check_user_in_wecom():
 	whitelist = [
 		"Administrator",
 		"api@api.com",
+		"api001@api.com",
 		"Guest",
 		"admin2@zhushigroup.cn"
 	]
