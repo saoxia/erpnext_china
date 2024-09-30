@@ -109,7 +109,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN sed 's/#Port 22/Port 22222/' /etc/ssh/sshd_config > /etc/ssh/sshd_config_temp && mv /etc/ssh/sshd_config_temp /etc/ssh/sshd_config \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && ssh-keygen -A
-    
+
 RUN echo 'frappe:frappe' | chpasswd 
 
 # 添加frappe的sudo权限
@@ -122,6 +122,5 @@ USER frappe
 COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
 
 WORKDIR /home/frappe/frappe-bench
-COPY patches/bench_start.sh /home/frappe/frappe-bench/bench_start.sh
 EXPOSE 8000-8005 9000-9005 6787 22222 443 80
 CMD ["/bin/bash"]
