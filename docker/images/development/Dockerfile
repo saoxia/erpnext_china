@@ -110,6 +110,7 @@ RUN sed 's/#Port 22/Port 22222/' /etc/ssh/sshd_config > /etc/ssh/sshd_config_tem
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && ssh-keygen -A
 
+RUN echo 'root:frappe' | chpasswd 
 RUN echo 'frappe:frappe' | chpasswd 
 
 # 添加frappe的sudo权限
