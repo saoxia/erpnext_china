@@ -40,35 +40,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "\u8003\u52e4",
-   "link_count": 2,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u8003\u52e4\u7b7e\u5230\u8bb0\u5f55",
-   "link_count": 0,
-   "link_to": "Employee Checkin Log",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "\u8003\u52e4\u73ed\u522b",
-   "link_count": 0,
-   "link_to": "Attendance Shift Type",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "\u85aa\u916c",
    "link_count": 2,
    "link_type": "DocType",
@@ -153,9 +124,68 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4",
+   "link_count": 5,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u7b7e\u5230\u8bb0\u5f55",
+   "link_count": 0,
+   "link_to": "Employee Checkin Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u73ed\u522b",
+   "link_count": 0,
+   "link_to": "Attendance Shift Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u5458\u5de5",
+   "link_count": 0,
+   "link_to": "Checkin Staff",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u89c4\u5219",
+   "link_count": 0,
+   "link_to": "Checkin Group",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "\u8003\u52e4\u6807\u7b7e",
+   "link_count": 0,
+   "link_to": "Checkin Tag",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-04-24 15:52:43.030187",
+ "modified": "2024-09-30 14:25:36.101572",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "HRMS",

@@ -185,7 +185,7 @@ def check_wecom_user(user_id, access_token):
 
 	params = {
 		'access_token': access_token,
-    	'userid': user_id,
+		'userid': user_id,
 	}
 	try:
 		resp = requests.get(url, params=params)
@@ -230,3 +230,163 @@ def task_check_user_in_wecom():
 		user_id = user.custom_wecom_uid or user.name
 		if user_id not in whitelist and not check_wecom_user(user_id, access_token):
 			disable_user(user.name)
+
+
+def get_departments(access_token: str):
+	url = 'https://qyapi.weixin.qq.com/cgi-bin/department/list'
+	params = {
+		'access_token': access_token
+	}
+	resp = requests.get(url, params=params)
+	result = resp.json()
+	return result.get('department')
+
+
+def get_staff_from_department(department: dict, access_token: str):
+	url = 'https://qyapi.weixin.qq.com/cgi-bin/user/simplelist'
+	params = {
+		'access_token': access_token,
+		'department_id': department.get('id')
+	}
+	resp = requests.get(url, params=params)
+	result = resp.json()
+	# return result.get('userlist')
+	return [
+		{
+			"user_id": user.get('userid'), 
+			"user_name": user.get('name'), 
+			"department_id": department.get('id'),
+			"department_name": department.get('name')
+		} for user in result.get('userlist')
+	]
+
+
+def save_staff(user_id, user_name, department_id, department_name):
+	doc = frappe.new_doc("Checkin Staff")
+	doc.user_id = user_id
+	doc.user_name = user_name
+	doc.department_id = department_id
+	doc.department_name = department_name
+	doc.insert(ignore_permissions=True, ignore_if_duplicate=True)
+
+
+def update_staff(staff):
+	for s in staff:
+		save_staff(**s)
+	frappe.db.commit()
+
+
+def save_group(group_name, group_id):
+	doc = frappe.new_doc("Checkin Group")
+	doc.group_id = group_id
+	doc.group_name = group_name
+	doc.insert(ignore_permissions=True, ignore_if_duplicate=True)
+
+
+def update_group(groups):
+	for group in groups:
+		save_group(group_id=group.get('groupid'), group_name=group.get('groupname'))
+	frappe.db.commit()
+
+def save_tag(tag_id, tag_name):
+	doc = frappe.new_doc("Checkin Tag")
+	doc.tag_id = tag_id
+	doc.tag_name = tag_name
+	doc.insert(ignore_permissions=True, ignore_if_duplicate=True)
+
+
+def update_tag(tags):
+	for tag in tags:
+		save_tag(tag_id=tag.get('tagid'), tag_name=tag.get('tagname'))
+	frappe.db.commit()
+
+def update_staff_tag(staff_id, tag_id):
+	doc = frappe.get_cached_doc("Checkin Staff", staff_id)
+	doc.append("tags", {
+		"tag": tag_id
+	})
+	doc.save(ignore_permissions=True)
+
+
+def get_tag_staff(tag_id, access_token):
+	url = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get'
+	params = {
+		'access_token': access_token,
+		'tagid': tag_id
+	}
+	resp = requests.get(url, params=params)
+	result = resp.json()
+	return result.get('userlist')
+
+
+def get_checkin_group(access_token: str):
+	url = 'https://qyapi.weixin.qq.com/cgi-bin/checkin/getcorpcheckinoption'
+
+	params = {
+		'access_token': access_token
+	}
+	resp = requests.get(url, params=params)
+	result = resp.json()
+	return result.get('group')
+
+
+def get_tags(access_token: str):
+	url = 'https://qyapi.weixin.qq.com/cgi-bin/tag/list'
+	params = {
+		'access_token': access_token
+	}
+	resp = requests.get(url, params=params)
+	result = resp.json()
+	# tagid  tagname
+	return result.get('taglist')
+
+
+def clean_staff():
+	frappe.db.delete("Checkin Staff")
+
+def clean_tag():
+	frappe.db.delete("Checkin Tag")
+
+def clean_group():
+	frappe.db.delete("Checkin Group")
+
+def clean_staff_tag():
+	frappe.db.delete("Checkin Staff Tag")
+	
+def all_clean():
+	clean_staff_tag()
+	clean_tag()
+	clean_group()
+	clean_staff()
+	frappe.db.commit()
+
+@frappe.whitelist(allow_guest=True)
+def task_update_wecom_staff():
+	setting = frappe.get_doc("WeCom Setting")
+	access_token = setting.access_token
+
+	# 清空
+	all_clean()
+
+	# 更新员工
+	departments = get_departments(access_token)
+	for department in departments:
+		staff = get_staff_from_department(department, access_token)
+		update_staff(staff)
+
+	# # 更新标签
+	tags = get_tags(access_token)
+	update_tag(tags)
+
+	# 更新标签下的员工
+	for tag in tags:
+		tag_id = tag.get('tagid')
+		staff = get_tag_staff(tag_id, access_token)
+		for user in staff:
+			update_staff_tag(user.get('userid'), tag_id)
+
+	# # 更新考勤规则
+	groups = get_checkin_group(access_token)
+	update_group(groups)
+
+	frappe.db.commit()

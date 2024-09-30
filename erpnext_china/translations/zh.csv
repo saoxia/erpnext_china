@@ -9185,3 +9185,13 @@ Auto Allocation Time Rule,自动分配时间表
 Time Rules,时间表
 Time Rule,时间规则
 Time Rule Type,类型
+Original Lead Name,原始线索
+Checkin Staff,考勤员工
+Checkin Tag,考勤标签
+Checkin Group,考勤规则
+Group ID,考勤组ID
+UserName,用户名
+Tag ID,标签ID
+Department Name,部门名称
+Department ID,部门ID
+Tag Name,标签名称
