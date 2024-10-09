@@ -6,8 +6,10 @@
  "engine": "InnoDB",
  "field_order": [
   "group_id",
+  "has_been_created",
   "group_name",
-  "tags"
+  "tags",
+  "raw"
  ],
  "fields": [
   {
@@ -34,11 +36,23 @@
    "label": "Tags",
    "link_filters": "[[\"Checkin Tag\",\"linked\",\"=\",\"0\"]]",
    "options": "Checkin Staff Tag"
+  },
+  {
+   "fieldname": "raw",
+   "fieldtype": "JSON",
+   "label": "Raw"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_been_created",
+   "fieldtype": "Check",
+   "label": "Has Been Created",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-30 15:16:23.042895",
+ "modified": "2024-10-08 08:37:08.155971",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Group",

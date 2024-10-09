@@ -5,7 +5,9 @@ import re
 import frappe
 from urllib.parse import urlparse, parse_qs
 from frappe.model.document import Document
-
+from frappe.utils import logger
+logger.set_log_level("DEBUG")
+logger = frappe.logger("wx-message", allow_site=True, file_count=10)
 
 def get_doc_or_none(doctype: str, kw: dict):
 	"""根据kw查找doctype中是否存在记录，如果存在则返回document对象，否则返回None"""
@@ -226,3 +228,121 @@ def get_fid(url: str):
 		return None
 	params_dict = url_params_to_dict(url)
 	return params_dict.get('fid', None)
+
+
+def save_message(data:dict, raw_request: str):
+
+	wecom_user_id = data.get('UserID')
+	users = frappe.db.get_all('User', or_filters=[
+		['custom_wecom_uid', '=', wecom_user_id],
+		['name', '=', wecom_user_id]
+	])
+	user_name = None
+	if len(users) > 0:
+		user_name = users[0].name
+	message_data = {
+		'doctype': 'WeCom Message',
+		'change_type': data.get('ChangeType'),
+		'create_time': datetime.datetime.fromtimestamp(int(data.get('CreateTime'))),
+		'user': user_name,
+		'wecom_user_id': wecom_user_id,
+		'external_user_id': data.get('ExternalUserID'),
+		'state': data.get('State'),
+		'raw_request': raw_request
+	}
+	doc = frappe.get_doc(message_data).insert(ignore_permissions=True)
+	return doc
+
+
+
+def create_crm_lead_by_message(message, original_lead, wx_nickname):
+	try:
+
+		# 设置线索创建人
+		frappe.set_user(original_lead.owner)
+		
+		# 设置CRM线索的负责员工
+		if message.user:
+			employee_user = message.user
+		else:
+			employee_user = original_lead.owner
+		employee = frappe.db.get_value('Employee', {"user_id": employee_user})
+		territory = get_system_territory(original_lead.area or original_lead.area_province or 'China')
+		
+		# 创建CRM线索
+		crm_lead_data = {
+			'doctype': 'Lead',
+			'lead_name': '企微客户',
+			'source': '百度-' + original_lead.flow_channel_name,
+			'phone': '',
+			'mobile_no': '',
+			'custom_wechat': '',
+			'city': original_lead.area,
+			'state': original_lead.area_province,
+			'country': 'China',
+			'territory': territory,
+			'custom_employee_baidu_account': original_lead.employee_baidu_account,
+			'custom_employee_douyin_account': None,
+			'custom_original_lead_name': original_lead.name,
+			'lead_owner': employee_user,
+			'custom_lead_owner_employee': employee,
+			'custom_auto_allocation': False,
+			'custom_product_category': original_lead.product_category,
+			'custom_last_lead_owner': '',
+			'custom_commit_time': original_lead.commit_time or original_lead.created_datetime,  # 线索提交到平台的时间
+			'custom_keyword': original_lead.keyword,
+			'custom_search_word': original_lead.search_word,
+			'custom_wechat_nickname': wx_nickname,
+			'custom_external_userid': message.external_user_id
+		}
+		lead = frappe.get_doc(crm_lead_data).insert(ignore_permissions=True)
+		message.created_by = original_lead.owner
+		message.lead = lead.name
+		message.save(ignore_permissions=True)
+
+		original_lead.crm_lead = lead.name
+		original_lead.save(ignore_permissions=True)
+	except Exception as e:
+		logger.error(e)
+
+
+def search_original_lead(state):
+	original_lead_name = frappe.db.get_value("Original Leads", filters=[
+		["bd_vid", 'like', '%'+state+'%'],
+		['solution_type', '=', 'wechat'],
+		['crm_lead', '=' ,None],
+	], order_by="commit_time desc")
+	original_lead = None
+	if original_lead_name:
+		original_lead = frappe.get_doc("Original Leads", original_lead_name)
+	return original_lead
+
+
+def search_wecom_message(bd_vid):
+	state = 'BD' + bd_vid[:30]
+	message_name = frappe.db.get_value("WeCom Message", filters=[
+		['state', 'like', '%'+state+'%'],
+		['lead', '=', None]
+	])
+	message = None
+	if message_name:
+		message = frappe.get_doc("WeCom Message", message_name)
+	return message
+
+def qv_create_crm_lead(message=None, original_lead=None):
+	try:
+		if message:
+			state = str(message.state)[2:-1]
+			if state:
+				original_lead_doc = search_original_lead(state)
+				if original_lead_doc:
+					create_crm_lead_by_message(message, original_lead_doc)
+		
+		if original_lead:
+			bd_vid = original_lead.bd_vid
+			if bd_vid:
+				message_doc = search_wecom_message(bd_vid)
+				if message_doc:
+					create_crm_lead_by_message(message_doc, original_lead)
+	except Exception as e:
+		logger.error(e)
