@@ -261,7 +261,7 @@ def get_raw_request(url, raw_xml_data):
 
 @frappe.whitelist(allow_guest=True)
 def update_wecom_staff():
-	setting = frappe.get_doc("WeCom Setting")
+	setting = frappe.get_cached_doc("WeCom Setting")
 	access_token = setting.access_token
 
 	# 清除数据
@@ -299,13 +299,13 @@ def group_write_into_wecom(**kwargs):
 	else:
 		effective_now = True
 	group_id = kwargs.get('group_id')
-	setting = frappe.get_doc("WeCom Setting")
+	setting = frappe.get_cached_doc("WeCom Setting")
 	access_token = setting.access_token
 
 	def write(tags, raw, gid):
 		checkin_tags = []
 		for t in tags:
-			tag = frappe.get_doc("Checkin Tag", t.tag)
+			tag = frappe.get_cached_doc("Checkin Tag", t.tag)
 			if str(tag.tag_name).startswith('考勤'):
 				checkin_tags.append(tag.name)
 
@@ -318,7 +318,7 @@ def group_write_into_wecom(**kwargs):
 		group = clean_checkin_group_params(json.loads(raw))
 		group['range']['userid'] = staff
 		
-		doc = frappe.get_doc("Checkin Group", gid)
+		doc = frappe.get_cached_doc("Checkin Group", gid)
 		# 调用API写入到企微，判断has_been_created如果1则调用更新，0则调用创建
 		if str(doc.has_been_created) == '1':
 			update_checkin_group(access_token, effective_now, gid, group)
@@ -335,7 +335,7 @@ def group_write_into_wecom(**kwargs):
 		for g in groups:
 			write(g.tags, g.raw, g.name)
 	else:
-		doc = frappe.get_doc('Checkin Group', group_id)
+		doc = frappe.get_cached_doc('Checkin Group', group_id)
 		write(doc.tags, doc.raw, group_id)
 
 
@@ -347,9 +347,12 @@ def delete_group_callback(**kwargs):
 		checkin_tools.delete_group(group_id)
 		frappe.db.commit()
 	else:
-		setting = frappe.get_doc("WeCom Setting")
+		setting = frappe.get_cached_doc("WeCom Setting")
 		access_token = setting.access_token
 		delete_checkin_group(access_token, group_id)
+	
+	checkin_tools.delete_group(group_id)
+	frappe.db.commit()
 
 
 def checkin_enqueue_task():
@@ -362,8 +365,8 @@ def checkin_enqueue_task():
 def wechat_msg_callback(**kwargs):
 	url = get_url() + frappe.request.full_path
 	# 验证URL合法性
-	api_setting = frappe.get_doc("WeCom MsgApi Setting")
-	wecom_setting = frappe.get_doc("WeCom Setting")
+	api_setting = frappe.get_cached_doc("WeCom MsgApi Setting")
+	wecom_setting = frappe.get_cached_doc("WeCom Setting")
 	client = WXBizMsgCrypt3.WXBizMsgCrypt(api_setting.token, api_setting.key, wecom_setting.client_id)
 	raw_signature, raw_timestamp, raw_nonce, raw_echostr = get_url_params(kwargs)
 	# 如果存在 echostr 说明是首次配置发送的验证性请求
@@ -386,7 +389,7 @@ def wechat_msg_callback(**kwargs):
 		# 当标签发生变化时，更新系统的考勤员工、考勤标签、考勤规则
 		if change_type == 'update_tag':
 			tag_id = dict_data.get('TagId')
-			tag_doc = frappe.get_doc("Checkin Tag", tag_id)
+			tag_doc = frappe.get_cached_doc("Checkin Tag", tag_id)
 			if str(tag_doc.tag_name).startswith('考勤'):
 				frappe.enqueue('erpnext_china.utils.wechat.api.checkin_enqueue_task', job_id=raw_signature, deduplicate=True)
 			return
