@@ -359,7 +359,7 @@ def delete_group_callback(**kwargs):
 def checkin_enqueue_task():
 	update_wecom_staff()
 	# 将更新完的规则再回写到企微上
-	# group_write_into_wecom(effective_now=True)
+	group_write_into_wecom(effective_now=True)
 
 
 @frappe.whitelist(allow_guest=True)
@@ -392,8 +392,7 @@ def wechat_msg_callback(**kwargs):
 			tag_id = dict_data.get('TagId')
 			tag_doc = frappe.get_cached_doc("Checkin Tag", tag_id)
 			if str(tag_doc.tag_name).startswith('考勤'):
-				checkin_enqueue_task()
-				# frappe.enqueue('erpnext_china.utils.wechat.api.checkin_enqueue_task', job_id=raw_signature, deduplicate=True)
+				frappe.enqueue('erpnext_china.utils.wechat.api.checkin_enqueue_task', job_id=raw_signature, deduplicate=True)
 			return
 
 		# 如果是获客助手新增客户
