@@ -331,9 +331,10 @@ def group_write_into_wecom(**kwargs):
 		
 	# 如果没有指定要写入到企微的group，则写入全部
 	if not group_id:
-		groups = frappe.get_all('Checkin Group', fields=['tags', 'raw', 'name'])
+		groups = frappe.get_all('Checkin Group', fields=['name'])
 		for g in groups:
-			write(g.tags, g.raw, g.name)
+			doc = frappe.get_cached_doc('Checkin Group', g.name)
+			write(doc.tags, doc.raw, doc.name)
 	else:
 		doc = frappe.get_cached_doc('Checkin Group', group_id)
 		write(doc.tags, doc.raw, group_id)
@@ -391,7 +392,8 @@ def wechat_msg_callback(**kwargs):
 			tag_id = dict_data.get('TagId')
 			tag_doc = frappe.get_cached_doc("Checkin Tag", tag_id)
 			if str(tag_doc.tag_name).startswith('考勤'):
-				frappe.enqueue('erpnext_china.utils.wechat.api.checkin_enqueue_task', job_id=raw_signature, deduplicate=True)
+				checkin_enqueue_task()
+				# frappe.enqueue('erpnext_china.utils.wechat.api.checkin_enqueue_task', job_id=raw_signature, deduplicate=True)
 			return
 
 		# 如果是获客助手新增客户
