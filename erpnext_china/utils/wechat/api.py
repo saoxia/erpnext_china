@@ -355,7 +355,7 @@ def delete_group_callback(**kwargs):
 def checkin_enqueue_task():
 	update_wecom_staff()
 	# 将更新完的规则再回写到企微上
-	# group_write_into_wecom(effective_now=True)
+	group_write_into_wecom(effective_now=True)
 
 
 @frappe.whitelist(allow_guest=True)
