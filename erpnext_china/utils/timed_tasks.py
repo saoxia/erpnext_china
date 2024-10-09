@@ -1,26 +1,10 @@
 import math
-import hashlib
+import json
 from datetime import datetime
-import frappe.utils
-import requests
+
 import frappe
 
-def get_check_in_data(access_token: str, users: list[str], starttime: int, endtime: int, opencheckindatatype:int=3):
-	"""
-	请求考勤记录
-	"""
-	url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token=" + access_token
-	# opencheckindatatype 打卡类型。1：上下班打卡；2：外出打卡；3：全部打卡
-	data = {
-		"opencheckindatatype": opencheckindatatype,
-		"starttime": starttime,
-		"endtime": endtime,
-		"useridlist": users
-	}
-	res = requests.post(url, json=data)
-	result = res.json()
-	return result.get('checkindata', [])
-
+from .wechat import api
 
 def add_employee_checkin_log(check_in_data, code, employee):
 	"""
@@ -157,7 +141,7 @@ def task_get_check_in_data():
 	# [[0-100],[100-200],[200-267]]
 	user_slices = get_user_slices(all_users)
 	for users in user_slices:
-		results = get_check_in_data(access_token, [user.get("wecom") for user in users], start_time, end_time)
+		results = api.get_check_in_data(access_token, [user.get("wecom") for user in users], start_time, end_time)
 		local_exists_count = get_exists_count(users, start_time, end_time)
 		
 		# 当日已存在的记录个数和新拉取的数据个数一致说明无变化
@@ -178,26 +162,6 @@ def task_get_check_in_data():
 
 			employee = trans_users.get(userid).get('employee')
 			add_employee_checkin_log(result, code, employee)
-
-
-def check_wecom_user(user_id, access_token):
-	url = 'https://qyapi.weixin.qq.com/cgi-bin/user/get'
-
-	params = {
-		'access_token': access_token,
-    	'userid': user_id,
-	}
-	try:
-		resp = requests.get(url, params=params)
-		result = resp.json()
-		# {'errcode': 60111, 'errmsg': 'invalid string value `FuLiJun1`. userid not found', ...}
-		# 60111 表示企微没有此用户
-		if result.get("errcode") == 60111:
-			return False
-		return True
-	except Exception as e:
-		# 如果因为网络问题等因素导致错误，则返回True
-		return True
 
 
 def disable_user(name):
@@ -228,5 +192,5 @@ def task_check_user_in_wecom():
 	]
 	for user in users:
 		user_id = user.custom_wecom_uid or user.name
-		if user_id not in whitelist and not check_wecom_user(user_id, access_token):
+		if user_id not in whitelist and not api.check_wecom_user(user_id, access_token):
 			disable_user(user.name)
