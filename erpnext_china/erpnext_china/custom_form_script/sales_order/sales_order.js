@@ -1,5 +1,6 @@
 frappe.ui.form.on('Sales Order', {
 	onload(frm) {
+        
 		// 销售订单选择物料时，只选择已经定义的UOM
 		frm.fields_dict['items'].grid.get_field('uom').get_query = function(doc, cdt, cdn){
 			var row = locals[cdt][cdn];
@@ -8,7 +9,21 @@ frappe.ui.form.on('Sales Order', {
 				filters: {'value':row.item_code, apply_on:"Item Code"},
 			}
 		};
-	}
+	},
+    refresh(frm){
+        // 设置子表字段的筛选条件
+        frm.set_query("item_code", "items", function(doc) {
+            return {
+                filters: [
+                    ["Item", "disabled", "=", 0], // 只显示启用的项目
+                    ["Item", "has_variants", "=", 0], // 不显示变体项目
+                    ["Item", "is_sales_item", "=", 1], // 只显示销售项目
+                    ["Item", "item_group", "descendants of (inclusive)", "成品"], // 只显示成品组的项目
+                    ["Item", "company", "in", [doc.company]] // 匹配主表的公司字段
+                ]
+            };
+        });
+    }
 })
 
 

@@ -6,6 +6,7 @@ import copy
 import json
 import re
 from erpnext_china.utils import lead_tools
+from erpnext_china.utils.wechat import api
 from frappe.model.document import Document
 import frappe
 from frappe.utils import datetime
@@ -93,7 +94,7 @@ def lead_via_baidu(**kwargs):
                 original_lead_doc.crm_lead = crm_lead_doc.name
                 original_lead_doc.save(ignore_permissions=True)
             else:
-                lead_tools.qv_create_crm_lead(original_lead=original_lead_doc)
+                api.qv_create_crm_lead(original_lead=original_lead_doc)
         # 如果原始线索已经存在**并且**是通过延迟接口推送过来的则进行更新
         elif '延迟20分钟' in push_delay:
             

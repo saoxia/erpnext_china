@@ -255,7 +255,7 @@ def save_message(data:dict, raw_request: str):
 
 
 
-def create_crm_lead_by_message(message, original_lead, wx_nickname):
+def create_crm_lead_by_message(message, original_lead, wx_nickname='企微客户'):
 	try:
 
 		# 设置线索创建人
@@ -329,20 +329,3 @@ def search_wecom_message(bd_vid):
 		message = frappe.get_doc("WeCom Message", message_name)
 	return message
 
-def qv_create_crm_lead(message=None, original_lead=None):
-	try:
-		if message:
-			state = str(message.state)[2:-1]
-			if state:
-				original_lead_doc = search_original_lead(state)
-				if original_lead_doc:
-					create_crm_lead_by_message(message, original_lead_doc)
-		
-		if original_lead:
-			bd_vid = original_lead.bd_vid
-			if bd_vid:
-				message_doc = search_wecom_message(bd_vid)
-				if message_doc:
-					create_crm_lead_by_message(message_doc, original_lead)
-	except Exception as e:
-		logger.error(e)
