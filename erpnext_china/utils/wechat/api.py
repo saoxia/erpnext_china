@@ -259,6 +259,29 @@ def get_raw_request(url, raw_xml_data):
 	return raw_request
 
 
+def qv_create_crm_lead(message=None, original_lead=None):
+	try:
+		if message:
+			state = str(message.state)[2:-1]
+			if state:
+				original_lead_doc = lead_tools.search_original_lead(state)
+				if original_lead_doc:
+					euid = str(message.external_user_id)
+					wx_nickname = get_wx_nickname(euid)
+					lead_tools.create_crm_lead_by_message(message, original_lead_doc, wx_nickname)
+		
+		if original_lead:
+			bd_vid = original_lead.bd_vid
+			if bd_vid:
+				message_doc = lead_tools.search_wecom_message(bd_vid)
+				if message_doc:
+					euid = str(message_doc.external_user_id)
+					wx_nickname = get_wx_nickname(euid)
+					lead_tools.create_crm_lead_by_message(message_doc, original_lead, wx_nickname)
+	except Exception as e:
+		logger.error(e)
+
+
 @frappe.whitelist(allow_guest=True)
 def update_wecom_staff():
 	setting = frappe.get_cached_doc("WeCom Setting")
@@ -404,7 +427,7 @@ def wechat_msg_callback(**kwargs):
 				raw_request = get_raw_request(url, raw_xml_data)
 				message = lead_tools.save_message(dict_data, json.dumps(raw_request))
 				if message:
-					lead_tools.qv_create_crm_lead(message)
+					qv_create_crm_lead(message)
 				dict_data.update({"record_id": message.name if message else ''})
 			logger.info(dict_data)
 			frappe.db.commit()
