@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_rename": 1,
  "autoname": "field:group_id",
  "creation": "2024-09-30 10:33:34.795926",
  "doctype": "DocType",
@@ -46,13 +47,12 @@
    "default": "0",
    "fieldname": "has_been_created",
    "fieldtype": "Check",
-   "label": "Has Been Created",
-   "read_only": 1
+   "label": "Has Been Created"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-08 08:37:08.155971",
+ "modified": "2024-10-11 23:09:29.606605",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Group",

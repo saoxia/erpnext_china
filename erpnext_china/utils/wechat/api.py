@@ -201,6 +201,14 @@ def clean_checkin_group_params(group: dict):
 			schedulelist.pop('flex_on_duty_time', None)
 			schedulelist.pop('flex_off_duty_time', None)
 			schedulelist.pop('late_rule', None)
+			schedulelist.pop('limit_aheadtime', None)
+			schedulelist.pop('limit_offtime', None)
+			schedulelist.pop('noneed_offwork', None)
+			schedulelist.pop('flex_time', None)
+		for time_section in schedulelist.get('time_section', []):
+			if not time_section.get('allow_rest', False):
+				time_section.pop('rest_begin_time', None)
+				time_section.pop('rest_end_time', None)
 	
 	buka_remind = group.get('buka_remind', {})
 	if not buka_remind.get('open_remind', False):
@@ -213,8 +221,6 @@ def create_checkin_group(access_token, group, effective_now=False):
 	params = {
 		'access_token': access_token
 	}
-	# 给规则名称添加一个后缀
-	group['groupname'] = group.get('groupname') + '_api'
 	data = {
 		'effective_now': effective_now,
 		'group': group
@@ -286,26 +292,34 @@ def process_update():
 	setting = frappe.get_cached_doc("WeCom Setting")
 	access_token = setting.access_token
 
-	# 清除数据
-	frappe.db.delete("Checkin Staff Tag")
-	frappe.db.delete("Checkin Staff")
-
-	# 更新员工
-	departments = get_departments(access_token)
-	for department in departments:
-		staff = get_staff_from_department(department, access_token)
-		checkin_tools.update_staff(staff)
-
 	# 更新标签
 	tags = get_tags(access_token)
-	checkin_tools.process_tags(tags)
 
 	# 更新标签下的员工
-	for tag in tags:
-		tag_id = tag.get('tagid')
+	dict_tags = {str(tag['tagid']): tag['tagname'] for tag in tags}
+	tags_id = set(dict_tags.keys())
+	local_tags_id = set([i for i in frappe.get_all("Checkin Tag", pluck='tag_id')])
+
+	# 企微存在但是本地不存在，则新增本地
+	will_add = tags_id - local_tags_id
+	for tag_id in will_add:
 		staff = get_tag_staff(tag_id, access_token)
-		for user in staff:
-			checkin_tools.update_staff_tag(user.get('userid'), tag_id)
+		staff_userid = [s.get('userid') for s in staff]
+		json_staff = json.dumps(staff_userid, ensure_ascii=False)
+		checkin_tools.save_tag(tag_id, dict_tags[tag_id], json_staff)
+
+	# 本地存在，企微不存在，则删除本地
+	will_delete = local_tags_id - tags_id
+	for tag_id in will_delete:
+		checkin_tools.delete_tag(tag_id)
+
+	# 共同存在的，则更新标签名
+	will_update = tags_id & local_tags_id
+	for tag_id in will_update:
+		staff = get_tag_staff(tag_id, access_token)
+		staff_userid = [s.get('userid') for s in staff]
+		json_staff = json.dumps(staff_userid, ensure_ascii=False)
+		checkin_tools.update_tag(tag_id, dict_tags[tag_id], json_staff)
 
 	# 更新考勤规则
 	groups = get_checkin_group(access_token)
@@ -316,7 +330,7 @@ def process_update():
 
 @frappe.whitelist(allow_guest=True)
 def update_wecom_staff():
-	frappe.enqueue('erpnext_china.utils.wechat.api.process_update')
+	process_update()
 
 
 @frappe.whitelist(allow_guest=True)
@@ -331,20 +345,15 @@ def group_write_into_wecom(**kwargs):
 	access_token = setting.access_token
 
 	def write(tags, raw, gid):
-		checkin_tags = []
+		staff = []
 		for t in tags:
 			tag = frappe.get_cached_doc("Checkin Tag", t.tag)
 			if str(tag.tag_name).startswith('考勤'):
-				checkin_tags.append(tag.name)
-
-		staff = frappe.get_all("Checkin Staff Tag", filters=[
-			['parenttype', '=', 'Checkin Staff'],
-			['parentfield', '=', 'tags'],
-			['tag', 'in', checkin_tags]
-		], pluck='parent')
-		staff = list(set(staff))
+				staff += json.loads(tag.raw)
+		
+		staff = set(staff)
 		group = clean_checkin_group_params(json.loads(raw))
-		group['range']['userid'] = staff
+		group['range']['userid'] = list(staff)
 		
 		doc = frappe.get_cached_doc("Checkin Group", gid)
 		# 调用API写入到企微，判断has_been_created如果1则调用更新，0则调用创建

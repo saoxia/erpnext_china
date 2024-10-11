@@ -50,7 +50,7 @@ def process_group(groups):
 	will_add = groups_id - local_groups_id
 	for group_id in will_add:
 		group = dict_groups[group_id]
-		save_group(group_id, group['groupname'], json.dumps(group))
+		save_group(group_id, group['groupname'], json.dumps(group, ensure_ascii=False))
 
 	# 本地存在，企微不存在，则删除本地
 	will_delete = local_groups_id - groups_id
@@ -64,15 +64,17 @@ def process_group(groups):
 		update_group(group_id, group['groupname'], json.dumps(group, ensure_ascii=False))
 	frappe.db.commit()
 
-def save_tag(tag_id, tag_name):
+def save_tag(tag_id, tag_name, raw):
 	doc = frappe.new_doc("Checkin Tag")
 	doc.tag_id = tag_id
 	doc.tag_name = tag_name
+	doc.raw = raw
 	doc.insert(ignore_permissions=True, ignore_if_duplicate=True)
 	
-def update_tag(tag_id, tag_name):
+def update_tag(tag_id, tag_name, raw):
 	doc = frappe.get_doc("Checkin Tag", tag_id)
 	doc.tag_name = tag_name
+	doc.raw = raw
 	doc.save(ignore_permissions=True)
 
 def delete_tag(tag_id):
@@ -90,31 +92,3 @@ def delete_tag(tag_id):
 				group.tags.pop(index)
 		group.save(ignore_permissions=True)
 	frappe.delete_doc("Checkin Tag", tag_id, ignore_permissions=True)
-
-def process_tags(tags):
-	dict_tags = {str(tag['tagid']): tag['tagname'] for tag in tags}
-	tags_id = set(dict_tags.keys())
-	local_tags_id = set([i for i in frappe.get_all("Checkin Tag", pluck='tag_id')])
-
-	# 企微存在但是本地不存在，则新增本地
-	will_add = tags_id - local_tags_id
-	for tag_id in will_add:
-		save_tag(tag_id, dict_tags[tag_id])
-
-	# 本地存在，企微不存在，则删除本地
-	will_delete = local_tags_id - tags_id
-	for tag_id in will_delete:
-		delete_tag(tag_id)
-
-	# 共同存在的，则更新标签名
-	will_update = tags_id & local_tags_id
-	for tag_id in will_update:
-		update_tag(tag_id, dict_tags[tag_id])
-	frappe.db.commit()
-
-def update_staff_tag(staff_id, tag_id):
-	doc = frappe.get_cached_doc("Checkin Staff", staff_id)
-	doc.append("tags", {
-		"tag": tag_id
-	})
-	doc.save(ignore_permissions=True)
