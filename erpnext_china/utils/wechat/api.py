@@ -282,8 +282,7 @@ def qv_create_crm_lead(message=None, original_lead=None):
 		logger.error(e)
 
 
-@frappe.whitelist(allow_guest=True)
-def update_wecom_staff():
+def process_update():
 	setting = frappe.get_cached_doc("WeCom Setting")
 	access_token = setting.access_token
 
@@ -313,6 +312,12 @@ def update_wecom_staff():
 	checkin_tools.process_group(groups)
 
 	frappe.db.commit()
+
+
+@frappe.whitelist(allow_guest=True)
+def update_wecom_staff():
+	frappe.enqueue('erpnext_china.utils.wechat.api.process_update')
+
 
 @frappe.whitelist(allow_guest=True)
 def group_write_into_wecom(**kwargs):
