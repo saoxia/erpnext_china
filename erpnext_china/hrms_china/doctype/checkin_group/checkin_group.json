@@ -47,13 +47,12 @@
    "default": "0",
    "fieldname": "has_been_created",
    "fieldtype": "Check",
-   "label": "Has Been Created",
-   "read_only": 1
+   "label": "Has Been Created"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-11 20:42:06.171172",
+ "modified": "2024-10-11 23:09:29.606605",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Group",
