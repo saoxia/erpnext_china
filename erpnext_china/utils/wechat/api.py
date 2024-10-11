@@ -221,8 +221,6 @@ def create_checkin_group(access_token, group, effective_now=False):
 	params = {
 		'access_token': access_token
 	}
-	# 给规则名称添加一个后缀
-	group['groupname'] = group.get('groupname') + '_api'
 	data = {
 		'effective_now': effective_now,
 		'group': group
