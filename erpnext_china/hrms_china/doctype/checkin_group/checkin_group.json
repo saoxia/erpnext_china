@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_rename": 1,
  "autoname": "field:group_id",
  "creation": "2024-09-30 10:33:34.795926",
  "doctype": "DocType",
@@ -52,7 +53,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-08 08:37:08.155971",
+ "modified": "2024-10-11 20:42:06.171172",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Group",

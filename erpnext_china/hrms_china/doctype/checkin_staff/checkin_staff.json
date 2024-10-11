@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_rename": 1,
  "autoname": "field:user_id",
- "creation": "2024-09-30 10:13:30.249308",
+ "creation": "2024-10-11 20:39:31.240742",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -62,7 +63,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-30 15:00:35.920448",
+ "modified": "2024-10-11 20:42:14.038998",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Staff",
