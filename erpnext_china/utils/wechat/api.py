@@ -241,7 +241,12 @@ def update_checkin_group(access_token, effective_now, group_id, group: dict):
 	group['groupid'] = int(group_id)
 	data = {
 		'effective_now': effective_now,
-		'group': group
+		'group': {
+			"groupid": int(group_id),
+			"range": {
+				"userid": group['range']['userid']
+            }
+        }
 	}
 	resp = requests.post(url, params=params, json=data)
 	result = resp.json()

@@ -28,8 +28,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Group Name",
-   "unique": 1
+   "label": "Group Name"
   },
   {
    "fieldname": "tags",
@@ -52,7 +51,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-11 23:09:29.606605",
+ "modified": "2024-10-12 08:36:23.237933",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Group",
