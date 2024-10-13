@@ -8,7 +8,7 @@
  "field_order": [
   "tag_id",
   "tag_name",
-  "linked",
+  "checkin_group",
   "raw"
  ],
  "fields": [
@@ -31,21 +31,20 @@
    "unique": 1
   },
   {
-   "default": "0",
-   "fieldname": "linked",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Has Linked Checkin Group"
-  },
-  {
    "fieldname": "raw",
    "fieldtype": "JSON",
    "label": "Raw"
+  },
+  {
+   "fieldname": "checkin_group",
+   "fieldtype": "Link",
+   "label": "Checkin Group",
+   "options": "Checkin Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-11 20:42:21.880281",
+ "modified": "2024-10-13 09:01:13.171114",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Tag",

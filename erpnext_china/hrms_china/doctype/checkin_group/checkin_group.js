@@ -50,38 +50,25 @@ frappe.ui.form.on("Checkin Group", {
             });
             d.show();
         });
-        frm.add_custom_button(__('删除当前规则'), () => {
+        frm.add_custom_button(__('删除对应的企微规则'), () => {
             let d = new frappe.ui.Dialog({
-                title: '确定要删除当前规则吗？',
-                fields: [
-                    {
-                        "fieldname": "delete_wecom_group",
-                        "fieldtype": "Check",
-                        "label": "同时删除企微规则",
-                        "default": false
-                    },
-                ],
-                size: 'small', // small, large, extra-large 
+                title: '确定要删除对应的API创建的企微规则吗？',
+                size: 'small',
                 primary_action_label: 'Submit',
                 primary_action(values) {
-                    const delete_wecom_group = values['delete_wecom_group'];
                     const group_id = frm.doc.name;
                     frappe.call({
-                        method: 'erpnext_china.utils.wechat.api.delete_group_callback',
+                        method: 'erpnext_china.utils.wechat.api.delete_group',
                         args: {
-                            delete_wecom_group,
                             group_id
                         },
-                        // disable the button until the request is completed
                         btn: $('.primary-action'),
-                        // freeze the screen until the request is completed
                         freeze: true,
                         callback: (r) => {
-                            msg = delete_wecom_group == '0' ? '': '请前往企微检查考勤打卡规则！'
                             frappe.msgprint({
                                 title: __('删除完成'),
                                 indicator: 'green',
-                                message: __(msg)
+                                message: __('请前往企微检查考勤打卡规则！')
                             });
                         },
                         error: (e) => {

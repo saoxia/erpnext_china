@@ -2,14 +2,12 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:group_id",
- "creation": "2024-09-30 10:33:34.795926",
+ "creation": "2024-10-13 09:43:32.254767",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "group_id",
   "group_name",
-  "api_group",
-  "tags",
   "raw"
  ],
  "fields": [
@@ -19,7 +17,6 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Group ID",
-   "read_only": 1,
    "reqd": 1,
    "unique": 1
   },
@@ -32,34 +29,18 @@
    "unique": 1
   },
   {
-   "fieldname": "tags",
-   "fieldtype": "Table MultiSelect",
-   "label": "Tags",
-   "link_filters": "[[\"Checkin Tag\",\"checkin_group\",\"is\",\"not set\"]]",
-   "options": "Checkin Staff Tag"
-  },
-  {
    "fieldname": "raw",
    "fieldtype": "JSON",
    "label": "Raw"
-  },
-  {
-   "fieldname": "api_group",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "API Group",
-   "options": "Checkin API Group",
-   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-13 14:11:51.504655",
+ "modified": "2024-10-13 14:11:43.401203",
  "modified_by": "Administrator",
  "module": "hrms_china",
- "name": "Checkin Group",
- "naming_rule": "Expression (old style)",
+ "name": "Checkin API Group",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
