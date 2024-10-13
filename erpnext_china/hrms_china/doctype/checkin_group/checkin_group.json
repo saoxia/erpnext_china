@@ -21,7 +21,7 @@
    "label": "Group ID",
    "read_only": 1,
    "reqd": 1,
-   "unique": 1
+   "unique": 0
   },
   {
    "fieldname": "group_name",
