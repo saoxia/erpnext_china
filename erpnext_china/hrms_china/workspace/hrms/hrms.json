@@ -129,7 +129,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "\u8003\u52e4",
-   "link_count": 5,
+   "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -157,16 +157,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "\u8003\u52e4\u5458\u5de5",
-   "link_count": 0,
-   "link_to": "Checkin Staff",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "\u8003\u52e4\u89c4\u5219",
    "link_count": 0,
    "link_to": "Checkin Group",
@@ -185,7 +175,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-09-30 14:25:36.101572",
+ "modified": "2024-10-13 16:09:39.945953",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "HRMS",
