@@ -233,6 +233,15 @@ def set_last_lead_owner(doc):
 	else:
 		doc.custom_last_lead_owner = ''
 
+def add_auto_allocation_log(lead, rule, dt, user):
+	doc = frappe.new_doc("Auto Allocation Log")
+	doc.lead = lead
+	doc.rule = rule
+	doc.allocation_time = dt
+	doc.user = user
+	doc.insert(ignore_permissions=True)
+	frappe.db.commit()
+
 def lead_to_employee(doc, item):
 	"""
 	分配给员工，进入私海
@@ -244,7 +253,10 @@ def lead_to_employee(doc, item):
 	item.zero_datetime = frappe.utils.now_datetime()
 	item.save(ignore_permissions=True)
 	to_private(doc)
-	# logger.info(f"|{item.zero_datetime}|{doc.owner}|{doc.name}|{employee.user_id}")
+	try:
+		add_auto_allocation_log(doc.name, item.parent, item.zero_datetime, doc.lead_owner)
+	except:
+		pass
 
 def created_lead_by_sale(doc):
 	"""
