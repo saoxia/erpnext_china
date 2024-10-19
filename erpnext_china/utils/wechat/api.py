@@ -372,7 +372,7 @@ def delete_group(**kwargs):
 
 def group_write_to_wecom_by_tag(tag_id):
 	"""将关联到此标签的规则更新userid到企微"""
-	local_group_id = frappe.db.get_value("Checkin Staff Tag", filters={
+	local_group_id = frappe.db.get_value("Checkin Group Tag", filters={
 		"parentfield": "tags",
 		"parenttype": "Checkin Group",
 		"tag": tag_id
