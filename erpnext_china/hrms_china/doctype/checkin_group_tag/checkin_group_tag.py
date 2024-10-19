@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class CheckinStaff(Document):
+class CheckinGroupTag(Document):
 	pass
