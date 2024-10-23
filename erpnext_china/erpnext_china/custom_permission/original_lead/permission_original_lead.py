@@ -3,7 +3,7 @@ import frappe
 from erpnext_china.hrms_china.custom_form_script.employee.employee import get_employee_tree
 
 def has_query_permission(user):
-	if frappe.db.get_value('Has Role',{'parent':user,'role':'System Manager'}):
+	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager','网络推广管理']]}):
 		# 如果角色包含管理员，则看到全量
 		conditions = ''
 	else:
@@ -19,7 +19,7 @@ def has_query_permission(user):
 	return conditions
 
 def has_permission(doc, user, permission_type=None):
-	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager']]}):
+	if frappe.db.get_value('Has Role',{'parent':user,'role':['in',['System Manager','网络推广管理']]}):
 		# 如果角色包含管理员，则看到全量
 		return True
 	else:

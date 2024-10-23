@@ -372,7 +372,7 @@ def delete_group(**kwargs):
 
 def group_write_to_wecom_by_tag(tag_id):
 	"""将关联到此标签的规则更新userid到企微"""
-	local_group_id = frappe.db.get_value("Checkin Staff Tag", filters={
+	local_group_id = frappe.db.get_value("Checkin Group Tag", filters={
 		"parentfield": "tags",
 		"parenttype": "Checkin Group",
 		"tag": tag_id
@@ -407,10 +407,10 @@ def checkin_enqueue_task(tag_id):
 	"""
 	# 更新标签和规则：将标签对应的员工同步过来
 	wecom_to_ebc()
-	# 将标签对应的规则更新对应的员工
-	group_write_to_wecom_by_tag(tag_id)
-	# 将更新后的API规则同步下来
-	wecom_to_ebc()
+	# # 将标签对应的规则更新对应的员工
+	# group_write_to_wecom_by_tag(tag_id)
+	# # 将更新后的API规则同步下来
+	# wecom_to_ebc()
 
 
 @frappe.whitelist(allow_guest=True)

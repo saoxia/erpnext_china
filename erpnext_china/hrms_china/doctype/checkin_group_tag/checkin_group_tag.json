@@ -24,7 +24,7 @@
  "modified": "2024-09-30 15:25:47.839956",
  "modified_by": "Administrator",
  "module": "hrms_china",
- "name": "Checkin Staff Tag",
+ "name": "Checkin Group Tag",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

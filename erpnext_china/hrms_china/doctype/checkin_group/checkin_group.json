@@ -19,24 +19,22 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Group ID",
-   "read_only": 1,
    "reqd": 1,
-   "unique": 0
+   "unique": 1
   },
   {
    "fieldname": "group_name",
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Group Name",
-   "unique": 0
+   "label": "Group Name"
   },
   {
    "fieldname": "tags",
    "fieldtype": "Table MultiSelect",
    "label": "Tags",
    "link_filters": "[[\"Checkin Tag\",\"checkin_group\",\"is\",\"not set\"]]",
-   "options": "Checkin Staff Tag"
+   "options": "Checkin Group Tag"
   },
   {
    "fieldname": "raw",
@@ -55,7 +53,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-13 14:11:51.504655",
+ "modified": "2024-10-19 12:10:38.770177",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin Group",

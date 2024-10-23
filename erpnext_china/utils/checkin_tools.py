@@ -110,6 +110,13 @@ def _update_tag(tag_id, tag_name, raw):
 	doc.save(ignore_permissions=True)
 
 def _delete_tag(tag_id):
+	doc = frappe.get_cached_doc("Checkin Tag", tag_id)
+	doc.checkin_group = ''
+	names = frappe.get_all("Checkin Group Tag", filters={
+		"tag": tag_id
+    }, pluck="name")
+	for name in names:
+		frappe.delete_doc("Checkin Group Tag", name, ignore_permissions=True)
 	frappe.delete_doc("Checkin Tag", tag_id, ignore_permissions=True)
 
 def update_tags(full_tags: dict, qv_tags: set):

@@ -25,8 +25,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Group Name",
-   "unique": 1
+   "label": "Group Name"
   },
   {
    "fieldname": "raw",
@@ -36,7 +35,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-13 14:11:43.401203",
+ "modified": "2024-10-19 11:22:06.601589",
  "modified_by": "Administrator",
  "module": "hrms_china",
  "name": "Checkin API Group",
