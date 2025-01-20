@@ -87,6 +87,13 @@ class CustomSalesOrder(SalesOrder):
 
     def set_discount_amount_custom_after_distinct__amount_request(self):
         discount_amount = 0
+        # process custom_after_distinct__amount_request for internal sales order
+        if self.is_internal_customer and self.custom_original_sales_order:
+            for item in self.items:
+                poi_name = item.purchase_order_item
+                soi_name = frappe.db.get_value("Purchase Order Item", poi_name, 'sales_order_item')
+                item.custom_after_distinct__amount_request = frappe.db.get_value("Sales Order Item", soi_name, 'custom_after_distinct__amount_request')
+
         for d in self.get("items"):
             discount_amount = discount_amount + (d.amount - d.custom_after_distinct__amount_request)
         self.discount_amount = discount_amount
