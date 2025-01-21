@@ -196,6 +196,9 @@ class CustomLead(Lead):
 				text = f"{self._custom_comment}给：{self.lead_owner}，规则：{self._rule_name}"
 				self.lead_add_comment(text)
 				lead_tools.insert_crm_note(self, text, '分配日志')
+		
+		if self.is_new() and self.source == "业务自录入":
+			self.status = "Lead"
 
 	def after_insert(self):
 		super().after_insert()
@@ -246,11 +249,6 @@ class CustomLead(Lead):
 			return True
 		return False
 
-	# 重写 has_customer 方法，阻止检查到线索已经关联了客户后修改线索状态为 已转化（Converted）
-	def has_customer(self):
-		# return frappe.db.get_value("Customer", {"lead_name": self.name})
-		return None
-	
 @frappe.whitelist()
 def get_lead(**kwargs):
 	lead_name = kwargs.get('lead')
