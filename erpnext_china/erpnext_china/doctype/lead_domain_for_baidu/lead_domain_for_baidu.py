@@ -9,7 +9,10 @@ from erpnext_china.utils import lead_tools
 from erpnext_china.utils.wechat import api
 from frappe.model.document import Document
 import frappe
-from frappe.utils import datetime
+from frappe.utils import datetime, logger
+
+logger.set_log_level("DEBUG")
+lead_logger = frappe.logger("original-lead", allow_site=True, file_count=10)
 
 class LeadDomainforBaidu(Document):
     pass
@@ -28,6 +31,7 @@ def lead_via_baidu(**kwargs):
     clue_id = str(original_clue_id)
     push_delay = kwargs.get('push_delay', '')
     try:
+        frappe.db.begin()
         # 获取线索来源的账户（Lead Domain for Baidu）
         baidu_account = get_employee_account(kwargs.get('uc_name'))
         # 验证token
@@ -100,11 +104,14 @@ def lead_via_baidu(**kwargs):
             
             update_delay_fields(record, kwargs)
             update_crm_lead_fields(record, kwargs)
+        
+        frappe.db.commit()
         return 'success'
     except Exception as e:
         frappe.db.rollback()
+        lead_logger.error(f"clue_id: {clue_id}: {e}")
         # 抛出异常，将异常扔给百度，让他重试
-        raise e
+        raise Exception(e)
 
 # 格式化一些字段
 def format_fields(kwargs: dict):

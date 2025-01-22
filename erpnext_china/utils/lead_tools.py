@@ -7,7 +7,7 @@ from urllib.parse import urlparse, parse_qs
 from frappe.model.document import Document
 from frappe.utils import logger
 logger.set_log_level("DEBUG")
-logger = frappe.logger("wx-message", allow_site=True, file_count=10)
+wx_logger = frappe.logger("wx-message", allow_site=True, file_count=10)
 
 def get_doc_or_none(doctype: str, kw: dict):
 	"""根据kw查找doctype中是否存在记录，如果存在则返回document对象，否则返回None"""
@@ -303,7 +303,7 @@ def create_crm_lead_by_message(message, original_lead, wx_nickname='企微客户
 		original_lead.crm_lead = lead.name
 		original_lead.save(ignore_permissions=True)
 	except Exception as e:
-		logger.error(e)
+		wx_logger.error(e)
 
 
 def search_original_lead(state):

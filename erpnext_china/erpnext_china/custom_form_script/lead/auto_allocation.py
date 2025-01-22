@@ -223,7 +223,6 @@ def add_auto_allocation_log(lead, rule, dt, user):
 	doc.allocation_time = dt
 	doc.user = user
 	doc.insert(ignore_permissions=True)
-	frappe.db.commit()
 
 def lead_to_employee(doc, item):
 	"""
