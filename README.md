@@ -27,3 +27,6 @@ $ bench get-app https://github.com/saoxia/erpnext_china.git
 ```sh
 $ bench --site demo.com install-app erpnext erpnext_china
 ```
+
+联系方式：
+wx:lilingyu4
